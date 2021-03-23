@@ -57,7 +57,8 @@
                             <label for="is_admin" class="col-md-4 col-form-label text-md-right">{{ __('Роля') }}</label>
 
                             <div class="col-md-6">
-                                <select id="is_admin" type="text" class="form-control @error('is_admin') is-invalid @enderror" name="is_admin" value="{{ old('is_admin') }}" required autocomplete="is_admin">                                        
+                                <select id="is_admin" type="text" class="form-control @error('is_admin') is-invalid @enderror" name="is_admin" value="{{ old('is_admin') }}" required autocomplete="is_admin">    
+                                   <option value="" selected>Моля изберете...</option>                                    
                                    <option value="{{ 1 }}">{{ __('Администратор') }}</option>
                                    <option value="{{ 0 }}">{{ __('Оператор') }}</option>
                                 </select>
