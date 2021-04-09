@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45a567a9aa157630737793c5a77f88d6",
+    "content-hash": "0977e41f8fce29c93242d2888edfe48f",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -710,6 +710,94 @@
                 "url"
             ],
             "time": "2021-03-21T12:38:22+00:00"
+        },
+        {
+            "name": "infyomlabs/laravel-generator-helpers",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InfyOmLabs/laravel-generator-helpers.git",
+                "reference": "1fb124170e4848a047a8c5128e04f48d76ac7a99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-generator-helpers/zipball/1fb124170e4848a047a8c5128e04f48d76ac7a99",
+                "reference": "1fb124170e4848a047a8c5128e04f48d76ac7a99",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0",
+                "php": "^7.2.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "InfyOm\\GeneratorHelpers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mitul Golakiya",
+                    "email": "me@mitul.me"
+                }
+            ],
+            "description": "Helper functions for laravel generator packages",
+            "time": "2020-08-11T09:34:55+00:00"
+        },
+        {
+            "name": "infyomlabs/laravel-ui-adminlte",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/InfyOmLabs/laravel-ui-adminlte.git",
+                "reference": "c784c38346ef3f9f6be368e4a1dbd9ef3c038c43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/InfyOmLabs/laravel-ui-adminlte/zipball/c784c38346ef3f9f6be368e4a1dbd9ef3c038c43",
+                "reference": "c784c38346ef3f9f6be368e4a1dbd9ef3c038c43",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0",
+                "infyomlabs/laravel-generator-helpers": "^2.0",
+                "laravel/ui": "^2.0",
+                "php": "^7.2.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "InfyOm\\AdminLTEPreset\\AdminLTEPresetServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "InfyOm\\AdminLTEPreset\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mitul Golakiya",
+                    "email": "me@mitul.me"
+                }
+            ],
+            "description": "Laravel frontend preset for AdminLTE Theme",
+            "keywords": [
+                "AdminLTE",
+                "laravel",
+                "preset"
+            ],
+            "time": "2020-08-11T09:53:43+00:00"
         },
         {
             "name": "laravel/framework",
