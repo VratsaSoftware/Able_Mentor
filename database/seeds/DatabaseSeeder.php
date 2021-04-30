@@ -22,7 +22,8 @@ class DatabaseSeeder extends Seeder
 	        	SportsTypesTableSeeder::class,
 	        	ClassesTypesTableSeeder::class,
                 UsersTableSeeder::class,
-                MentorsTableSeeder::class
+                MentorsTableSeeder::class,
+                StudentsTableSeeder::class
         	]        	
         );
     }

@@ -35412,8 +35412,8 @@ try {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\courses_php_vratsa_software\05_Mentor_Project\Able_Mentor\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\courses_php_vratsa_software\05_Mentor_Project\Able_Mentor\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\courses_php_vratsa_software\05_Mentor_Project\Able_Mentor_new\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\courses_php_vratsa_software\05_Mentor_Project\Able_Mentor_new\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

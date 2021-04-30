@@ -15,7 +15,7 @@ class AddThreeNewColumnsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->string('name_second');
-            $table->boolean('is_admin');
+            $table->boolean('is_admin')->default(0);
             $table->boolean('is_approved')->default(0);
         });
     }
