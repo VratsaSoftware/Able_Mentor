@@ -1,18 +1,17 @@
 @extends('layouts.app')
 
-@section('styles')
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-@endsection
+@push('page_css')
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+@endpush
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">List with all students!</h1>
+        <h1 class="text-black-50">Списък с всички студенти!</h1>
     </div>
     <div class="panel-body">
     	<table class="table" id="datatable">
     		<thead>
-                 <tr>
-                    <th>#</th>
+                 <tr>                   
                     <th>First Name</th>
                     <th>Second Name</th>
                     <th>City</th>
@@ -22,11 +21,8 @@
                 </tr>
             </thead>
             <tbody>
-            	  @foreach($students as $student)     
-            	  	<tr>
-            	  		<td>
-                                            
-                        </td>
+            	@foreach($students as $student)  
+            	  	<tr>            	  		
                         <td>
                             {{ $student['name'] }}
                         </td>
@@ -34,23 +30,22 @@
                             {{ $student['name_second'] }}
                         </td>
                         <td>
-                            {{ $student['city_id'] }}
+                            {{ $student['city'][0]['name'] }}
                         </td>
                         <td>
                             {{ $student['class_id'] }}
                         </td>
                         <td>
-                        	View More
+                            <a href="{{ route('students-show', $student['id']) }}">Виж повече</a>                        	
                         </td>                       
                         <td>
-                        	Delete
+                        	<a href="{{ route('students-delete', $student['id']) }}">Изтрий</a>
                         </td>
             	  	</tr> 
             	  @endforeach
             </tbody>  
             <tfoot>
-            	<tr>
-                    <th>#</th>
+            	<tr>                  
                     <th>First Name</th>
                     <th>Second Name</th>
                     <th>City</th>
@@ -63,34 +58,11 @@
     </div>
 @endsection
 
-@section('javascripts')
-    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+@push('page_scripts')
+	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script>
-      
-        $(document).ready(function() {            
-            var t = $('#datatable').DataTable( {    
-                "paging": false, 
-                "searching": false, 
-                "info": false, 
-                "aoColumnDefs": [
-                    {
-                        orderSequence: ["desc", "asc"],
-                        aTargets: ['_all']
-                    }
-                ],                         
-                "columnDefs": [ {
-                    "searchable": false,
-                    "orderable": false,
-                    "targets": 0
-                } ],
-                "order": [[ 1, 'asc' ]]
-            } );
-         
-            t.on( 'order.dt search.dt', function () {
-                t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                } );
-            } ).draw();
-        } );
+	    $(document).ready( function () {
+	   		$('#datatable').DataTable();
+		});
     </script>
-@endsection
+@endpush
