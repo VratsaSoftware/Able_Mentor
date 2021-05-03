@@ -18,6 +18,7 @@
                     <th>Class</th>
                     <th>...</th>
                     <th>...</th>
+                    <th>...</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +38,10 @@
                         </td>
                         <td>
                             <a href="{{ route('students-show', $student['id']) }}">Виж повече</a>                        	
-                        </td>                       
+                        </td>   
+                        <td>
+                            Свържи с ментор
+                        </td>                    
                         <td>
                         	<a href="{{ route('students-delete', $student['id']) }}">Изтрий</a>
                         </td>
@@ -50,6 +54,7 @@
                     <th>Second Name</th>
                     <th>City</th>
                     <th>Class</th>
+                    <th>...</th>
                     <th>...</th>
                     <th>...</th>
                 </tr>
