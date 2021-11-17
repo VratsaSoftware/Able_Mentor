@@ -15,12 +15,10 @@ class DatabaseSeeder extends Seeder
         	[
         		CitiesTableSeeder::class,
 	        	GendersTableSeeder::class,
-	        	MentorSeasonsTableSeeder::class,
-	        	HoursTableSeeder::class,
 	        	ProjectTypesTableSeeder::class,
 	        	EnglishLevelsTypesTableSeeder::class,
 	        	SportsTypesTableSeeder::class,
-	        	ClassesTypesTableSeeder::class,
+	        	SchoolClassesTypesTableSeeder::class,
                 UsersTableSeeder::class,
                 MentorsTableSeeder::class,
                 StudentsTableSeeder::class

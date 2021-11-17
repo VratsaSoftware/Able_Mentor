@@ -27,7 +27,7 @@ class CreateStudentsTable extends Migration
             $table->foreign('city_id')->references('id')->on('cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->string('school', 100);
             $table->unsignedBigInteger('class_id');
-            $table->foreign('class_id')->references('id')->on('classes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('class_id')->references('id')->on('school_classes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->longText('favorite_subjects');
             $table->longText('hobbies');
             $table->unsignedBigInteger('english_level_id');
@@ -41,8 +41,7 @@ class CreateStudentsTable extends Migration
             $table->longText('difficult_situations');
             $table->longText('program_achievments');
             $table->longText('want_to_change');
-            $table->unsignedBigInteger('hour_id');
-            $table->foreign('hour_id')->references('id')->on('hours')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->integer('hours');
             $table->unsignedBigInteger('project_type_id');
             $table->foreign('project_type_id')->references('id')->on('project_types')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->longText('able_mentor_info_source');
