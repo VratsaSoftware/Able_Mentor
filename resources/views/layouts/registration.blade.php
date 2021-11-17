@@ -9,7 +9,7 @@
     <link rel="alternate" hreflang="en-US" href="https://www.ablementor.bg/students/"/>
 
     <!-- wp_head() -->
-    <title>Ученици - ABLE Mentor</title>
+    <title>ABLE Mentor</title>
 
     <!-- This site is optimized with the Yoast SEO plugin v5.2 - https://yoast.com/wordpress/plugins/seo/ -->
     <meta name="description" content="Намери подкрепа в кариерния си избор."/>

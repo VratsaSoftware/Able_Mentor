@@ -8,7 +8,7 @@ class Hour extends Model
 {
     protected $fillable = []; // All are fillable
 
-    public function Mentors()
+    public function mentors()
 	{
 	    return $this->hasMany('App\Mentor', 'hour_id', 'id');
 	}

@@ -17,7 +17,10 @@ class StudentsController extends Controller
 {
     public function index()
     {
-        $students = Student::with('city')->where('is_approved', '=', 1)->get();
+        $students = Student::with('city')
+            ->where('is_approved', 1)
+            ->get();
+
         return view('students.list', compact('students'));
     }
 
@@ -28,7 +31,19 @@ class StudentsController extends Controller
      */
     public function create()
     {
-        return view('students.create');
+        $cities = City::all();
+        $schoolClass = SchoolClass::all();
+        $englishLevels = EnglishLevel::all();
+        $sports = Sport::all();
+        $projectTypes = ProjectType::all();
+
+        return view('students.create', [
+            'cities' => $cities,
+            'schoolClass' => $schoolClass,
+            'englishLevels' => $englishLevels,
+            'sports' => $sports,
+            'projectTypes' => $projectTypes,
+        ]);
     }
 
     /**
