@@ -17,21 +17,42 @@ class MentorsController extends Controller
         return view('mentors.list', compact('mentors'));
     }
 
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('mentors.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
     public function show(Mentor $mentor)
     {
-        $gender = Gender::find($mentor->gender_id);  
+        $gender = Gender::find($mentor->gender_id);
         $city = City::find($mentor->city_id);
         $project_type = ProjectType::find($mentor->project_type_id);
         return view('mentors.single', compact('mentor', 'gender', 'city', 'project_type'));
     }
 
     public function delete(Mentor $mentor)
-    {   
+    {
     	return view('mentors.delete', compact('mentor'));
     }
 
     public function destroy(Mentor $mentor)
-    {       
+    {
         $mentor = Mentor::find($mentor);
         $mentor->each->delete();
         $mentors = Mentor::with('city')->where('is_approved', '=', 1)->get();
@@ -39,7 +60,7 @@ class MentorsController extends Controller
     }
 
     public function edit(Mentor $mentor)
-    {    
+    {
         $cities = City::all();
         $project_types = ProjectType::all();
         return view('mentors.edit', compact('mentor', 'cities', 'project_types'));
@@ -71,7 +92,7 @@ class MentorsController extends Controller
     }
 
     public function listAllStudents(Mentor $mentor)
-    {  
+    {
         $students = Student::with('city')->where('is_approved', '=', 1)->get();
         $studentsType = Student::with('city')->where('is_approved', '=', 1)->where('project_type_id', '=', $mentor->project_type_id)->get();
         $tableCode = '';
@@ -80,31 +101,31 @@ class MentorsController extends Controller
             $existsRecord = $student->mentors->contains($mentor['id']);
             $mentorForStudentsCount = $student->mentors->count();
             if ($existsRecord == true){
-                $tableCode .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td>Свързан</td></tr>'; 
+                $tableCode .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td>Свързан</td></tr>';
             } else {
-                $tableCode .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td><a href="../connect-student/' . $mentor['id'] . '/' . $student['id'] . '">Свържи</a></td></tr>'; 
-            }            
+                $tableCode .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td><a href="../connect-student/' . $mentor['id'] . '/' . $student['id'] . '">Свържи</a></td></tr>';
+            }
         }
 
         foreach ($studentsType as $student) {
             $existsRecord = $student->mentors->contains($mentor['id']);
             $mentorForStudentsCount = $student->mentors->count();
             if ($existsRecord == true){
-                $tableCodeType .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td>Свързан</td></tr>'; 
+                $tableCodeType .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td>Свързан</td></tr>';
             } else {
-                $tableCodeType .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td><a href="../connect-student/' . $mentor['id'] . '/' . $student['id'] . '">Свържи</a></td></tr>'; 
-            }            
+                $tableCodeType .= '<tr><td>'. $student['name'] . '</td><td>'. $student['name_second'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td><a href="../connect-student/' . $mentor['id'] . '/' . $student['id'] . '">Свържи</a></td></tr>';
+            }
         }
         return view('mentors.connect', compact('mentor', 'tableCode', 'tableCodeType'));
     }
 
     public function connectStudent(Mentor $mentor, Student $student)
-    {  
+    {
         return view('mentors.student', compact('mentor', 'student'));
     }
 
     public function confirmConnectStudent(Mentor $mentor, Student $student)
-    {  
+    {
         $student->mentors()->attach($mentor->id);
         $mentors = Mentor::with('city')->where('is_approved', '=', 1)->get();
         return view('mentors.list', compact('mentors'));

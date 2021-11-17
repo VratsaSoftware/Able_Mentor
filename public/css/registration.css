@@ -1785,14 +1785,6 @@ a#back_to_top.button.button_js, #popup_contact > a.button {
     box-shadow: none;
 }
 
-.button-stroke #back_to_top, .button-stroke #popup_contact > .button {
-    border-color: ;
-}
-
-.button-stroke #back_to_top:hover, .button-stroke #popup_contact > .button:hover {
-    background-color: !important;
-}
-
 a#back_to_top.button.button_js:after, #popup_contact > a.button:after {
     display: none;
 }
