@@ -108,7 +108,6 @@
           href='https://www.ablementor.bg/wp-content/plugins/cf7-conditional-fields/style.css?ver=1.9.14'
           type='text/css' media='all'/>
 
-
     <!-- style | dynamic -->
     <link rel='stylesheet' href="{{ asset('css/registration.css') }}" type='text/css'/>
 </head>

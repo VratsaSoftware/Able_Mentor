@@ -17,7 +17,7 @@ class StudentsController extends Controller
 {
     public function index()
     {
-    	$students = Student::with('city')->where('is_approved', '=', 1)->get();
+        $students = Student::with('city')->where('is_approved', '=', 1)->get();
         return view('students.list', compact('students'));
     }
 
@@ -50,17 +50,12 @@ class StudentsController extends Controller
         $english_level = EnglishLevel::find($student->english_level_id);
         $sport = Sport::find($student->sport_id);
         $project_type = ProjectType::find($student->project_type_id);
-    	return view('students.single', compact('student', 'city', 'gender', 'class', 'english_level', 'sport', 'project_type'));
-    {
-    	$profile = Student::find($student);
-    	return view('students.single', compact('student'));
+        return view('students.single', compact('student', 'city', 'gender', 'class', 'english_level', 'sport', 'project_type'));
     }
 
     public function delete(Student $student)
     {
-    {
-    	$profile = Student::find($student);
-    	return view('students.delete', compact('student'));
+        return view('students.delete', compact('student'));
     }
 
     public function destroy(Student $student)
@@ -78,7 +73,7 @@ class StudentsController extends Controller
         $englishLevels = EnglishLevel::all();
         $sports = Sport::all();
         $project_types = ProjectType::all();
-    	return view('students.edit', compact('student', 'cities', 'schoolClasses', 'englishLevels', 'sports', 'project_types'));
+        return view('students.edit', compact('student', 'cities', 'schoolClasses', 'englishLevels', 'sports', 'project_types'));
     }
 
     public function update(Request $request, Student $student){
@@ -153,9 +148,5 @@ class StudentsController extends Controller
         $student->mentors()->attach($mentor->id);
         $students = Student::with('city')->where('is_approved', '=', 1)->get();
         return view('students.list', compact('students'));
-    public function update(Student $student)
-    {
-    	$profile = Student::find($student);
-    	return view('students.update', compact('student'));
     }
 }
