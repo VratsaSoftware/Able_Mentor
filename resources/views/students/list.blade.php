@@ -4,6 +4,10 @@
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 @endpush
 
+@section('title')
+Списък с всички студенти - Able Mentor
+@endsection
+
 @section('content')
     <div class="container-fluid">
         <h1 class="text-black-50">Списък с всички студенти!</h1>
@@ -40,7 +44,7 @@
                             <a href="{{ route('students-show', $student['id']) }}">Виж повече</a>                        	
                         </td>   
                         <td>
-                            Свържи с ментор
+                            <a href="{{ route('students-connect', $student['id']) }}">Свържи с ментор</a>                            
                         </td>                    
                         <td>
                         	<a href="{{ route('students-delete', $student['id']) }}">Изтрий</a>
