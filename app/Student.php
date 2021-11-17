@@ -11,4 +11,9 @@ class Student extends Model
     public function city(){
     	return $this->hasMany(City::class, 'id', 'city_id');
  	}
+
+    public function mentors()
+    {
+        return $this->belongsToMany('App\Mentor');
+    }
 }

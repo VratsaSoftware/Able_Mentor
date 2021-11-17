@@ -1,9 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ClassesTypesTableSeeder extends Seeder
+class SchoolClassesTypesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +11,7 @@ class ClassesTypesTableSeeder extends Seeder
      */
     public function run()
     {
-         DB::table('classes')->insert(
+         DB::table('school_classes')->insert(
         	[
         		['class_name' => 'Първи'],
         		['class_name' => 'Втори'],
