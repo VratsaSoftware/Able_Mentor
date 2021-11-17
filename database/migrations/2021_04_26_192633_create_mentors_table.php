@@ -16,7 +16,6 @@ class CreateMentorsTable extends Migration
         Schema::create('mentors', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('name_second', 100);
             $table->integer('age');
             $table->string('email', 100);
             $table->string('phone', 100);
@@ -32,8 +31,6 @@ class CreateMentorsTable extends Migration
             $table->longText('difficult_situations');
             $table->longText('want_to_change');
             $table->integer('hours');
-            $table->unsignedBigInteger('project_type_id');
-            $table->foreign('project_type_id')->references('id')->on('project_types')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->string('cv_path', 100);
             $table->longText('able_mentor_info');
             $table->longText('notes');

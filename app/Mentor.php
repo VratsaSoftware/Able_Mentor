@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mentor extends Model
 {
-    protected $fillable = []; // All are fillable    
+    protected $fillable = []; // All are fillable
 
     public function City()
     {

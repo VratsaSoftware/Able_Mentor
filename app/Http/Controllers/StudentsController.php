@@ -36,9 +36,11 @@ class StudentsController extends Controller
         $englishLevels = EnglishLevel::all();
         $sports = Sport::all();
         $projectTypes = ProjectType::all();
+        $genders = Gender::all();
 
         return view('students.create', [
             'cities' => $cities,
+            'genders' => $genders,
             'schoolClass' => $schoolClass,
             'englishLevels' => $englishLevels,
             'sports' => $sports,
@@ -54,7 +56,17 @@ class StudentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        unset($data['_token']);
+        unset($data['project_type_ids']);
+
+        $student = new Student($data);
+        $student->save();
+
+        $student->projectTypes()->attach($request->project_type_ids);
+
+        return redirect()->back()->with('success', 'Успешно се записахте!');
     }
 
     public function show(Student $student)
@@ -94,7 +106,6 @@ class StudentsController extends Controller
     public function update(Request $request, Student $student){
         $student = Student::find($request->studentId);
         $student->name = $request->name;
-        $student->name_second = $request->name_second;
         $student->age = $request->age;
         $student->email = $request->email;
         $student->phone = $request->phone;
@@ -117,6 +128,7 @@ class StudentsController extends Controller
         $student->able_mentor_info_source = $request->able_mentor_info_source;
         $student->notes = $request->notes;
         $student->save();
+
         $cities = City::all();
         $schoolClasses = SchoolClass::all();
         $englishLevels = EnglishLevel::all();
@@ -134,9 +146,9 @@ class StudentsController extends Controller
             $existsRecord = $mentor->students->contains($student['id']);
             $studentsForMentorCount = $mentor->students->count();
             if ($existsRecord == true){
-                $tableCode .= '<tr><td>'. $mentor['name'] . '</td><td>'. $mentor['name_second'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td>Свързан</td></tr>';
+                $tableCode .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td>Свързан</td></tr>';
             } else {
-                $tableCode .= '<tr><td>'. $mentor['name'] . '</td><td>'. $mentor['name_second'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td><a href="../connect-mentor/' . $student['id'] . '/' . $mentor['id'] . '">Свържи</a></td></tr>';
+                $tableCode .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td><a href="../connect-mentor/' . $student['id'] . '/' . $mentor['id'] . '">Свържи</a></td></tr>';
             }
         }
 
@@ -145,9 +157,9 @@ class StudentsController extends Controller
             $existsRecord = $mentor->students->contains($student['id']);
             $studentsForMentorCount = $mentor->students->count();
             if ($existsRecord == true){
-                $tableCodeType .= '<tr><td>'. $mentor['name'] . '</td><td>'. $mentor['name_second'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td>Свързан</td></tr>';
+                $tableCodeType .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td>Свързан</td></tr>';
             } else {
-                $tableCodeType .= '<tr><td>'. $mentor['name'] . '</td><td>'. $mentor['name_second'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td><a href="../connect-mentor/' . $student['id'] . '/' . $mentor['id'] . '">Свържи</a></td></tr>';
+                $tableCodeType .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td><a href="../connect-mentor/' . $student['id'] . '/' . $mentor['id'] . '">Свържи</a></td></tr>';
             }
         }
         return view('students.connect', compact('student', 'tableCode', 'tableCodeType'));

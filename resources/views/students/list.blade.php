@@ -15,9 +15,8 @@
     <div class="panel-body">
     	<table class="table" id="datatable">
     		<thead>
-                 <tr>                   
+                 <tr>
                     <th>First Name</th>
-                    <th>Second Name</th>
                     <th>City</th>
                     <th>Class</th>
                     <th>...</th>
@@ -26,13 +25,10 @@
                 </tr>
             </thead>
             <tbody>
-            	@foreach($students as $student)  
-            	  	<tr>            	  		
+            	@foreach($students as $student)
+            	  	<tr>
                         <td>
                             {{ $student['name'] }}
-                        </td>
-                        <td>
-                            {{ $student['name_second'] }}
                         </td>
                         <td>
                             {{ $student['city'][0]['name'] }}
@@ -41,28 +37,27 @@
                             {{ $student['class_id'] }}
                         </td>
                         <td>
-                            <a href="{{ route('students-show', $student['id']) }}">Виж повече</a>                        	
-                        </td>   
+                            <a href="{{ route('students-show', $student['id']) }}">Виж повече</a>
+                        </td>
                         <td>
-                            <a href="{{ route('students-connect', $student['id']) }}">Свържи с ментор</a>                            
-                        </td>                    
+                            <a href="{{ route('students-connect', $student['id']) }}">Свържи с ментор</a>
+                        </td>
                         <td>
                         	<a href="{{ route('students-delete', $student['id']) }}">Изтрий</a>
                         </td>
-            	  	</tr> 
+            	  	</tr>
             	  @endforeach
-            </tbody>  
+            </tbody>
             <tfoot>
-            	<tr>                  
+            	<tr>
                     <th>First Name</th>
-                    <th>Second Name</th>
                     <th>City</th>
                     <th>Class</th>
                     <th>...</th>
                     <th>...</th>
                     <th>...</th>
                 </tr>
-            </tfoot>     
+            </tfoot>
     	</table>
     </div>
 @endsection

@@ -16,10 +16,12 @@ class CreateMentorStudentTable extends Migration
         Schema::create('mentor_student', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('student_id');
-            $table->foreign('student_id')->references('id')->on('students')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->unsignedBigInteger('mentor_id');
-            $table->foreign('mentor_id')->references('id')->on('mentors')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->timestamps();
+
+            $table->foreign('student_id')->references('id')->on('students')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('mentor_id') ->references('id')->on('mentors')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+
         });
     }
 

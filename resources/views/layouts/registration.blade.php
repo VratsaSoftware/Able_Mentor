@@ -31,9 +31,6 @@
           href="https://www.ablementor.bg/feed/"/>
 
     <!-- This site uses the Google Analytics by MonsterInsights plugin v7.18.0 - Using Analytics tracking - https://www.monsterinsights.com/ -->
-    <script src="//www.googletagmanager.com/gtag/js?id=UA-203074013-1" type="text/javascript" data-cfasync="false"
-            async></script>
-
     <link rel='stylesheet' id='wp-block-library-css'
           href='https://www.ablementor.bg/wp-includes/css/dist/block-library/style.min.css?ver=5.0.14' type='text/css'
           media='all'/>
@@ -60,7 +57,6 @@
           href='https://www.ablementor.bg/wp-content/plugins/wpb-elementor-addons/inc/../assets/css/main.css?ver=1.0'
           type='text/css' media=''/>
     <style id='wpb_ea_main_css-inline-css' type='text/css'>
-
         .wpb-ea-team-member .social-buttons,
         .wpb-ea-service-box-image .wpb-ea-service-box-btn:hover {
             background: #3878ff;
@@ -73,8 +69,8 @@
         .wpb-ea-service-box-image .wpb-ea-service-box-btn:hover {
             border-color: #3878ff;
         }
-
     </style>
+
     <link rel='stylesheet' id='style-css'
           href='https://www.ablementor.bg/wp-content/themes/betheme/style.css?ver=21.0.3' type='text/css' media='all'/>
     <link rel='stylesheet' id='mfn-base-css'
@@ -110,6 +106,8 @@
 
     <!-- style | dynamic -->
     <link rel='stylesheet' href="{{ asset('css/registration.css') }}" type='text/css'/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <!-- body -->
@@ -121,20 +119,13 @@
     <div id="Content">
         <div class="section mcb-section mcb-section-4hsxxlqfr" style="background-color:#fef2f0">
             <div class="section_wrapper mcb-section-inner">
-                <div class="wrap mcb-wrap mcb-wrap-9hd1mn4fw one  valign-top clearfix">
-                    <div class="mcb-wrap-inner">
-                        <div>
-                            <div class="column_attr clearfix" style="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="wrap mcb-wrap mcb-wrap-jt3uygl14 one  valign-top clearfix" style="padding:5% 0 5% 0">
                     <div class="mcb-wrap-inner">
                         <div class="column mcb-column mcb-item-ns13d3qtk one-sixth column_placeholder">
                             <div class="placeholder">&nbsp;</div>
                         </div>
                         <div class="column mcb-column mcb-item-jpn9ucq2j two-third column_column">
+                            @include('flash-messages')
                             <div class="column_attr clearfix" style=""><h3>Попълни регистрацията, за да участваш в ABLE
                                     Mentor!</h3>
                                 <hr class="no_line"/>
@@ -158,7 +149,6 @@
         </div>
         <div class="section section-page-footer">
             <div class="section_wrapper clearfix">
-
                 <div class="column one page-pager">
                 </div>
             </div>

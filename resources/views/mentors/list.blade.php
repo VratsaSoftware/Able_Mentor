@@ -15,9 +15,8 @@
     <div class="panel-body">
     	<table class="table" id="datatable">
     		<thead>
-                 <tr>                   
+                 <tr>
                     <th>Име</th>
-                    <th>Фамилия</th>
                     <th>Град</th>
                     <th>...</th>
                     <th>...</th>
@@ -25,39 +24,35 @@
                 </tr>
             </thead>
             <tbody>
-            	@foreach($mentors as $mentor)  
-            	  	<tr>            	  		
+            	@foreach($mentors as $mentor)
+            	  	<tr>
                         <td>
                             {{ $mentor['name'] }}
                         </td>
                         <td>
-                            {{ $mentor['name_second'] }}
-                        </td>
-                        <td>                        	
                             {{ $mentor['city']['name'] }}
-                        </td>                       
+                        </td>
                         <td>
-                            <a href="{{ route('mentors-show', $mentor['id']) }}">Виж повече</a>                       	
-                        </td>  
+                            <a href="{{ route('mentors-show', $mentor['id']) }}">Виж повече</a>
+                        </td>
                         <td>
                             <a href="{{ route('mentors-connect', $mentor['id']) }}">Свържи със студент</a>
-                        </td>                    
+                        </td>
                         <td>
                         	<a href="{{ route('mentors-delete', $mentor['id']) }}">Изтрий</a>
                         </td>
-            	  	</tr> 
+            	  	</tr>
             	  @endforeach
-            </tbody>  
+            </tbody>
             <tfoot>
-            	<tr>                  
+            	<tr>
                     <th>Име</th>
-                    <th>Фамилия</th>
                     <th>Град</th>
                     <th>...</th>
                     <th>...</th>
                     <th>...</th>
                 </tr>
-            </tfoot>     
+            </tfoot>
     	</table>
     </div>
 @endsection

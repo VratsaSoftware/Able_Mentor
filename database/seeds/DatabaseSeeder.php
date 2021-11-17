@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
                 UsersTableSeeder::class,
                 MentorsTableSeeder::class,
                 StudentsTableSeeder::class
-        	]        	
+        	]
         );
     }
 }

@@ -7,11 +7,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Student::class, function (Faker $faker) {
     return [
-        'name' => $faker->firstName(),
-        'name_second' => $faker->lastName(),
+        'name' => $faker->firstName() . ' ' . $faker->lastName(),
         'age' => $faker->numberBetween(18, 78),
         'email' => $faker->email(),
-        'phone' => $faker->phoneNumber(), 
+        'phone' => $faker->phoneNumber(),
         'gender_id' => $faker->numberBetween(1, 2),
         'city_id' => $faker->numberBetween(1, 257),
         'school' => $faker->regexify('[A-Za-z0-9\s]{100}'),
@@ -28,7 +27,6 @@ $factory->define(Student::class, function (Faker $faker) {
         'difficult_situations' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'program_achievments' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'want_to_change' => $faker->regexify('[A-Za-z0-9\s]{100}'),
-        'project_type_id' => $faker->numberBetween(1, 3),
         'able_mentor_info_source' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'notes' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'is_approved' => $faker->numberBetween(0, 1),
