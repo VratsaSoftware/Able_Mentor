@@ -71,14 +71,9 @@ class StudentsController extends Controller
 
     public function show(Student $student)
     {
-        $city = City::find($student->city_id);
-        $gender = Gender::find($student->gender_id);
-        $class = SchoolClass::find($student->class_id);
-        $english_level = EnglishLevel::find($student->english_level_id);
-        $sport = Sport::find($student->sport_id);
-        $project_type = ProjectType::find($student->project_type_id);
-
-        return view('students.single', compact('student', 'city', 'gender', 'class', 'english_level', 'sport', 'project_type'));
+        return view('students.show', [
+            'student' => $student,
+        ]);
     }
 
     public function delete(Student $student)
