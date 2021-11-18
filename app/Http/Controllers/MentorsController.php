@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EnglishLevel;
+use App\Http\Requests\MentorRequest;
 use App\SchoolClass;
 use App\Sport;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class MentorsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MentorRequest $request)
     {
         $data = $request->all();
 

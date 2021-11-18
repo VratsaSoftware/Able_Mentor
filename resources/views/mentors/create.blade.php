@@ -78,7 +78,7 @@
                             aria-required="true" aria-invalid="false" required>
                         <option value="0">Не съм бил досега.</option>
                         @for($i = 1; $i <= 15; $i++)
-                            <option value="{{ $i }}">Сезон {{ $i }}</option>
+                            <option value="{{ $i }}" {{ old('season') == $i ? 'selected' : null }}>Сезон {{ $i }}</option>
                         @endfor
                     </select>
                 </span>
@@ -102,7 +102,7 @@
             <h6 style="color:#4a4a4a;">Образование (специалност, степен и име на учебно заведение):</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-3">
-                    <input type="text" name="work" value="" size="40"
+                    <input type="text" name="work" value="{{ old('work') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
                            aria-invalid="false" required>
                 </span>
@@ -111,7 +111,7 @@
         <div class="column one">
             <h6 style="color:#4a4a4a;">Месторабота:</h6>
             <p><span class="wpcf7-form-control-wrap text-mentor-4">
-                    <input type="text" name="education" value="" size="40"
+                    <input type="text" name="education" value="{{ old('education') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -121,7 +121,7 @@
             <h6 style="color:#4a4a4a;">Професионален опит/интереси:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-5">
-                    <input type="text" name="experience" value="" size="40"
+                    <input type="text" name="experience" value="{{ old('experience') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -131,7 +131,7 @@
             <h6 style="color:#4a4a4a;">Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-6">
-                    <input type="text" name="expertise" value="" size="40"
+                    <input type="text" name="expertise" value="{{ old('expertise') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -141,7 +141,7 @@
             <h6 style="color:#4a4a4a;">Разкажете ни за трудна ситуация/проблем и как сте се справили?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-7">
-                    <input type="text" name="difficult_situations" value="" size="40"
+                    <input type="text" name="difficult_situations" value="{{ old('difficult_situations') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -151,7 +151,7 @@
             <h6 style="color:#4a4a4a;">Желая да променя/подобря...</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-8">
-                    <input type="text" name="want_to_change" value="" size="40"
+                    <input type="text" name="want_to_change" value="{{ old('want_to_change') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
