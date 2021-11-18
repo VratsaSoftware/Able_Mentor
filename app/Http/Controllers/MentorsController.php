@@ -11,6 +11,7 @@ use App\City;
 use App\Gender;
 use App\ProjectType;
 use App\Student;
+use Ramsey\Uuid\Uuid;
 
 class MentorsController extends Controller
 {
@@ -51,7 +52,7 @@ class MentorsController extends Controller
         unset($data['_token']);
         unset($data['project_type_ids']);
 
-        $data['cv_path'] = '252'; // todo: Save cv
+        $data['cv_path'] = self::saveCV($request->cv);
 
         $mentor = new Mentor($data);
         $mentor->save();
@@ -61,11 +62,21 @@ class MentorsController extends Controller
         return redirect()->back()->with('success', 'Успешно се записахте!');
     }
 
+    /* save cv */
+    private static function saveCV($cvFile) {
+        $cvName = Uuid::uuid4() . '.' . $cvFile->getClientOriginalExtension();
+
+        $cvFile->move(public_path() . '/cv/', $cvName);
+
+        return $cvName;
+    }
+
     public function show(Mentor $mentor)
     {
         $gender = Gender::find($mentor->gender_id);
         $city = City::find($mentor->city_id);
         $project_type = ProjectType::find($mentor->project_type_id);
+
         return view('mentors.single', compact('mentor', 'gender', 'city', 'project_type'));
     }
 
@@ -86,6 +97,7 @@ class MentorsController extends Controller
     {
         $cities = City::all();
         $project_types = ProjectType::all();
+
         return view('mentors.edit', compact('mentor', 'cities', 'project_types'));
     }
 

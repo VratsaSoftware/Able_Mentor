@@ -216,6 +216,17 @@
             </p>
         </div>
         <div class="column one">
+            <h6 style="color:#4a4a4a;">Моля, прикачете своята автобиография:</h6>
+            <p>
+                <span class="wpcf7-form-control-wrap file-CVMentor">
+                    <input type="file" name="cv" size="40"
+                           class="wpcf7-form-control wpcf7-file wpcf7-validates-as-required"
+                           accept=".pdf,.txt,.jpg,.png,.jpeg" aria-required="true" aria-invalid="false" required>
+                </span>
+            </p>
+            <p><small>Максимален размер на файл: 20MB (pdf,txt,jpg,png)</small></p>
+        </div>
+        <div class="column one">
             <h6 style="color:#4a4a4a;">Откъде разбрахте за програмата ABLE Mentor?</h6>
             <p>
                 <label style="margin-bottom:50px;">
