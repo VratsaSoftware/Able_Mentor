@@ -46,7 +46,7 @@ class MentorRequest extends FormRequest
     public function messages()
     {
         return [
-            'max' => __('Файлът трябва да бъде по-малък от 20 MB')
+            'max' => 'Файлът трябва да бъде по-малък от 20 MB'
         ];
     }
 }
