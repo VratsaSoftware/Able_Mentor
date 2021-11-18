@@ -1,11 +1,11 @@
 <link href="{{ asset('css/flash-messages.css') }}">
 
 @if ($errors->any())
-    @foreach($errors->all() as $error)
-        <div class="alert alert-danger" style="background-color: #d1e7dd">
+    <div class="alert alert-danger" style="background-color: #ecbfbb">
+        @foreach($errors->all() as $error)
             {{ $error }}
-        </div>
-    @endforeach
+        @endforeach
+    </div>
 @endif
 
 @if ($success = Session::get('success'))
@@ -34,7 +34,7 @@
 
 <script>
     $(document).ready(function () {
-        $('.alert').show().fadeOut(5000);
+        $('.alert').show().fadeOut(9000);
 
         $('.alert').click(function () {
             $(this).hide();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
 use App\Student;
 use App\City;
@@ -54,7 +55,7 @@ class StudentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
         $data = $request->all();
 
@@ -77,6 +78,7 @@ class StudentsController extends Controller
         $english_level = EnglishLevel::find($student->english_level_id);
         $sport = Sport::find($student->sport_id);
         $project_type = ProjectType::find($student->project_type_id);
+
         return view('students.single', compact('student', 'city', 'gender', 'class', 'english_level', 'sport', 'project_type'));
     }
 
