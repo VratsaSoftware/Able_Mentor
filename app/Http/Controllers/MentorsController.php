@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\EnglishLevel;
 use App\Http\Requests\MentorRequest;
-use App\SchoolClass;
-use App\Sport;
 use Illuminate\Http\Request;
 use App\Mentor;
 use App\City;
@@ -18,8 +15,11 @@ class MentorsController extends Controller
 {
     public function index()
     {
-    	$mentors = Mentor::with('city')->where('is_approved', '=', 1)->get();
-        return view('mentors.list', compact('mentors'));
+    	$mentors = Mentor::with('city')
+            ->where('is_approved',1)
+            ->get();
+        
+        return view('mentors.index', compact('mentors'));
     }
 
     /**

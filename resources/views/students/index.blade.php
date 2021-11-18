@@ -1,16 +1,14 @@
 @extends('layouts.app')
 
-@push('page_css')
+@section('title', 'Студенти - Able Mentor')
+
+@push('head')
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 @endpush
 
-@section('title')
-Списък с всички студенти - Able Mentor
-@endsection
-
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">Списък с всички студенти!</h1>
+        <h1 class="text-black-50">Студенти</h1>
     </div>
     <div class="panel-body">
     	<table class="table" id="datatable">
@@ -62,7 +60,7 @@
     </div>
 @endsection
 
-@push('page_scripts')
+@push('scripts')
 	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script>
 	    $(document).ready( function () {

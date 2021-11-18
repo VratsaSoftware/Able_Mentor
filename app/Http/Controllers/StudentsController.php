@@ -11,7 +11,6 @@ use App\SchoolClass;
 use App\EnglishLevel;
 use App\Sport;
 use App\ProjectType;
-use App\Hour;
 use App\Mentor;
 
 class StudentsController extends Controller
@@ -22,7 +21,7 @@ class StudentsController extends Controller
             ->where('is_approved', 1)
             ->get();
 
-        return view('students.list', compact('students'));
+        return view('students.index', compact('students'));
     }
 
     /**

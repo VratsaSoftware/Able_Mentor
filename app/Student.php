@@ -38,7 +38,7 @@ class Student extends Model
 
     public function mentors()
     {
-        return $this->belongsToMany('App\Mentor');
+        return $this->belongsToMany('App\Mentor', 'mentors_students');
     }
 
     public function projectTypes()

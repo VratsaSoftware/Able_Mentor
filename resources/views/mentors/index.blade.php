@@ -1,12 +1,10 @@
 @extends('layouts.app')
 
-@push('page_css')
+@section('title', 'Ментори - Able Mentor')
+
+@push('head')
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 @endpush
-
-@section('title')
-Списък с всички ментори - Able Mentor
-@endsection
 
 @section('content')
     <div class="container-fluid">
@@ -57,7 +55,7 @@
     </div>
 @endsection
 
-@push('page_scripts')
+@push('scripts')
 	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script>
 	    $(document).ready( function () {

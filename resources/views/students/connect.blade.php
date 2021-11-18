@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@push('page_css')
+@push('head')
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 @endpush
 
@@ -13,11 +13,11 @@
         <h1 class="text-black-50">{{ __('Списък с подходящи ментори') }}</h1>
     </div>
     <div style="margin-top: 30px;"></div>
-    <div class="panel-body">   
-        <h3>Ментори от същия тип</h3> 
+    <div class="panel-body">
+        <h3>Ментори от същия тип</h3>
         <table class="table" id="datatableType">
             <thead>
-                 <tr>                   
+                 <tr>
                     <th>Име</th>
                     <th>Фамилия</th>
                     <th>Град</th>
@@ -26,27 +26,27 @@
                 </tr>
             </thead>
             <tbody>
-                @php 
+                @php
                     echo $tableCodeType;
                 @endphp
-            </tbody>  
+            </tbody>
             <tfoot>
-                <tr>                  
+                <tr>
                     <th>Име</th>
                     <th>Фамилия</th>
                     <th>Град</th>
                     <th>Брой студенти</th>
                     <th>...</th>
                 </tr>
-            </tfoot>     
+            </tfoot>
         </table>
     </div>
     <div style="margin-top: 50px;"></div>
-    <div class="panel-body">   	
-        <h3>Всички ментори</h3> 
+    <div class="panel-body">
+        <h3>Всички ментори</h3>
         <table class="table" id="datatable">
             <thead>
-                 <tr>                   
+                 <tr>
                     <th>Име</th>
                     <th>Фамилия</th>
                     <th>Град</th>
@@ -55,24 +55,24 @@
                 </tr>
             </thead>
             <tbody>
-                @php 
+                @php
                     echo $tableCode;
                 @endphp
-            </tbody>  
+            </tbody>
             <tfoot>
-                <tr>                  
+                <tr>
                     <th>Име</th>
                     <th>Фамилия</th>
                     <th>Град</th>
                     <th>Брой студенти</th>
                     <th>...</th>
                 </tr>
-            </tfoot>     
+            </tfoot>
         </table>
     </div>
 @endsection
 
-@push('page_scripts')
+@push('scripts')
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready( function () {
