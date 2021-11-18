@@ -69,7 +69,7 @@
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->phone }}</td>
                         <td>{{ $student->gender_id }}</td>
-                        <td>{{ $student->city_id }}</td>
+                        <td>{{ $student->city ? $student->city->name : null }}</td>
                         <td>{{ $student->age }}</td>
                         <td>{{ $student->school }}</td>
                         <td>{{ $student->class_id }}</td>
