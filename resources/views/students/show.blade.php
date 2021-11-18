@@ -7,7 +7,7 @@
         <h1 class="text-black-50">{{ $student->name }}</h1>
     </div>
     <div class="card-body">
-    	<a href="{{ route('students-edit', $student['id']) }}" class="text-black-15" >Редактирай информацията</a>
+    	<a href="{{ route('students-edit', $student->id) }}" class="text-black-15" >Редактирай информацията</a>
     	<div class="form-group">
 			<label>Възраст:</label>
 			<div class="box-info">

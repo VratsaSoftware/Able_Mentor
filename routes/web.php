@@ -39,7 +39,6 @@ Route::get('students/list', 'StudentsController@index')->name('students');
 Route::get('students/single/{student}', 'StudentsController@show')->name('students-show');
 Route::get('students/create', 'StudentsController@create')->name('students-create');
 Route::post('students', 'StudentsController@store')->name('students-store');
-Route::get('students/delete/{student}', 'StudentsController@delete')->name('students-delete');
 Route::delete('students/delete/{student}', 'StudentsController@destroy')->name('students-destroy');
 Route::get('students/edit/{student}', 'StudentsController@edit')->name('students-edit');
 Route::put('students/update/{student}', 'StudentsController@update')->name('students-update');
