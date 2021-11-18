@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\EnglishLevel;
+use App\SchoolClass;
+use App\Sport;
 use Illuminate\Http\Request;
 use App\Mentor;
 use App\City;
@@ -24,7 +27,15 @@ class MentorsController extends Controller
      */
     public function create()
     {
-        return view('mentors.create');
+        $cities = City::all();
+        $projectTypes = ProjectType::all();
+        $genders = Gender::all();
+
+        return view('mentors.create', [
+            'cities' => $cities,
+            'genders' => $genders,
+            'projectTypes' => $projectTypes,
+        ]);
     }
 
     /**
@@ -35,7 +46,19 @@ class MentorsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        unset($data['_token']);
+        unset($data['project_type_ids']);
+
+        $data['cv_path'] = '252'; // todo: Save cv
+
+        $mentor = new Mentor($data);
+        $mentor->save();
+
+        $mentor->projectTypes()->attach($request->project_type_ids);
+
+        return redirect()->back()->with('success', 'Успешно се записахте!');
     }
 
     public function show(Mentor $mentor)

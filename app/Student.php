@@ -30,7 +30,7 @@ class Student extends Model
         'project_type_id',
         'able_mentor_info_source',
         'notes',
-    ]; // All are fillable
+    ];
 
     public function city(){
     	return $this->hasMany(City::class, 'id', 'city_id');

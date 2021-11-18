@@ -265,11 +265,12 @@
                             class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
                             aria-required="true"
                             aria-invalid="false" required>
-                        <option value="1 час">1 час</option>
-                        <option value="2 часа">2 часа</option>
-                        <option value="3 часа">3 часа</option>
-                        <option value="4 часа">4 часа</option>
-                        <option value="повече">повече</option>
+                        <option value="">---</option>
+                        <option value="1 час" {{ old('hours') ? 'selected' : null }}>1 час</option>
+                        <option value="2 часа" {{ old('hours') ? 'selected' : null }}>2 часа</option>
+                        <option value="3 часа" {{ old('hours') ? 'selected' : null }}>3 часа</option>
+                        <option value="4 часа" {{ old('hours') ? 'selected' : null }}>4 часа</option>
+                        <option value="повече" {{ old('hours') ? 'selected' : null }}>повече</option>
                     </select>
                  </span>
             </p>
@@ -319,13 +320,13 @@
             <p>
                 <label style="margin-bottom:50px;">
                     <span class="wpcf7-form-control-wrap message">
-                        <input type="text" name="able_mentor_info_source" value="{{ old('able_mentor_info_source') }}" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false"/>
+                        <input type="text" name="able_mentor_info_source" value="{{ old('able_mentor_info_source') }}" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" required>
                     </span>
                 </label>
             </p>
         </div>
         <div class="column one">
-            <input type="submit" value="Изпрати" class="wpcf7-form-control wpcf7-submit submit button_full_width" required>
+            <input type="submit" value="Изпрати" class="wpcf7-form-control wpcf7-submit submit button_full_width">
         </div>
         <div class="wpcf7-response-output wpcf7-display-none"></div>
     </form>

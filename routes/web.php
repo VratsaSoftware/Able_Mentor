@@ -31,8 +31,8 @@ Route::put('mentors/update/{mentor}', 'MentorsController@update')->name('mentors
 Route::get('mentors/connect/{mentor}', 'MentorsController@listAllStudents')->name('mentors-connect');
 Route::get('mentors/connect-student/{mentor}/{student}', 'MentorsController@connectStudent')->name('mentors-connect-student');
 Route::put('mentors/connect-student/{mentor}/{student}', 'MentorsController@confirmConnectStudent')->name('mentors-confirm-connect');
-Route::get('mentors/create', 'MentorsController@create')->name('students-create');
-Route::post('mentors', 'MentorsController@store')->name('students-store');
+Route::get('mentors/create', 'MentorsController@create')->name('mentors-create');
+Route::post('mentors', 'MentorsController@store')->name('mentors-store');
 
 // students
 Route::get('students/list', 'StudentsController@index')->name('students');
