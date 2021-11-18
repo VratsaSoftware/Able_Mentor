@@ -46,9 +46,7 @@ class MentorRequest extends FormRequest
     public function messages()
     {
         return [
-            'max' => __('Документът трябва да бъде по-малък от :size MB', [
-                'size' => config('consts.MAX_FILE_SIZE_KB') / 1000
-            ])
+            'max' => __('Файлът трябва да бъде по-малък от 20 MB')
         ];
     }
 }
