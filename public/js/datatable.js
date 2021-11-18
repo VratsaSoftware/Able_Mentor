@@ -12,10 +12,10 @@ $(document).ready( function () {
                         var data = row.data();
                         return 'Details for ' + data[0] + ' ' + data[1];
                     }
-                } ),
-                renderer: $.fn.dataTable.Responsive.renderer.tableAll( {
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
                     tableClass: 'table'
-                } )
+                })
             }
         },
         language: {
@@ -35,5 +35,6 @@ $(document).ready( function () {
                 "sLast": "Последна"
             },
         },
+        order: [[ 0, "desc" ]],
     });
 });

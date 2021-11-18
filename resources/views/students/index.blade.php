@@ -8,59 +8,113 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">Студенти</h1>
+        <h1 class="text-black-50">
+            Студенти
+            <button style="float:right;" class="btn btn-success mt-3">
+                <i class="fas fa-file-upload"></i> Импорт
+            </button>
+        </h1>
     </div>
-    <div class="panel-body">
+    <div class="panel-body mt-5">
         <table class="table table-striped table-bordered nowrap" id="datatable" style="border:1px; width: 100%">
             <thead>
                  <tr>
-                    <th>Име</th>
-                    <th>Град</th>
-                    <th>Клас</th>
-                    <th>...</th>
-                    <th>...</th>
-                    <th>...</th>
+                     <th>Регистриран</th>
+                     <th>Име</th>
+                     <th>Email</th>
+                     <th>Телефон</th>
+                     <th>Пол</th>
+                     <th>Град</th>
+                     <th>Възраст</th>
+                     <th>Училище</th>
+                     <th>Клас</th>
+                     <th>Любими предмети</th>
+                     <th>Интереси</th>
+                     <th>Ниво на АЕ</th>
+                     <th>Спорт</th>
+                     <th>Планове след гимназията</th>
+                     <th>В кои сфери имаш силен интерес да се развиваш и в кои по-слаб?</th>
+                     <th>Кои свои качества искаш да промениш/подобриш?</th>
+                     <th>Как се забавляваш в свободното си време?</th>
+                     <th>Разкажи ни за трудна ситуация/проблем и как си се справил/а?</th>
+                     <th>Каква идея искаш да осъществиш в рамките на ABLE Mentor? Разкажи ни</th>
+                     <th>Желая да променя</th>
+                     <th>Средно по колко часа седмично би отделял/а на проекта?</th>
+                     <th>По какъв проект би работил/а със своя ментор?</th>
+                     <th>Откъде разбрахте за програмата ABLE Mentor?</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($students as $student)
                     <tr>
-                        <td>{{ $student->name }}</td>
+                        <td>{{ $student->created_at }}</td>
                         <td>
-                            {{ $student['city'][0]['name'] }}
+                            {{ $student->name }}
+                            <div style="float: right">
+                                <a href="" class="btn btn-success">
+                                    <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
+                                </a>
+                                <a href="{{ route('students-edit', $student->id) }}" class="btn btn-warning">
+                                    <i class="fa fa-user-edit"></i>
+                                </a>
+                                <form id="deleteStudent-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('students-destroy', $student->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <span onclick="deleteStudent('deleteStudent-{{ $loop->iteration }}')" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </span>
+                                </form>
+                            </div>
                         </td>
-                        <td>
-                            {{ $student['class_id'] }}
-                        </td>
-                        <td>
-                            <a href="{{ route('students-show', $student->id) }}">Виж повече</a>
-                        </td>
-                        <td>
-                            <a href="{{ route('students-connect', $student->id) }}">Свържи с ментор</a>
-                        </td>
-                        <td>
-                            <a href="{{ route('students-edit', $student->id) }}" class="btn btn-success">
-                                <i class="fa fa-user-edit"></i>
-                            </a>
-                            <form style="display:inline-block; margin-left: 10px" action="{{ route('students-destroy', $student->id) }}" method="POST">
-                                @csrf
-                                @method('delete')
-                                <button onclick="return confirm('Студентът ще бъде изтрит!')" class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </form>
-                        </td>
+                        <td>{{ $student->email }}</td>
+                        <td>{{ $student->phone }}</td>
+                        <td>{{ $student->gender_id }}</td>
+                        <td>{{ $student->city_id }}</td>
+                        <td>{{ $student->age }}</td>
+                        <td>{{ $student->school }}</td>
+                        <td>{{ $student->class_id }}</td>
+                        <td>{{ $student->favorite_subjects }}</td>
+                        <td>{{ $student->hobbies }}</td>
+                        <td>{{ $student->english_level_id }}</td>
+                        <td>{{ $student->sport_id }}</td>
+                        <td>{{ $student->after_school_plans }}</td>
+                        <td>{{ $student->strong_weak_sides }}</td>
+                        <td>{{ $student->qualities_to_change }}</td>
+                        <td>{{ $student->free_time_activities }}</td>
+                        <td>{{ $student->difficult_situations }}</td>
+                        <td>{{ $student->program_achievments }}</td>
+                        <td>{{ $student->want_to_change }}</td>
+                        <td>{{ $student->hours ?: 'Повече' }}</td>
+                        <td>{{ $student->projectTypes }}</td>
+                        <td>{{ $student->able_mentor_info_source }}</td>
                     </tr>
                   @endforeach
             </tbody>
             <tfoot>
                 <tr>
+                    <th>Регистриран</th>
                     <th>Име</th>
+                    <th>Email</th>
+                    <th>Телефон</th>
+                    <th>Пол</th>
                     <th>Град</th>
+                    <th>Възраст</th>
+                    <th>Училище</th>
                     <th>Клас</th>
-                    <th>...</th>
-                    <th>...</th>
-                    <th>...</th>
+                    <th>Любими предмети</th>
+                    <th>Интереси</th>
+                    <th>Ниво на АЕ</th>
+                    <th>Спорт</th>
+                    <th>Планове след гимназията</th>
+                    <th>В кои сфери имаш силен интерес да се развиваш и в кои по-слаб?</th>
+                    <th>Кои свои качества искаш да промениш/подобриш?</th>
+                    <th>Как се забавляваш в свободното си време?</th>
+                    <th>Разкажи ни за трудна ситуация/проблем и как си се справил/а?</th>
+                    <th>Каква идея искаш да осъществиш в рамките на ABLE Mentor? Разкажи ни</th>
+                    <th>Желая да променя</th>
+                    <th>Средно по колко часа седмично би отделял/а на проекта?</th>
+                    <th>По какъв проект би работил/а със своя ментор?</th>
+                    <th>Откъде разбрахте за програмата ABLE Mentor?</th>
                 </tr>
             </tfoot>
         </table>
@@ -69,4 +123,12 @@
 
 @push('scripts')
     @include('includes.datatable-scripts')
+
+    <script>
+        function deleteStudent(formId) {
+            if (confirm('Студентът ще бъде изтрит!')) {
+                $('#' + formId).submit();
+            }
+        }
+    </script>
 @endpush
