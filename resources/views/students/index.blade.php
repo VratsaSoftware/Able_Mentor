@@ -16,7 +16,7 @@
         </h1>
     </div>
     <div class="panel-body mt-5">
-        <table class="table table-striped table-bordered nowrap" id="datatable" style="border:1px; width: 100%">
+        <table class="table datatable table-striped table-bordered nowrap" style="border:1px; width: 100%">
             <thead>
                  <tr>
                      <th>Регистриран</th>
@@ -51,7 +51,7 @@
                         <td>
                             {{ $student->name }}
                             <div style="float: right">
-                                <a href="" class="btn btn-success">
+                                <a href="{{ route('students.connect', $student->id) }}" class="btn btn-success">
                                     <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
                                 </a>
                                 <a href="{{ route('students-edit', $student->id) }}" class="btn btn-warning">

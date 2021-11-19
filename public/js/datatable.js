@@ -1,5 +1,5 @@
 $(document).ready( function () {
-    $('#datatable').DataTable({
+    $('.datatable').DataTable({
         dom: 'Bfrtip',
         buttons: [
             'excelHtml5',

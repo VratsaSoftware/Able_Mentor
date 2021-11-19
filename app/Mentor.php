@@ -26,6 +26,14 @@ class Mentor extends Model
         'notes',
     ];
 
+    /*
+     * local scope approved
+     */
+    public function scopeApproved($query)
+    {
+        $query->where('is_approved', 1);
+    }
+
     public function city()
     {
         return $this->belongsTo('App\City', 'city_id', 'id');

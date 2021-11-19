@@ -31,6 +31,29 @@ class Student extends Model
         'notes',
     ];
 
+    /*
+     * local scope with relations
+     */
+    public function scopeWithRelations($query)
+    {
+        $query->with([
+            'city',
+            'gender',
+            'englishLevel',
+            'schoolClass',
+            'sport',
+            'projectTypes',
+        ]);
+    }
+
+    /*
+     * local scope approved
+     */
+    public function scopeApproved($query)
+    {
+        $query->where('is_approved', 1);
+    }
+
     public function city()
     {
     	return $this->hasOne(City::class, 'id', 'city_id');

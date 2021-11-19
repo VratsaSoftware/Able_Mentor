@@ -43,11 +43,11 @@ Route::middleware(['auth'])->group(function () {
 
     // students
     Route::get('students', 'StudentsController@index')->name('students.index');
-//    Route::get('students/single/{student}', 'StudentsController@show')->name('students-show');
+    Route::get('students/single/{student}', 'StudentsController@show')->name('students-show');
     Route::delete('students/delete/{student}', 'StudentsController@destroy')->name('students-destroy');
     Route::get('students/edit/{student}', 'StudentsController@edit')->name('students-edit');
     Route::put('students/update/{student}', 'StudentsController@update')->name('students-update');
-    Route::get('students/connect/{student}', 'StudentsController@listAllMentors')->name('students-connect');
+    Route::get('students/connect/{student}', 'StudentsController@listAllMentors')->name('students.connect');
     Route::get('students/connect-mentor/{student}/{mentor}', 'StudentsController@connectMentor')->name('students-connect-mentor');
     Route::put('students/connect-mentor/{student}/{mentor}', 'StudentsController@confirmConnectMentor')->name('students-confirm-connect');
 });

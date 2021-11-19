@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Редакция на ' . $student->name . ' ' . $student->name_second . ' - Able Mentor')
+@section('title', 'Редакция на ' . $student->name . ' - Able Mentor')
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">{{ 'Обнови информацията за ' . $student->name . ' ' . $student->name_second }}</h1>
+        <h1 class="text-black-50">{{ $student->name . ' ' . $student->name_second }}</h1>
     </div>
     <div class="card-body">
     	<form action="{{ route('students-update', ['student' => $student->id])}}" method="POST">

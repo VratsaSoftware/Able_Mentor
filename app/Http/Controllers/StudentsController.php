@@ -15,13 +15,20 @@ use App\Mentor;
 
 class StudentsController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $students = Student::with(['city', 'gender', 'englishLevel', 'schoolClass', 'sport', 'projectTypes'])
-            ->where('is_approved', 1)
+        $students = Student::withRelations()
+            ->approved()
             ->get();
 
-        return view('students.index', compact('students'));
+        return view('students.index', [
+            'students' => $students,
+        ]);
     }
 
     /**
@@ -51,7 +58,7 @@ class StudentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StudentRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StudentRequest $request)
@@ -69,20 +76,25 @@ class StudentsController extends Controller
         return redirect()->back()->with('success', 'Успешно се записахте!');
     }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Student  $student
+     * @return \Illuminate\Http\Response
+     */
     public function show(Student $student)
     {
-        return view('students.show', [
-            'student' => $student,
-        ]);
+//        return view('students.show', [
+//            'student' => $student,
+//        ]);
     }
 
-    public function destroy(Student $student)
-    {
-        $student->delete();
-
-        return back()->with('success', 'Успешно изтрит студент!');
-    }
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Student  $student
+     * @return \Illuminate\Http\Response
+     */
     public function edit(Student $student)
     {
         $cities = City::all();
@@ -105,7 +117,7 @@ class StudentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param \App\Http\Requests\StudentRequest
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Student $student, StudentRequest $request) {
@@ -121,32 +133,23 @@ class StudentsController extends Controller
         return redirect()->back()->with('success', 'Успешно редактиран студент!');
     }
 
-    public function listAllMentors(Student $student)
-    {
-        $mentorsType = Mentor::with('city')->where('is_approved', '=', 1)->where('project_type_id', '=', $student->project_type_id)->get();
-        $mentors = Mentor::with('city')->where('is_approved', '=', 1)->get();
-        $tableCode = '';
-        foreach ($mentors as $mentor) {
-            $existsRecord = $mentor->students->contains($student['id']);
-            $studentsForMentorCount = $mentor->students->count();
-            if ($existsRecord == true){
-                $tableCode .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td>Свързан</td></tr>';
-            } else {
-                $tableCode .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td><a href="../connect-mentor/' . $student['id'] . '/' . $mentor['id'] . '">Свържи</a></td></tr>';
-            }
-        }
+    public function listAllMentors(Student $student) {
+        $appropriateMentors = Mentor::with('city')
+            ->approved()
+            ->whereHas('projectTypes', function ($q) use ($student) {
+                $q->whereIn('type', $student->projectTypes);
+            })->get();
 
-        $tableCodeType = '';
-        foreach ($mentorsType as $mentor) {
-            $existsRecord = $mentor->students->contains($student['id']);
-            $studentsForMentorCount = $mentor->students->count();
-            if ($existsRecord == true){
-                $tableCodeType .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td>Свързан</td></tr>';
-            } else {
-                $tableCodeType .= '<tr><td>'. $mentor['name'] . '</td><td>' . $mentor['city']['name'] . '</td><td>' . $studentsForMentorCount . '</td><td><a href="../connect-mentor/' . $student['id'] . '/' . $mentor['id'] . '">Свържи</a></td></tr>';
-            }
-        }
-        return view('students.connect', compact('student', 'tableCode', 'tableCodeType'));
+        $otherMentors = Mentor::with('city')
+            ->approved()
+            ->whereNotIn('id', $appropriateMentors->pluck('id'))
+            ->get();
+
+        return view('students.connect', [
+            'student' => $student,
+            'appropriateMentors' => $appropriateMentors,
+            'otherMentors' => $otherMentors,
+        ]);
     }
 
     public function connectMentor(Student $student, Mentor $mentor)
@@ -159,5 +162,18 @@ class StudentsController extends Controller
         $student->mentors()->attach($mentor->id);
         $students = Student::with('city')->where('is_approved', '=', 1)->get();
         return view('students.list', compact('students'));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Student $student)
+    {
+        $student->delete();
+
+        return back()->with('success', 'Успешно изтрит студент!');
     }
 }
