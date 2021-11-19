@@ -130,38 +130,40 @@ class StudentsController extends Controller
 
         $student->projectTypes()->sync($request->project_type_ids);
 
-        return redirect()->back()->with('success', 'Успешно редактиран студент!');
+        return redirect()->route('students.index')->with('success', 'Успешно редактиран студент!');
     }
 
-    public function listAllMentors(Student $student) {
-        $appropriateMentors = Mentor::with('city')
+    public function mentors(Student $student) {
+        $appropriateMentors = Mentor::with('city', 'students')
             ->approved()
             ->whereHas('projectTypes', function ($q) use ($student) {
                 $q->whereIn('type', $student->projectTypes);
             })->get();
 
-        $otherMentors = Mentor::with('city')
+        $otherMentors = Mentor::with('city', 'students')
             ->approved()
             ->whereNotIn('id', $appropriateMentors->pluck('id'))
             ->get();
 
-        return view('students.connect', [
+        return view('students.mentors', [
             'student' => $student,
             'appropriateMentors' => $appropriateMentors,
             'otherMentors' => $otherMentors,
         ]);
     }
 
-    public function connectMentor(Student $student, Mentor $mentor)
-    {
-        return view('students.mentor', compact('student', 'mentor'));
-    }
-
-    public function confirmConnectMentor(Student $student, Mentor $mentor)
+    public function attachMentor(Student $student, Mentor $mentor)
     {
         $student->mentors()->attach($mentor->id);
-        $students = Student::with('city')->where('is_approved', '=', 1)->get();
-        return view('students.list', compact('students'));
+
+        return redirect()->back()->with('success', 'Успешно свързване!');
+    }
+
+    public function detachStudentMentor(Student $student, Mentor $mentor)
+    {
+        $student->mentors()->detach($mentor->id);
+
+        return redirect()->back()->with('success', 'Връзката е премахната!');
     }
 
     /**

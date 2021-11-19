@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">Свързване с ментори</h1>
+        <h1 class="text-black-50">Ментори на {{ $student->name }} - {{ $student->mentors->count() }}</h1>
     </div>
     <div style="margin-top: 30px;"></div>
     <div class="panel-body">
