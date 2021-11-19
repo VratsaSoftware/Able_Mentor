@@ -38,7 +38,8 @@ class MentorRequest extends FormRequest
             'difficult_situations' => 'required',
             'want_to_change' => 'required',
             'hours' => 'required',
-            'cv' => ['required', 'file', 'max:20000'],
+            'project_type_ids' => 'required',
+            'cv' => ['nullable', 'file', 'max:20000'],
             'able_mentor_info' => 'required',
         ];
     }

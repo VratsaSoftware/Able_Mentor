@@ -3,52 +3,111 @@
 @section('title', 'Ментори - Able Mentor')
 
 @push('head')
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+    @include('includes.datatable-head')
 @endpush
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">Списък с всички ментори!</h1>
+        <h1 class="text-black-50">
+            Ментори
+            <button style="float:right;" class="btn btn-success mt-3">
+                <i class="fas fa-file-upload"></i> Импорт
+            </button>
+        </h1>
     </div>
-    <div class="panel-body">
-    	<table class="table" id="datatable">
+    <div class="panel-body mt-5">
+        <table class="table datatable table-striped table-bordered nowrap" style="border:1px; width: 100%">
     		<thead>
-                 <tr>
+                <tr>
+                    <th>Регистриран</th>
                     <th>Име</th>
-                    <th>Град</th>
-                    <th>...</th>
-                    <th>...</th>
-                    <th>...</th>
+                    <th>Възраст</th>
+                    <th>Имейл</th>
+                    <th>Телефон</th>
+                    <th>Пол</th>
+                    <th>Сезон в който си бил ментор</th>
+                    <th>Град за участие</th>
+                    <th>Образование</th>
+                    <th>Месторабота</th>
+                    <th>Професионален опит/интереси</th>
+                    <th>Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</th>
+                    <th>Разкажете ни за трудна ситуация/проблем и как сте се справили?</th>
+                    <th>Желая да променя/подобря...</th>
+                    <th>Средно по колко часа седмично би отделял/а на проекта?</th>
+                    <th>По какъв проект бихте работили със своя ученик?</th>
+                    <th>Автобиография</th>
+                    <th>Откъде разбрахте за програмата ABLE Mentor?</th>
                 </tr>
             </thead>
             <tbody>
             	@foreach($mentors as $mentor)
             	  	<tr>
+                        <td>{{ $mentor->created_at }}</td>
                         <td>
-                            {{ $mentor['name'] }}
+                            {{ $mentor->name }}
+                            <div style="float: right">
+                                <a href="{{ route('students.connect', $mentor->id) }}" class="btn btn-success">
+                                    <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
+                                </a>
+                                <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-warning">
+                                    <i class="fa fa-user-edit"></i>
+                                </a>
+                                <form id="deleteMentor-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('mentors-destroy', $mentor->id) }}" method="POST">
+                                    @csrf
+                                    @method('delete')
+                                    <span onclick="deleteMentor('deleteMentor-{{ $loop->iteration }}')" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </span>
+                                </form>
+                            </div>
                         </td>
+                        <td>{{ $mentor->age }}</td>
+                        <td>{{ $mentor->email }}</td>
+                        <td>{{ $mentor->phone }}</td>
+                        <td>{{ $mentor->gender->gender }}</td>
+                        <td>{{ $mentor->season }}</td>
+                        <td>{{ $mentor->city->name }}</td>
+                        <td>{{ $mentor->education }}</td>
+                        <td>{{ $mentor->work }}</td>
+                        <td>{{ $mentor->experience }}</td>
+                        <td>{{ $mentor->expertise }}</td>
+                        <td>{{ $mentor->difficult_situations }}</td>
+                        <td>{{ $mentor->want_to_change }}</td>
+                        <td>{{ $mentor->hours }}</td>
                         <td>
-                            {{ $mentor['city']['name'] }}
+                            <ul>
+                                @foreach($mentor->projectTypes as $projectType)
+                                    <li>
+                                        {{ $projectType->type }}
+                                    </li>
+                                @endforeach
+                            </ul>
                         </td>
-                        <td>
-                            <a href="{{ route('mentors-show', $mentor['id']) }}">Виж повече</a>
-                        </td>
-                        <td>
-                            <a href="{{ route('mentors-connect', $mentor['id']) }}">Свържи със студент</a>
-                        </td>
-                        <td>
-                        	<a href="{{ route('mentors-delete', $mentor['id']) }}">Изтрий</a>
-                        </td>
+                        <td><a href="{{ asset('cv/' . $mentor->cv_path) }}" download="{{ $mentor->name }}">Свали</a></td>
+                        <td>{{ $mentor->able_mentor_info }}</td>
             	  	</tr>
-            	  @endforeach
+            	@endforeach
             </tbody>
             <tfoot>
             	<tr>
+                    <th>Регистриран</th>
                     <th>Име</th>
-                    <th>Град</th>
-                    <th>...</th>
-                    <th>...</th>
-                    <th>...</th>
+                    <th>Възраст</th>
+                    <th>Имейл</th>
+                    <th>Телефон</th>
+                    <th>Пол</th>
+                    <th>Сезон в който си бил ментор</th>
+                    <th>Град за участие</th>
+                    <th>Образование</th>
+                    <th>Месторабота</th>
+                    <th>Професионален опит/интереси</th>
+                    <th>Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</th>
+                    <th>Разкажете ни за трудна ситуация/проблем и как сте се справили?</th>
+                    <th>Желая да променя/подобря...</th>
+                    <th>Средно по колко часа седмично би отделял/а на проекта?</th>
+                    <th>По какъв проект бихте работили със своя ученик?</th>
+                    <th>Автобиография</th>
+                    <th>Откъде разбрахте за програмата ABLE Mentor?</th>
                 </tr>
             </tfoot>
     	</table>
@@ -56,10 +115,13 @@
 @endsection
 
 @push('scripts')
-	<script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    @include('includes.datatable-scripts')
+
     <script>
-	    $(document).ready( function () {
-	   		$('#datatable').DataTable();
-		});
+        function deleteMentor(formId) {
+            if (confirm('Менторът ще бъде изтрит!')) {
+                $('#' + formId).submit();
+            }
+        }
     </script>
 @endpush

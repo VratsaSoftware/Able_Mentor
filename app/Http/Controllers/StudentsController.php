@@ -116,8 +116,8 @@ class StudentsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Http\Requests\StudentRequest
+     * @param \App\Student  $student
+     * @param \App\Http\Requests\StudentRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Student $student, StudentRequest $request) {

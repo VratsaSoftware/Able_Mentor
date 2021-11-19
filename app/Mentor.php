@@ -27,6 +27,18 @@ class Mentor extends Model
     ];
 
     /*
+     * local scope with relations
+     */
+    public function scopeWithRelations($query)
+    {
+        $query->with([
+            'city',
+            'gender',
+            'projectTypes',
+        ]);
+    }
+
+    /*
      * local scope approved
      */
     public function scopeApproved($query)
@@ -42,6 +54,11 @@ class Mentor extends Model
     public function students()
     {
         return $this->belongsToMany('App\Student', 'mentors_students');
+    }
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
     }
 
     public function projectTypes()
