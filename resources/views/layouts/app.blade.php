@@ -9,6 +9,8 @@
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
           crossorigin="anonymous"/>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @yield('third_party_stylesheets')
@@ -50,7 +52,7 @@
                         <a href="#" class="btn btn-default btn-flat">Profile</a>
                         <a href="#" class="btn btn-default btn-flat float-right"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                            Sign out
+                            Изход
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
@@ -62,11 +64,12 @@
     </nav>
 
     <!-- Left side column. contains the logo and sidebar -->
-    @include('layouts.sidebar')
+    @include('layouts.includes.sidebar')
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <section class="content">
+            @include('flash-messages')
             @yield('content')
         </section>
     </div>

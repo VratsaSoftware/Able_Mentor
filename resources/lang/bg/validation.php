@@ -194,7 +194,7 @@ return [
         'program_achievments'      => 'Каква идея искаш да осъществиш в рамките на ABLE Mentor?',
         'want_to_change'           => 'Желая да променя',
         'hours'                    => 'По колко часа седмично би отделял/а на проекта?',
-        'project_type_id'          => 'По какъв проект би работил?',
+        'project_type_ids'          => 'По какъв проект би работил?',
         'able_mentor_info_source'  => 'Откъде разбрахте за програмата ABLE Mentor?',
         'notes'                    => 'Бележки',
     ],

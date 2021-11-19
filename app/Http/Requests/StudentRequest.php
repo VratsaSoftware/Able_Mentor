@@ -44,7 +44,7 @@ class StudentRequest extends FormRequest
             'program_achievments' => 'required',
             'want_to_change' => 'required',
             'hours' => 'required',
-            'project_type_id' => 'nullable',
+            'project_type_ids' => 'required',
             'able_mentor_info_source' => 'required',
             'notes' => 'nullable',
         ];

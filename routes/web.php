@@ -42,8 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::put('mentors/connect-student/{mentor}/{student}', 'MentorsController@confirmConnectStudent')->name('mentors-confirm-connect');
 
     // students
-    Route::get('students/list', 'StudentsController@index')->name('students');
-    Route::get('students/single/{student}', 'StudentsController@show')->name('students-show');
+    Route::get('students', 'StudentsController@index')->name('students.index');
+//    Route::get('students/single/{student}', 'StudentsController@show')->name('students-show');
     Route::delete('students/delete/{student}', 'StudentsController@destroy')->name('students-destroy');
     Route::get('students/edit/{student}', 'StudentsController@edit')->name('students-edit');
     Route::put('students/update/{student}', 'StudentsController@update')->name('students-update');

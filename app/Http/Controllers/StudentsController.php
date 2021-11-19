@@ -17,7 +17,7 @@ class StudentsController extends Controller
 {
     public function index()
     {
-        $students = Student::with('city')
+        $students = Student::with(['city', 'gender', 'englishLevel', 'schoolClass', 'sport', 'projectTypes'])
             ->where('is_approved', 1)
             ->get();
 
@@ -89,42 +89,36 @@ class StudentsController extends Controller
         $schoolClasses = SchoolClass::all();
         $englishLevels = EnglishLevel::all();
         $sports = Sport::all();
-        $project_types = ProjectType::all();
-        return view('students.edit', compact('student', 'cities', 'schoolClasses', 'englishLevels', 'sports', 'project_types'));
+        $projectTypes = ProjectType::all();
+
+        return view('students.edit', [
+            'student' => $student,
+            'cities' => $cities,
+            'schoolClasses' => $schoolClasses,
+            'englishLevels' => $englishLevels,
+            'sports' => $sports,
+            'projectTypes' => $projectTypes,
+        ]);
     }
 
-    public function update(Request $request, Student $student){
-        $student = Student::find($request->studentId);
-        $student->name = $request->name;
-        $student->age = $request->age;
-        $student->email = $request->email;
-        $student->phone = $request->phone;
-        $student->city_id = $request->city;
-        $student->school = $request->school;
-        $student->class_id = $request->schoolClass;
-        $student->favorite_subjects = $request->favorite_subjects;
-        $student->hobbies = $request->hobbies;
-        $student->english_level_id = $request->englishLevel;
-        $student->sport_id = $request->sport;
-        $student->after_school_plans = $request->after_school_plans;
-        $student->strong_weak_sides = $request->strong_weak_sides;
-        $student->qualities_to_change = $request->qualities_to_change;
-        $student->free_time_activities = $request->free_time_activities;
-        $student->difficult_situations = $request->difficult_situations;
-        $student->program_achievments = $request->program_achievments;
-        $student->want_to_change = $request->want_to_change;
-        $student->hours = $request->hours;
-        $student->project_type_id = $request->project_types;
-        $student->able_mentor_info_source = $request->able_mentor_info_source;
-        $student->notes = $request->notes;
-        $student->save();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Student $student, StudentRequest $request) {
+        $data = $request->all();
 
-        $cities = City::all();
-        $schoolClasses = SchoolClass::all();
-        $englishLevels = EnglishLevel::all();
-        $sports = Sport::all();
-        $project_types = ProjectType::all();
-        return view('students.edit', compact('student', 'cities', 'schoolClasses', 'englishLevels', 'sports', 'project_types'));
+        unset($data['_token']);
+        unset($data['project_type_ids']);
+
+        $student->update($data);
+
+        $student->projectTypes()->sync($request->project_type_ids);
+
+        return redirect()->back()->with('success', 'Успешно редактиран студент!');
     }
 
     public function listAllMentors(Student $student)

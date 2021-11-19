@@ -27,14 +27,34 @@ class Student extends Model
         'program_achievments',
         'want_to_change',
         'hours',
-        'project_type_id',
         'able_mentor_info_source',
         'notes',
     ];
 
-    public function city(){
+    public function city()
+    {
     	return $this->hasOne(City::class, 'id', 'city_id');
  	}
+
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
+    }
+
+    public function englishLevel()
+    {
+        return $this->belongsTo(EnglishLevel::class);
+    }
+
+    public function schoolClass()
+    {
+        return $this->belongsTo(SchoolClass::class,'class_id');
+    }
+
+    public function sport()
+    {
+        return $this->belongsTo(Sport::class);
+    }
 
     public function mentors()
     {

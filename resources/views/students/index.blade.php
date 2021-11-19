@@ -42,7 +42,7 @@
                      <th>Средно по колко часа седмично би отделял/а на проекта?</th>
                      <th>По какъв проект би работил/а със своя ментор?</th>
                      <th>Откъде разбрахте за програмата ABLE Mentor?</th>
-                </tr>
+                 </tr>
             </thead>
             <tbody>
                 @foreach($students as $student)
@@ -68,15 +68,15 @@
                         </td>
                         <td>{{ $student->email }}</td>
                         <td>{{ $student->phone }}</td>
-                        <td>{{ $student->gender_id }}</td>
+                        <td>{{ $student->gender->gender }}</td>
                         <td>{{ $student->city ? $student->city->name : null }}</td>
                         <td>{{ $student->age }}</td>
                         <td>{{ $student->school }}</td>
-                        <td>{{ $student->class_id }}</td>
+                        <td>{{ $student->schoolClass->class_name }}</td>
                         <td>{{ $student->favorite_subjects }}</td>
                         <td>{{ $student->hobbies }}</td>
-                        <td>{{ $student->english_level_id }}</td>
-                        <td>{{ $student->sport_id }}</td>
+                        <td>{{ $student->englishLevel->level }}</td>
+                        <td>{{ $student->sport->name }}</td>
                         <td>{{ $student->after_school_plans }}</td>
                         <td>{{ $student->strong_weak_sides }}</td>
                         <td>{{ $student->qualities_to_change }}</td>
@@ -85,7 +85,15 @@
                         <td>{{ $student->program_achievments }}</td>
                         <td>{{ $student->want_to_change }}</td>
                         <td>{{ $student->hours ?: 'Повече' }}</td>
-                        <td>{{ $student->projectTypes }}</td>
+                        <td>
+                            <ul>
+                                @foreach($student->projectTypes as $projectType)
+                                    <li>
+                                        {{ $projectType->type }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </td>
                         <td>{{ $student->able_mentor_info_source }}</td>
                     </tr>
                   @endforeach
