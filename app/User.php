@@ -19,6 +19,14 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    /*
+     * local scope approved
+     */
+    public function scopeApproved($query)
+    {
+        $query->where('approved', 1);
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

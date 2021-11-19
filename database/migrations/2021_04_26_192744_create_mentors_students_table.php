@@ -19,8 +19,8 @@ class CreateMentorsStudentsTable extends Migration
             $table->unsignedBigInteger('mentor_id');
             $table->timestamps();
 
-            $table->foreign('student_id')->references('id')->on('students')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign('mentor_id') ->references('id')->on('mentors')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('student_id')->references('id')->on('students')->onUpdate('NO ACTION')->onDelete('cascade');
+            $table->foreign('mentor_id') ->references('id')->on('mentors')->onUpdate('NO ACTION')->onDelete('cascade');
 
         });
     }
