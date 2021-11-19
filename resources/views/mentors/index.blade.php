@@ -46,7 +46,7 @@
                         <td>
                             {{ $mentor->name }}
                             <div style="float: right">
-                                <a href="{{ route('students.connect', $mentor->id) }}" class="btn btn-success">
+                                <a href="{{ route('mentors.connect', $mentor->id) }}" class="btn btn-success">
                                     <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
                                 </a>
                                 <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-warning">

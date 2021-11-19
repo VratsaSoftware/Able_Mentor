@@ -139,32 +139,22 @@ class MentorsController extends Controller
 
     public function students(Mentor $mentor)
     {
-        $students = Student::with('city')->where('is_approved', 1)->get();
-        $studentsType = Student::with('city')
-            ->where('is_approved', 1)
-            ->get();
-        $tableCode = '';
-        $tableCodeType = '';
-        foreach ($students as $student) {
-            $existsRecord = $student->mentors->contains($mentor['id']);
-            $mentorForStudentsCount = $student->mentors->count();
-            if ($existsRecord == true){
-                $tableCode .= '<tr><td>'. $student['name'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td>Свързан</td></tr>';
-            } else {
-                $tableCode .= '<tr><td>'. $student['name'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td><a href="../connect-student/' . $mentor['id'] . '/' . $student['id'] . '">Свържи</a></td></tr>';
-            }
-        }
+        $appropriateStudents = Student::with('city', 'mentors')
+            ->approved()
+            ->whereHas('projectTypes', function ($q) use ($mentor) {
+                $q->whereIn('type', $mentor->projectTypes);
+            })->get();
 
-        foreach ($studentsType as $student) {
-            $existsRecord = $student->mentors->contains($mentor['id']);
-            $mentorForStudentsCount = $student->mentors->count();
-            if ($existsRecord == true){
-                $tableCodeType .= '<tr><td>'. $student['name'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td>Свързан</td></tr>';
-            } else {
-                $tableCodeType .= '<tr><td>'. $student['name'] . '</td><td>' . $student['city'][0]['name'] . '</td><td>' . $student['class_id'] . '</td><td>' . $mentorForStudentsCount . '</td><td><a href="../connect-student/' . $mentor['id'] . '/' . $student['id'] . '">Свържи</a></td></tr>';
-            }
-        }
-        return view('mentors.connect', compact('mentor', 'tableCode', 'tableCodeType'));
+        $otherStudents = Student::with('city', 'mentors')
+            ->approved()
+            ->whereNotIn('id', $appropriateStudents->pluck('id'))
+            ->get();
+
+        return view('mentors.students', [
+            'mentor' => $mentor,
+            'appropriateStudents' => $appropriateStudents,
+            'otherStudents' => $otherStudents,
+        ]);
     }
 
     /**

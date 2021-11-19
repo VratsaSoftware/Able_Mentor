@@ -13,14 +13,14 @@
     <div style="margin-top: 30px;"></div>
     <div class="panel-body">
         <h3>Ментори от същия тип</h3>
-        @include('students.partials.mentor-table', [
+        @include('students.partials.mentors-table', [
             'mentors' => $appropriateMentors,
         ])
     </div>
     <div style="margin-top: 50px;"></div>
     <div class="panel-body">
         <h3>Други ментори</h3>
-        @include('students.partials.mentor-table', [
+        @include('students.partials.mentors-table', [
             'mentors' => $otherMentors,
         ])
     </div>

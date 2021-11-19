@@ -38,8 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('mentors/delete/{mentor}', 'MentorsController@destroy')->name('mentors-destroy');
     Route::get('mentors/edit/{mentor}', 'MentorsController@edit')->name('mentors-edit');
     Route::put('mentors/update/{mentor}', 'MentorsController@update')->name('mentors-update');
-    Route::get('mentors/connect/{mentor}', 'MentorsController@listAllStudents')->name('mentors-connect');
-    Route::get('mentor-student-connect/{mentor}/{student}', 'MentorsController@students')->name('mentors.connect');
+    Route::get('mentors/connect/{mentor}', 'MentorsController@students')->name('mentors.connect');
 
     // students
     Route::get('students', 'StudentsController@index')->name('students.index');
