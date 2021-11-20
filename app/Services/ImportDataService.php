@@ -28,6 +28,7 @@ class ImportDataService {
                         self::createStudent($column);
                     }
                 } catch (\Exception $exception) {
+                    $column[] = $exception->getMessage();
                     array_push($dataFailed, $column);
                 }
             }
@@ -35,6 +36,16 @@ class ImportDataService {
             $rowIndex++;
         }
 
+        /* failed data */
+        self::failedData($dataFailed, $fullPath);
+
+        return $fullPath;
+    }
+
+    /*
+     * Add failed records to CSV
+     */
+    private static function failedData($dataFailed, $fullPath) {
         /* failed data */
         if (count($dataFailed)) {
             $fileFailed = fopen($fullPath, 'w');
@@ -48,8 +59,6 @@ class ImportDataService {
             /* delete file */
             File::delete($fullPath);
         }
-
-        return $fullPath;
     }
 
     /*
