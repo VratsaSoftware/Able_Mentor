@@ -10,9 +10,10 @@
     <div class="container-fluid">
         <h1 class="text-black-50">
             Студенти
-            <button style="float:right;" class="btn btn-success mt-3">
-                <i class="fas fa-file-upload"></i> Импорт
-            </button>
+
+            @include('includes.import-file', [
+                'routeName' => 'students-import',
+            ])
         </h1>
     </div>
     <div class="panel-body mt-5">

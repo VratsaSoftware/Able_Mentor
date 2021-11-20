@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
+use App\Services\ImportDataService;
 use Illuminate\Http\Request;
 use App\Student;
 use App\City;
@@ -12,6 +13,7 @@ use App\EnglishLevel;
 use App\Sport;
 use App\ProjectType;
 use App\Mentor;
+use Ramsey\Uuid\Uuid;
 
 class StudentsController extends Controller
 {
@@ -150,6 +152,28 @@ class StudentsController extends Controller
             'appropriateMentors' => $appropriateMentors,
             'otherMentors' => $otherMentors,
         ]);
+    }
+
+    /**
+     * Import mentors
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function importStudents(Request $request) {
+        $fileName = Uuid::uuid4() . '.' . $request->file->getClientOriginalExtension();
+
+        $request->file->move(public_path() . '/uploads/csv/', $fileName);
+
+        $fileFailed = ImportDataService::importData($fileName, 'student');
+
+        if (file_exists($fileFailed)) {
+            $res = response()->download($fileFailed)->deleteFileAfterSend(true);
+        } else {
+            $res = redirect()->back()->with('success', 'Успешно импортиран файл със Студенти!');
+        }
+
+        return $res;
     }
 
     public function attachMentor(Student $student, Mentor $mentor)

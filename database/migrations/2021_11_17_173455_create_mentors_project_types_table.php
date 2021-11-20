@@ -17,8 +17,8 @@ class CreateMentorsProjectTypesTable extends Migration
             $table->unsignedBigInteger('mentor_id');
             $table->unsignedBigInteger('project_type_id');
 
-            $table->foreign('mentor_id')->references('id')->on('mentors');
-            $table->foreign('project_type_id')->references('id')->on('project_types')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('mentor_id')->references('id')->on('mentors')->onDelete('cascade');
+            $table->foreign('project_type_id')->references('id')->on('project_types')->onDelete('cascade');
         });
     }
 

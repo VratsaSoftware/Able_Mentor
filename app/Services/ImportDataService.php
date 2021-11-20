@@ -3,7 +3,11 @@
 namespace App\Services;
 
 use App\City;
+use App\EnglishLevel;
 use App\Mentor;
+use App\ProjectType;
+use App\Sport;
+use App\Student;
 use File;
 
 class ImportDataService {
@@ -88,18 +92,14 @@ class ImportDataService {
      */
     private static function createMentor($column)
     {
-        $city = City::where('name', 'like', '%' . $column[7] . '%')
-            ->pluck('id')
-            ->first();
-
-        Mentor::create([
+        $mentor = Mentor::create([
             'name' => $column[0],
             'age' => $column[1],
             'email' => $column[2],
             'phone' => $column[3],
             'gender_id' => $column[4] == 'Мъж' ? 1 : 2,
             'season' => $column[6],
-            'city_id' => $city,
+            'city_id' => self::findCity($column[7]),
             'education' => $column[8],
             'work' => $column[9],
             'experience' => $column[10],
@@ -107,8 +107,10 @@ class ImportDataService {
             'difficult_situations' => $column[12],
             'want_to_change' => $column[13],
             'hours' => $column[14],
-            'able_mentor_info' => $column[15],
+            'able_mentor_info' => $column[17],
         ]);
+
+        $mentor->projectTypes()->attach(self::findProjectTypes($column[15]));
     }
 
     /*
@@ -116,6 +118,63 @@ class ImportDataService {
      */
     private static function createStudent($column)
     {
-        //
+        $englishLevelId = EnglishLevel::where('level', 'like', '%' . $column[11] . '%')
+            ->pluck('id')
+            ->first();
+
+        $sportId = Sport::where('name', 'like', '%' . $column[12] . '%')
+            ->pluck('id')
+            ->first();
+
+        $student = Student::create([
+            'name' => $column[0],
+            'age' => (int)$column[1],
+            'email' => $column[2],
+            'phone' => $column[3],
+            'gender_id' => $column[4] == 'Мъж' ? 1 : 2,
+            'city_id' => self::findCity($column[6]),
+            'school' => $column[7],
+            'class_id' => $column[8],
+            'favorite_subjects' => $column[9],
+            'hobbies' => $column[10],
+            'english_level_id' => $englishLevelId,
+            'sport_id' => $sportId ?: 21,
+            'after_school_plans' => $column[13],
+            'strong_weak_sides' => $column[14],
+            'qualities_to_change' => $column[15],
+            'free_time_activities' => $column[16],
+            'difficult_situations' => $column[17],
+            'program_achievments' => $column[18],
+            'want_to_change' => $column[19],
+            'hours' => $column[20],
+            'able_mentor_info_source' => $column[22],
+        ]);
+
+        $student->projectTypes()->attach(self::findProjectTypes($column[21]));
+    }
+
+    /*
+     * find city
+     */
+    private static function findCity($city) {
+        return City::where('name', 'like', '%' . $city . '%')
+            ->pluck('id')
+            ->first();
+    }
+
+    /*
+     * find city
+     */
+    private static function findProjectTypes($types) {
+        $projectTypes = ProjectType::all();
+
+        $projectTypeIds = [];
+        foreach ($projectTypes as $projectType) {
+            if (strstr($types, $projectType->type) || strstr($types, mb_strtolower($projectType->type, 'UTF-8'))) {
+                $projectTypeIds[] = $projectType->id;
+            }
+        }
+
+        return $projectTypeIds;
     }
 }

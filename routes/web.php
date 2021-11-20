@@ -40,9 +40,6 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     Route::put('mentors/update/{mentor}', 'MentorsController@update')->name('mentors-update');
     Route::get('mentors/connect/{mentor}', 'MentorsController@students')->name('mentors.connect');
 
-    // import data
-    Route::post('mentors/import', 'MentorsController@importMentors')->name('mentors-import');
-
     /*---- students ----*/
     Route::get('students', 'StudentsController@index')->name('students.index');
 //    Route::get('students/single/{student}', 'StudentsController@show')->name('students-show');
@@ -54,6 +51,10 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     /* student-mentor operations - attach/detach */
     Route::put('student-mentor-attach/student/{student}/mentor/{mentor}', 'StudentsController@attachMentor')->name('student-mentor.attach');
     Route::put('student-mentor-detach/student/{student}/mentor/{mentor}', 'StudentsController@detachStudentMentor')->name('student-mentor.detach');
+
+    // import data
+    Route::post('mentors/import', 'MentorsController@importMentors')->name('mentors-import');
+    Route::post('students/import', 'StudentsController@importStudents')->name('students-import');
 });
 
 Route::get('/pending-approval', 'HomeController@pendingApproval')->name('pending-approval');

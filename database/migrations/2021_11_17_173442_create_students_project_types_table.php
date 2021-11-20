@@ -17,8 +17,8 @@ class CreateStudentsProjectTypesTable extends Migration
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('project_type_id');
 
-            $table->foreign('student_id')->references('id')->on('students')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->foreign('project_type_id')->references('id')->on('project_types')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
+            $table->foreign('project_type_id')->references('id')->on('project_types')->onDelete('cascade');
         });
     }
 

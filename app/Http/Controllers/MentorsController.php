@@ -161,7 +161,7 @@ class MentorsController extends Controller
     /**
      * Import mentors
      *
-     * @param \App\Http\Requests\StudentRequest  $request
+     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function importMentors(Request $request) {
