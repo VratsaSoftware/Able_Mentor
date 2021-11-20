@@ -17,11 +17,11 @@ class CreateMentorsTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->integer('age');
-            $table->string('email', 100);
+            $table->string('email', 100)->unique();
             $table->string('phone', 100);
             $table->unsignedBigInteger('gender_id');
             $table->foreign('gender_id')->references('id')->on('genders')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->integer('season');
+            $table->string('season', 100);
             $table->unsignedBigInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->longText('work');
@@ -31,7 +31,7 @@ class CreateMentorsTable extends Migration
             $table->longText('difficult_situations');
             $table->longText('want_to_change');
             $table->string('hours', 50);
-            $table->string('cv_path', 100);
+            $table->string('cv_path')->nullable();
             $table->longText('able_mentor_info');
             $table->longText('notes')->nullable();
             $table->boolean('is_approved')->default(0);

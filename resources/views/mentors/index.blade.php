@@ -10,9 +10,17 @@
     <div class="container-fluid">
         <h1 class="text-black-50">
             Ментори
-            <button style="float:right;" class="btn btn-success mt-3">
-                <i class="fas fa-file-upload"></i> Импорт
-            </button>
+
+            <label for="file" style="float:right;">
+                <span class="btn btn-success mt-3">
+                    <i class="fas fa-file-upload"></i> Импорт
+                </span>
+            </label>
+
+            <form id="importData" action="{{ route('mentors-import') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                <input id="file" type="file" onchange="importData()" name="file" accept="text/csv" style="display:none">
+            </form>
         </h1>
     </div>
     <div class="panel-body mt-5">
@@ -121,6 +129,14 @@
         function deleteMentor(formId) {
             if (confirm('Менторът ще бъде изтрит!')) {
                 $('#' + formId).submit();
+            }
+        }
+
+        function importData() {
+            if(confirm('Файлът ще бъде импортиран!')) {
+                $('#importData').submit();
+            } else {
+                $('#file').val('');
             }
         }
     </script>

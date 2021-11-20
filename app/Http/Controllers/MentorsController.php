@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MentorRequest;
+use App\Services\ImportDataService;
 use Illuminate\Http\Request;
 use App\Mentor;
 use App\City;
@@ -155,6 +156,29 @@ class MentorsController extends Controller
             'appropriateStudents' => $appropriateStudents,
             'otherStudents' => $otherStudents,
         ]);
+    }
+
+    /**
+     * Import mentors
+     *
+     * @param \App\Http\Requests\StudentRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function importMentors(Request $request) {
+
+        $fileName = Uuid::uuid4() . '.' . $request->file->getClientOriginalExtension();
+
+        $request->file->move(public_path() . '/uploads/csv/', $fileName);
+
+        $fileFailed = ImportDataService::importData($fileName, 'mentor');
+
+        if (file_exists($fileFailed)) {
+            $res = response()->download($fileFailed)->deleteFileAfterSend(true);
+        } else {
+            $res = redirect()->back()->with('success', 'Успешно импортиран файл с Ментори!');
+        }
+
+        return $res;
     }
 
     /**
