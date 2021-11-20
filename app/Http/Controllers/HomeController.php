@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -24,5 +26,14 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function pendingApproval()
+    {
+        if (Auth::user()->isApproved()) {
+            return redirect(RouteServiceProvider::HOME);
+        } else {
+            return view('pendingApproval');
+        }
     }
 }

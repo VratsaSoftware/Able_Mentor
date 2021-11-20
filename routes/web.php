@@ -31,7 +31,7 @@ Route::get('students/create', 'StudentsController@create')->name('students-creat
 Route::post('students', 'StudentsController@store')->name('students-store');
 
 // auth middleware
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'userApproved'])->group(function () {
     // mentors
     Route::get('mentors', 'MentorsController@index')->name('mentors');
 //    Route::get('mentors/single/{mentor}', 'MentorsController@show')->name('mentors-show');
@@ -52,3 +52,5 @@ Route::middleware(['auth'])->group(function () {
     Route::put('student-mentor-attach/student/{student}/mentor/{mentor}', 'StudentsController@attachMentor')->name('student-mentor.attach');
     Route::put('student-mentor-detach/student/{student}/mentor/{mentor}', 'StudentsController@detachStudentMentor')->name('student-mentor.detach');
 });
+
+Route::get('/pending-approval', 'HomeController@pendingApproval')->name('pending-approval');

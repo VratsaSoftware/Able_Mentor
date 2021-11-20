@@ -44,4 +44,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+     * Check if the user is approved
+     */
+    public function isApproved() {
+        return $this->approved == 1;
+    }
 }
