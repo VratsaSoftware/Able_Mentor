@@ -65,7 +65,7 @@
             </div>
 
             <div class="row">
-                <div class="col-8">
+                <div class="col-6">
                     <a href="{{ route('login') }}" class="text-center">Вече имам регистрация</a>
 {{--                    <div class="icheck-primary">--}}
 {{--                        <input type="checkbox" id="agreeTerms" name="terms" value="agree">--}}
@@ -75,8 +75,8 @@
 {{--                    </div>--}}
                 </div>
                 <!-- /.col -->
-                <div class="col-4">
-                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary btn-block">Регистрация</button>
                 </div>
                 <!-- /.col -->
             </div>
