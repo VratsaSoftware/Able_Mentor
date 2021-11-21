@@ -8,18 +8,18 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">{{ __('Списък с всички студенти') }}</h1>
+        <h1 class="text-black-50">{{ __('Списък с всички ученици') }}</h1>
     </div>
     <div style="margin-top: 30px;"></div>
     <div class="panel-body">
-    <h3>Студенти от същия тип</h3>
+    <h3>Ученици от същия тип</h3>
         @include('mentors.partials.students-table', [
             'students' => $appropriateStudents,
         ])
     </div>
     <div style="margin-top: 50px;"></div>
     <div class="panel-body">
-    <h3>Други студенти</h3>
+    <h3>Други ученици</h3>
         @include('mentors.partials.students-table', [
             'students' => $otherStudents,
         ])

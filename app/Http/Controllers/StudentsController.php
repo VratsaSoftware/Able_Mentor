@@ -170,7 +170,7 @@ class StudentsController extends Controller
         if (file_exists($fileFailed)) {
             $res = response()->download($fileFailed)->deleteFileAfterSend(true);
         } else {
-            $res = redirect()->back()->with('success', 'Успешно импортиран файл със Студенти!');
+            $res = redirect()->back()->with('success', 'Успешно импортиран файл със ученици!');
         }
 
         return $res;

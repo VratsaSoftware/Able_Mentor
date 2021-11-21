@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Студенти - Able Mentor')
+@section('title', 'Ученици - Able Mentor')
 
 @push('head')
     @include('includes.datatable-head')

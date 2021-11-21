@@ -9,7 +9,7 @@
 <li class="nav-item">
     <a href="{{ route('students.index') }}" class="nav-link">
         <i class="nav-icon fas fa-user-graduate"></i>
-        <p>Студенти</p>
+        <p>Ученици</p>
     </a>
 </li>
 

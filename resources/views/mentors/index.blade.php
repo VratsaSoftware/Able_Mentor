@@ -124,4 +124,5 @@
                 $('#' + formId).submit();
             }
         }
+    </script>
 @endpush

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Студенти - Able Mentor')
+@section('title', 'Ученици - Able Mentor')
 
 @push('head')
     @include('includes.datatable-head')
@@ -9,7 +9,7 @@
 @section('content')
     <div class="container-fluid">
         <h1 class="text-black-50">
-            Студенти
+            Ученици
 
             @include('includes.import-file', [
                 'routeName' => 'students-import',
