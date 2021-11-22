@@ -99,6 +99,10 @@ hr {
   overflow: visible;
 }
 
+.responsive-datatable {
+    overflow-x: scroll;
+}
+
 h1,
 h2,
 h3,

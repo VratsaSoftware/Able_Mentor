@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', [
                 'admin',
                 'operator',
-            ])->default('operator');
+            ])->nullable();
             $table->boolean('approved')->default(0);
 
             $table->timestamps();

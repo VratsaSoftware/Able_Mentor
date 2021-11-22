@@ -24,11 +24,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // mentors
 Route::get('mentors/create', 'MentorsController@create')->name('mentors-create');
-Route::post('mentors', 'MentorsController@store')->name('mentors-store');
 
 // students
 Route::get('students/create', 'StudentsController@create')->name('students-create');
-Route::post('students', 'StudentsController@store')->name('students-store');
 
 // auth middleware
 Route::middleware(['auth', 'userApproved'])->group(function () {
@@ -55,6 +53,9 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     // import data
     Route::post('mentors/import', 'MentorsController@importMentors')->name('mentors-import');
     Route::post('students/import', 'StudentsController@importStudents')->name('students-import');
+
+    /* users */
+    Route::resource('users', 'UserController')->names('users');
 });
 
 Route::get('/pending-approval', 'HomeController@pendingApproval')->name('pending-approval');
