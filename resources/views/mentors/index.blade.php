@@ -9,11 +9,24 @@
 @section('content')
     <div class="container-fluid">
         <h1 class="text-black-50">
-            Ментори
-
-            @include('includes.import-file', [
-                'routeName' => 'mentors-import',
-            ])
+            <div class="row">
+                <div class="col">
+                    Ментори
+                </div>
+                <div class="col text-right">
+                    <form action="{{ route('mentors') }}" method="get">
+                        <input name="status" type="hidden" value="{{ Request::get('status') !== 'approved' ? 'approved' : 'pending' }}">
+                        <button class="btn btn-warning mt-3">
+                            <i class="fas fa-users"></i> {{ Request::get('status') == 'approved' ? 'Изчакващи' : 'Одобрени' }}
+                        </button>
+                    </form>
+                </div>
+                <div class="col-2">
+                    @include('includes.import-file', [
+                        'routeName' => 'mentors-import',
+                    ])
+                </div>
+            </div>
         </h1>
     </div>
     <div class="panel-body mt-5">
