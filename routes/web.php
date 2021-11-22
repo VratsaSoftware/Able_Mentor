@@ -56,6 +56,6 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
 
     /* users */
     Route::resource('users', 'UserController')->names('users');
-});
 
-Route::get('/pending-approval', 'HomeController@pendingApproval')->name('pending-approval');
+    Route::get('pending-approval', 'HomeController@pendingApproval')->name('pending-approval');
+});
