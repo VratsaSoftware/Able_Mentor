@@ -12,7 +12,7 @@
     </div>
     <div style="margin-top: 30px;"></div>
     <div class="panel-body">
-    <h3>Ученици от същия тип</h3>
+        <h3>Ученици от същия тип</h3>
         @include('mentors.partials.students-table', [
             'students' => $appropriateStudents,
         ])

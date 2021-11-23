@@ -149,15 +149,25 @@ class MentorsController extends Controller
     {
         $appropriateStudents = Student::with('city', 'mentors')
             ->approved()
-            ->doesntHave('mentors')
+            ->where(function ($q) use ($mentor) {
+                $q->doesntHave('mentors')
+                    ->orWhereHas('mentors', function ($query) use ($mentor) {
+                        $query->where('mentor_id', $mentor->id);
+                    });
+            })
             ->whereHas('projectTypes', function ($q) use ($mentor) {
                 $q->whereIn('type', $mentor->projectTypes);
             })->get();
 
         $otherStudents = Student::with('city', 'mentors')
             ->approved()
+            ->where(function ($q) use ($mentor) {
+                $q->doesntHave('mentors')
+                    ->orWhereHas('mentors', function ($query) use ($mentor) {
+                        $query->where('mentor_id', $mentor->id);
+                    });
+            })
             ->whereNotIn('id', $appropriateStudents->pluck('id'))
-            ->doesntHave('mentors')
             ->get();
 
         return view('mentors.students', [
