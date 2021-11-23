@@ -24,7 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // mentors
 Route::get('mentors/create', 'MentorsController@create')->name('mentors-create');
-
+Route::post('students', 'StudentsController@store')->name('students-store');
 // students
 Route::get('students/create', 'StudentsController@create')->name('students-create');
 

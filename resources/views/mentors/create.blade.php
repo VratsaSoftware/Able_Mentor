@@ -166,11 +166,11 @@
                             aria-required="true"
                             aria-invalid="false" required>
                         <option value="">---</option>
-                        <option value="1 час" {{ old('hours') ? 'selected' : null }}>1 час</option>
-                        <option value="2 часа" {{ old('hours') ? 'selected' : null }}>2 часа</option>
-                        <option value="3 часа" {{ old('hours') ? 'selected' : null }}>3 часа</option>
-                        <option value="4 часа" {{ old('hours') ? 'selected' : null }}>4 часа</option>
-                        <option value="повече" {{ old('hours') ? 'selected' : null }}>повече</option>
+                        <option value="1" {{ old('hours') ? 'selected' : null }}>1 час</option>
+                        <option value="2" {{ old('hours') ? 'selected' : null }}>2 часа</option>
+                        <option value="3" {{ old('hours') ? 'selected' : null }}>3 часа</option>
+                        <option value="4" {{ old('hours') ? 'selected' : null }}>4 часа</option>
+                        <option value="5" {{ old('hours') ? 'selected' : null }}>повече</option>
                     </select>
                  </span>
             </p>

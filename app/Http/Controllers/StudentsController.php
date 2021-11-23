@@ -147,6 +147,10 @@ class StudentsController extends Controller
             ->approved()
             ->whereHas('projectTypes', function ($q) use ($student) {
                 $q->whereIn('type', $student->projectTypes);
+            })->where(function ($q) use ($student) {
+                $q->where('hours', $student->hours - 1)
+                    ->orWhere('hours', $student->hours)
+                    ->orWhere('hours', $student->hours + 1);
             })->get();
 
         $otherMentors = Mentor::with('city', 'students')

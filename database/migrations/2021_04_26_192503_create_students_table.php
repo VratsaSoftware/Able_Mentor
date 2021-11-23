@@ -34,7 +34,7 @@ class CreateStudentsTable extends Migration
             $table->longText('difficult_situations');
             $table->longText('program_achievments');
             $table->longText('want_to_change');
-            $table->string('hours', '50');
+            $table->integer('hours');
             $table->longText('able_mentor_info_source');
             $table->longText('notes')->nullable();
             $table->boolean('is_approved')->default(0);

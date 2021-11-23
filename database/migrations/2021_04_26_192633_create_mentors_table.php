@@ -30,7 +30,7 @@ class CreateMentorsTable extends Migration
             $table->longText('expertise');
             $table->longText('difficult_situations');
             $table->longText('want_to_change');
-            $table->string('hours', 50);
+            $table->integer('hours');
             $table->string('cv_path')->nullable();
             $table->longText('able_mentor_info');
             $table->longText('notes')->nullable();
