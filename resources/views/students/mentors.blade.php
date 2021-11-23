@@ -8,15 +8,29 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">Ментори на {{ $student->name }} - {{ $student->mentors->count() }}</h1>
+        <h1 class="text-black-50">Ментори на {{ $student->name }}</h1>
     </div>
+    @if ($student->mentors->count())
+    <h3 class="mt-5 text-center">
+        {{ $student->mentors->first()->name }}
+
+        <form style="display:inline-block; margin-left: 10px" action="{{ route('student-mentor.detach', ['student' => $student->id, 'mentor' => $student->mentors->first()->id]) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <button class="btn btn-danger"><i class="fas fa-user-times"></i></button>
+        </form>
+    </h3>
+    @endif
     <div style="margin-top: 30px;"></div>
-    <div class="panel-body">
-        <h3>Ментори от същия тип</h3>
-        @include('students.partials.mentors-table', [
-            'mentors' => $appropriateMentors,
-        ])
-    </div>
+    @if($appropriateMentors->count())
+        <div class="panel-body">
+            <h3>Ментори от същия тип</h3>
+            @include('students.partials.mentors-table', [
+                'mentors' => $appropriateMentors,
+            ])
+        </div>
+    @endif
     <div style="margin-top: 50px;"></div>
     <div class="panel-body">
         <h3>Други ментори</h3>

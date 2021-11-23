@@ -66,18 +66,24 @@
                                 {{ $student->name }}
                                 <div style="float: right">
                                     <a href="{{ route('students.connect', $student->id) }}" class="btn btn-success">
-                                        <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
+                                        @if ($student->mentors->count() == 0)
+                                            <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
+                                        @else
+                                            <i class="fa fa-user"></i>
+                                        @endif
                                     </a>
                                     <a href="{{ route('students-edit', $student->id) }}" class="btn btn-warning">
                                         <i class="fa fa-user-edit"></i>
                                     </a>
-                                    <form id="deleteStudent-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('students-destroy', $student->id) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <span onclick="deleteStudent('deleteStudent-{{ $loop->iteration }}')" class="btn btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </form>
+                                    @if ($student->mentors->count() == 0)
+                                        <form id="deleteStudent-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('students-destroy', $student->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <span onclick="deleteStudent('deleteStudent-{{ $loop->iteration }}')" class="btn btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </span>
+                                        </form>
+                                    @endif
                                 </div>
                             </td>
                             <td>{{ $student->email }}</td>

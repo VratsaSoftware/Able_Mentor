@@ -26,7 +26,7 @@
                             @csrf
                             @method('PUT')
 
-                            <button class="btn btn-success"><i class="fas fa-user-plus"></i></button>
+                            <button class="btn btn-success" {{ $student->mentors->count() ? 'disabled' : null }}><i class="fas fa-user-plus"></i></button>
                         </form>
                     @endif
                 </td>
