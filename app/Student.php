@@ -43,6 +43,7 @@ class Student extends Model
             'schoolClass',
             'sport',
             'projectTypes',
+            'mentors',
         ]);
     }
 
