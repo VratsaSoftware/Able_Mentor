@@ -3,7 +3,6 @@
     <tr>
         <th>Име</th>
         <th>Град</th>
-        <th>Брой ментори</th>
         <th>...</th>
     </tr>
     </thead>
@@ -12,7 +11,6 @@
         <tr>
             <td>{{ $student->name }}</td>
             <td>{{ $student->city->name }}</td>
-            <td>{{ $student->mentors->count() }}</td>
             <td>
                 @if(in_array($student->id, $mentor->students->pluck('id')->toArray()))
                     <form style="display:inline-block; margin-left: 10px" action="{{ route('student-mentor.detach', ['student' => $student->id, 'mentor' => $mentor->id]) }}" method="POST">
@@ -37,7 +35,6 @@
     <tr>
         <th>Име</th>
         <th>Град</th>
-        <th>Брой ментори</th>
         <th>...</th>
     </tr>
     </tfoot>
