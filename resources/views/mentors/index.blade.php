@@ -58,12 +58,22 @@
                             <td>
                                 {{ $mentor->name }}
                                 <div style="float: right">
-                                    <a href="{{ route('mentors.connect', $mentor->id) }}" class="btn btn-success">
-                                        <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
-                                    </a>
-                                    <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-warning">
-                                        <i class="fa fa-user-edit"></i>
-                                    </a>
+                                    @if(Request::get('status') !== 'pending')
+                                        <a href="{{ route('mentors.connect', $mentor->id) }}" class="btn btn-success">
+                                            <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
+                                        </a>
+                                        <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-warning">
+                                            <i class="fa fa-user-edit"></i>
+                                        </a>
+                                    @else
+                                        <form style="display:inline-block;" action="{{ route('mentor-approve', $mentor->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button class="btn btn-success">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                     <form id="deleteMentor-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('mentors-destroy', $mentor->id) }}" method="POST">
                                         @csrf
                                         @method('delete')

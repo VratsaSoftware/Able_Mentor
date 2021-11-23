@@ -27,4 +27,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('mentors', 'MentorsController@store')->name('mentors-store');
 
 /* create student api */
-//Route::post('students', 'StudentsController@store')->name('students-store');
+Route::post('students', 'StudentsController@store')->name('students-store');

@@ -146,10 +146,9 @@ class StudentsController extends Controller
      * Update the specified resource in storage.
      *
      * @param \App\Student  $student
-     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function studentApprove(Student $student, Request $request) {
+    public function studentApprove(Student $student) {
         $student->is_approved = 1;
 
         $student->save();
