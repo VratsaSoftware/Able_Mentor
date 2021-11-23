@@ -14,12 +14,9 @@
                     Ментори
                 </div>
                 <div class="col text-right">
-                    <form action="{{ route('mentors') }}" method="get">
-                        <input name="status" type="hidden" value="{{ Request::get('status') !== 'approved' ? 'approved' : 'pending' }}">
-                        <button class="btn btn-warning mt-3">
-                            <i class="fas fa-users"></i> {{ Request::get('status') == 'approved' ? 'Изчакващи' : 'Одобрени' }}
-                        </button>
-                    </form>
+                    @include('includes.change-status', [
+                        'routeName' => 'mentors',
+                    ])
                 </div>
                 <div class="col-2">
                     @include('includes.import-file', [

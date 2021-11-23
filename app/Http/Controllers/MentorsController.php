@@ -19,11 +19,18 @@ class MentorsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-    	$mentors = Mentor::withRelations()
-            ->approved()
-            ->get();
+    	$mentorsQuery = Mentor::query()
+            ->withRelations();
+
+    	if ($request->status == 'pending') {
+            $mentorsQuery->pending();
+        } else {
+            $mentorsQuery->approved();
+        }
+
+        $mentors = $mentorsQuery->get();
 
         return view('mentors.index', [
             'mentors' => $mentors,
