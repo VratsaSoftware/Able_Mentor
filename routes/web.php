@@ -44,6 +44,7 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     Route::delete('students/delete/{student}', 'StudentsController@destroy')->name('students-destroy');
     Route::get('students/edit/{student}', 'StudentsController@edit')->name('students-edit');
     Route::put('students/update/{student}', 'StudentsController@update')->name('students-update');
+    Route::put('students/student-approve/{student}', 'StudentsController@studentApprove')->name('student-approve');
     Route::get('student-mentor-connect/{student}', 'StudentsController@mentors')->name('students.connect');
 
     /* student-mentor operations - attach/detach */

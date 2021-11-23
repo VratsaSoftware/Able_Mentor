@@ -142,6 +142,21 @@ class StudentsController extends Controller
         return redirect()->route('students.index')->with('success', 'Успешно редактиран студент!');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \App\Student  $student
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function studentApprove(Student $student, Request $request) {
+        $student->is_approved = 1;
+
+        $student->save();
+
+        return redirect()->back()->with('success', 'Успешно потвърден студент!');
+    }
+
     public function mentors(Student $student) {
         $appropriateMentors = Mentor::with('city', 'students')
             ->approved()

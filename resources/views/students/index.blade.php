@@ -65,16 +65,26 @@
                             <td>
                                 {{ $student->name }}
                                 <div style="float: right">
-                                    <a href="{{ route('students.connect', $student->id) }}" class="btn btn-success">
-                                        @if ($student->mentors->count() == 0)
-                                            <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
-                                        @else
-                                            <i class="fa fa-user"></i>
-                                        @endif
-                                    </a>
-                                    <a href="{{ route('students-edit', $student->id) }}" class="btn btn-warning">
-                                        <i class="fa fa-user-edit"></i>
-                                    </a>
+                                    @if(Request::get('status') !== 'pending')
+                                        <a href="{{ route('students.connect', $student->id) }}" class="btn btn-success">
+                                            @if ($student->mentors->count() == 0)
+                                                <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
+                                            @else
+                                                <i class="fa fa-user"></i>
+                                            @endif
+                                        </a>
+                                        <a href="{{ route('students-edit', $student->id) }}" class="btn btn-warning">
+                                            <i class="fa fa-user-edit"></i>
+                                        </a>
+                                    @else
+                                        <form style="display:inline-block;" action="{{ route('student-approve', $student->id) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button class="btn btn-success">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </form>
+                                    @endif
                                     @if ($student->mentors->count() == 0)
                                         <form id="deleteStudent-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('students-destroy', $student->id) }}" method="POST">
                                             @csrf
@@ -104,7 +114,7 @@
                             <td>{{ $student->difficult_situations }}</td>
                             <td>{{ $student->program_achievments }}</td>
                             <td>{{ $student->want_to_change }}</td>
-                            <td>{{ $student->hours ?: 'Повече' }}</td>
+                            <td>{{ $student->hours == 5 ? 'Повече' : $student->hours }}</td>
                             <td>
                                 <ul>
                                     @foreach($student->projectTypes as $projectType)
