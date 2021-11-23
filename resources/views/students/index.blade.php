@@ -9,11 +9,23 @@
 @section('content')
     <div class="container-fluid">
         <h1 class="text-black-50">
-            Ученици
-
-            @include('includes.import-file', [
-                'routeName' => 'students-import',
-            ])
+            <div class="row">
+                <div class="col">
+                    Ученици
+                </div>
+                <div class="col text-right">
+                    <div class="col text-right">
+                        @include('includes.change-status', [
+                            'routeName' => 'students.index',
+                        ])
+                    </div>
+                </div>
+                <div class="col-2">
+                    @include('includes.import-file', [
+                        'routeName' => 'students-import',
+                    ])
+                </div>
+            </div>
         </h1>
     </div>
     <div class="panel-body mt-5">

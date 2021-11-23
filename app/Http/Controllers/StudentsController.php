@@ -22,11 +22,18 @@ class StudentsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::withRelations()
-            ->approved()
-            ->get();
+        $studentsQuery = Student::query()
+            ->withRelations();
+
+        if ($request->status == 'pending') {
+            $studentsQuery->pending();
+        } else {
+            $studentsQuery->approved();
+        }
+
+        $students = $studentsQuery->get();
 
         return view('students.index', [
             'students' => $students,
