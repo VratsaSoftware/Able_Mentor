@@ -23,8 +23,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-/* create mentor api */
-Route::post('mentors', 'MentorsController@store')->name('mentors-store');
-
-/* create student api */
-Route::post('students', 'StudentsController@store')->name('students-store');
+///* create mentor api */
+//Route::get('mentors/create', 'MentorsController@create')->name('mentors-create');
+//Route::post('mentors', 'MentorsController@store')->name('mentors-store');
+//
+///* create student api */
+//Route::get('students/create', 'StudentsController@create')->name('students-create');
+//Route::post('students', 'StudentsController@store')->name('students-store');

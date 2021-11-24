@@ -168,12 +168,11 @@ class MentorsController extends Controller
                     ->orWhereHas('mentors', function ($query) use ($mentor) {
                         $query->where('mentor_id', $mentor->id);
                     });
-            })->where(function ($q) use ($mentor) {
-                $q->where('hours', $mentor->hours - 1)
-                    ->orWhere('hours', $mentor->hours)
-                    ->orWhere('hours', $mentor->hours + 1);
-            })
-            ->whereHas('projectTypes', function ($q) use ($mentor) {
+            })->whereIn('hours', [
+                $mentor->hours,
+                $mentor->hours - 1,
+                $mentor->hours + 1,
+            ])->whereHas('projectTypes', function ($q) use ($mentor) {
                 $q->whereIn('type', $mentor->projectTypes);
             })->get();
 

@@ -159,12 +159,12 @@ class StudentsController extends Controller
     public function mentors(Student $student) {
         $appropriateMentors = Mentor::with('city', 'students')
             ->approved()
-            ->whereHas('projectTypes', function ($q) use ($student) {
+            ->whereIn('hours', [
+                $student->hours,
+                $student->hours - 1,
+                $student->hours + 1,
+            ])->whereHas('projectTypes', function ($q) use ($student) {
                 $q->whereIn('type', $student->projectTypes);
-            })->where(function ($q) use ($student) {
-                $q->where('hours', $student->hours - 1)
-                    ->orWhere('hours', $student->hours)
-                    ->orWhere('hours', $student->hours + 1);
             })->get();
 
         $otherMentors = Mentor::with('city', 'students')

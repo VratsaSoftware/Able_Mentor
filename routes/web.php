@@ -22,11 +22,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// mentors
+/* create mentor api */
 Route::get('mentors/create', 'MentorsController@create')->name('mentors-create');
+Route::post('mentors', 'MentorsController@store')->name('mentors-store');
 
-// students
+/* create student api */
 Route::get('students/create', 'StudentsController@create')->name('students-create');
+Route::post('students', 'StudentsController@store')->name('students-store');
 
 // auth middleware
 Route::middleware(['auth', 'userApproved'])->group(function () {
