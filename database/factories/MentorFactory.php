@@ -24,6 +24,5 @@ $factory->define(Mentor::class, function (Faker $faker) {
         'cv_path' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'able_mentor_info' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'notes' => $faker->regexify('[A-Za-z0-9\s]{100}'),
-        'is_approved' => $faker->numberBetween(0, 1),
     ];
 });

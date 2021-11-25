@@ -34,7 +34,6 @@ class CreateMentorsTable extends Migration
             $table->string('cv_path')->nullable();
             $table->longText('able_mentor_info');
             $table->longText('notes')->nullable();
-            $table->boolean('is_approved')->default(0);
             $table->timestamps();
         });
     }

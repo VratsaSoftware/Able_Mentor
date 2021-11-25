@@ -37,8 +37,6 @@ class CreateStudentsTable extends Migration
             $table->integer('hours');
             $table->longText('able_mentor_info_source');
             $table->longText('notes')->nullable();
-            $table->boolean('is_approved')->default(0);
-
             $table->timestamps();
 
             $table->foreign('gender_id')->references('id')->on('genders')->onUpdate('NO ACTION')->onDelete('NO ACTION');

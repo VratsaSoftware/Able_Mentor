@@ -21,16 +21,8 @@ class MentorsController extends Controller
      */
     public function index(Request $request)
     {
-    	$mentorsQuery = Mentor::query()
-            ->withRelations();
-
-    	if ($request->status == 'pending') {
-            $mentorsQuery->pending();
-        } else {
-            $mentorsQuery->approved();
-        }
-
-        $mentors = $mentorsQuery->get();
+    	$mentors = Mentor::withRelations()
+            ->get();
 
         return view('mentors.index', [
             'mentors' => $mentors,
@@ -145,24 +137,9 @@ class MentorsController extends Controller
         return redirect()->back()->with('success', 'Успешно се записахте!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \App\Mentor  $mentor
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function mentorApprove(Mentor $mentor)
-    {
-        $mentor->is_approved = 1;
-        $mentor->save();
-
-        return redirect()->back()->with('success', 'Успешно потвърден ментор!');
-    }
-
     public function students(Mentor $mentor)
     {
         $appropriateStudents = Student::with('city', 'mentors')
-            ->approved()
             ->where(function ($q) use ($mentor) {
                 $q->doesntHave('mentors')
                     ->orWhereHas('mentors', function ($query) use ($mentor) {
@@ -177,7 +154,6 @@ class MentorsController extends Controller
             })->get();
 
         $otherStudents = Student::with('city', 'mentors')
-            ->approved()
             ->where(function ($q) use ($mentor) {
                 $q->doesntHave('mentors')
                     ->orWhereHas('mentors', function ($query) use ($mentor) {

@@ -47,22 +47,6 @@ class Student extends Model
         ]);
     }
 
-    /*
-     * local scope approved
-     */
-    public function scopeApproved($query)
-    {
-        $query->where('is_approved', 1);
-    }
-
-    /*
-     * local scope pending
-     */
-    public function scopePending($query)
-    {
-        $query->where('is_approved', 0);
-    }
-
     public function city()
     {
     	return $this->hasOne(City::class, 'id', 'city_id');

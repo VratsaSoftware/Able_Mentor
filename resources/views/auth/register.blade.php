@@ -67,12 +67,6 @@
             <div class="row">
                 <div class="col-6">
                     <a href="{{ route('login') }}" class="text-center">Вече имам регистрация</a>
-{{--                    <div class="icheck-primary">--}}
-{{--                        <input type="checkbox" id="agreeTerms" name="terms" value="agree">--}}
-{{--                        <label for="agreeTerms">--}}
-{{--                            Съгласен съм с <a href="#">условията</a>--}}
-{{--                        </label>--}}
-{{--                    </div>--}}
                 </div>
                 <!-- /.col -->
                 <div class="col-6">

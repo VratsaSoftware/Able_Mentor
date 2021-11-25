@@ -29,6 +29,5 @@ $factory->define(Student::class, function (Faker $faker) {
         'want_to_change' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'able_mentor_info_source' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'notes' => $faker->regexify('[A-Za-z0-9\s]{100}'),
-        'is_approved' => $faker->numberBetween(0, 1),
     ];
 });

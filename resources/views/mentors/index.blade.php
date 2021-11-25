@@ -13,11 +13,6 @@
                 <div class="col">
                     Ментори
                 </div>
-                <div class="col text-right">
-                    @include('includes.change-status', [
-                        'routeName' => 'mentors',
-                    ])
-                </div>
                 <div class="col-2">
                     @include('includes.import-file', [
                         'routeName' => 'mentors-import',

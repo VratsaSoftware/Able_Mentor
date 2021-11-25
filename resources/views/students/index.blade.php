@@ -13,13 +13,6 @@
                 <div class="col">
                     Ученици
                 </div>
-                <div class="col text-right">
-                    <div class="col text-right">
-                        @include('includes.change-status', [
-                            'routeName' => 'students.index',
-                        ])
-                    </div>
-                </div>
                 <div class="col-2">
                     @include('includes.import-file', [
                         'routeName' => 'students-import',
