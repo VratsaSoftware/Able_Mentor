@@ -19,10 +19,10 @@ class DatabaseSeeder extends Seeder
 	        	EnglishLevelsTypesTableSeeder::class,
 	        	SportsTypesTableSeeder::class,
 	        	SchoolClassesTypesTableSeeder::class,
+                SeasonSeeder::class,
                 UsersTableSeeder::class,
                 MentorsTableSeeder::class,
                 StudentsTableSeeder::class,
-                SeasonSeeder::class,
         	]
         );
     }

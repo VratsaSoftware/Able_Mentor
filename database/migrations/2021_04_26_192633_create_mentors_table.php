@@ -20,10 +20,9 @@ class CreateMentorsTable extends Migration
             $table->string('email', 100)->unique();
             $table->string('phone', 100);
             $table->unsignedBigInteger('gender_id');
-            $table->foreign('gender_id')->references('id')->on('genders')->onUpdate('NO ACTION')->onDelete('NO ACTION');
-            $table->string('season', 100);
+            $table->unsignedBigInteger('previous_season_id')->nullable();
+            $table->unsignedBigInteger('current_season_id')->nullable();
             $table->unsignedBigInteger('city_id');
-            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->longText('work');
             $table->longText('education');
             $table->longText('experience');
@@ -35,6 +34,11 @@ class CreateMentorsTable extends Migration
             $table->longText('able_mentor_info');
             $table->longText('notes')->nullable();
             $table->timestamps();
+
+            $table->foreign('current_season_id')->references('id')->on('seasons');
+            $table->foreign('city_id')->references('id')->on('cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign('previous_season_id')->references('id')->on('seasons');
+            $table->foreign('gender_id')->references('id')->on('genders')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 

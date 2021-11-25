@@ -98,7 +98,7 @@ class ImportDataService {
             'email' => $column[2],
             'phone' => $column[3],
             'gender_id' => $column[4] == 'Мъж' ? 1 : 2,
-            'season' => $column[6],
+            'current_season_id' => (int)$column[6],
             'city_id' => self::findCity($column[7]),
             'education' => $column[8],
             'work' => $column[9],

@@ -74,7 +74,7 @@
             <h6 style="color:#4a4a4a; margin-top:50px;">Ако сте били ментор в програмата досега, моля отбележете в кой сезон.</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-mentor-1">
-                    <select name="season" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
+                    <select name="current_season_id" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
                             aria-required="true" aria-invalid="false" required>
                         <option value="0">Не съм бил досега.</option>
                         @for($i = 1; $i <= 15; $i++)
