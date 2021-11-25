@@ -15,6 +15,7 @@
         <h3>Ученици от същия тип</h3>
         @include('mentors.partials.students-table', [
             'students' => $appropriateStudents,
+            'type' => 'appropriate',
         ])
     </div>
     <div style="margin-top: 50px;"></div>
@@ -22,6 +23,7 @@
     <h3>Други ученици</h3>
         @include('mentors.partials.students-table', [
             'students' => $otherStudents,
+            'type' => 'other',
         ])
     </div>
 @endsection

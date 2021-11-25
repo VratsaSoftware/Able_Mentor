@@ -139,27 +139,30 @@ class MentorsController extends Controller
 
     public function students(Mentor $mentor)
     {
-        $appropriateStudents = Student::with('city', 'mentors')
+        $otherStudents = Student::with('city', 'mentors', 'projectTypes')
             ->where(function ($q) use ($mentor) {
                 $q->doesntHave('mentors')
                     ->orWhereHas('mentors', function ($query) use ($mentor) {
                         $query->where('mentor_id', $mentor->id);
                     });
-            })->whereIn('hours', [
+            })->whereNotIn('hours', [
                 $mentor->hours,
                 $mentor->hours - 1,
                 $mentor->hours + 1,
-            ])->whereHas('projectTypes', function ($q) use ($mentor) {
-                $q->whereIn('type', $mentor->projectTypes);
+            ])->where(function ($q) use ($mentor) {
+                $q->doesntHave('projectTypes')
+                    ->orWhereHas('projectTypes', function ($q) use ($mentor) {
+                        $q->whereNotIn('type', $mentor->projectTypes);
+                    });
             })->get();
 
-        $otherStudents = Student::with('city', 'mentors')
+        $appropriateStudents = Student::with('city', 'mentors', 'projectTypes')
             ->where(function ($q) use ($mentor) {
                 $q->doesntHave('mentors')
                     ->orWhereHas('mentors', function ($query) use ($mentor) {
                         $query->where('mentor_id', $mentor->id);
                     });
-            })->whereNotIn('id', $appropriateStudents->pluck('id'))
+            })->whereNotIn('id', $otherStudents->pluck('id'))
             ->get();
 
         return view('mentors.students', [
