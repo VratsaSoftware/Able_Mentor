@@ -65,17 +65,19 @@
                                             <i class="fa fa-user"></i>
                                         @endif
                                     </a>
-                                    <a href="{{ route('students-edit', $student->id) }}" class="btn btn-warning">
-                                        <i class="fa fa-user-edit"></i>
-                                    </a>
-                                    @if ($student->mentors->count() == 0)
-                                        <form id="deleteStudent-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('students-destroy', $student->id) }}" method="POST">
-                                            @csrf
-                                            @method('delete')
-                                            <span onclick="deleteStudent('deleteStudent-{{ $loop->iteration }}')" class="btn btn-danger">
-                                                <i class="fa fa-trash"></i>
-                                            </span>
-                                        </form>
+                                    @if (Auth::user()->isAdmin())
+                                        <a href="{{ route('students-edit', $student->id) }}" class="btn btn-warning">
+                                            <i class="fa fa-user-edit"></i>
+                                        </a>
+                                        @if ($student->mentors->count() == 0)
+                                            <form id="deleteStudent-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('students-destroy', $student->id) }}" method="POST">
+                                                @csrf
+                                                @method('delete')
+                                                <span onclick="deleteStudent('deleteStudent-{{ $loop->iteration }}')" class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </span>
+                                            </form>
+                                        @endif
                                     @endif
                                 </div>
                             </td>

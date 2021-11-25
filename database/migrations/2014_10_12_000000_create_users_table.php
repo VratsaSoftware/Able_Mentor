@@ -24,7 +24,6 @@ class CreateUsersTable extends Migration
                 'admin',
                 'operator',
             ])->nullable();
-            $table->boolean('approved')->default(0);
 
             $table->timestamps();
         });

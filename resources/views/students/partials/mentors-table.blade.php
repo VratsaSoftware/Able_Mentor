@@ -37,14 +37,14 @@
                             @csrf
                             @method('PUT')
 
-                            <button class="btn btn-danger" onclick="return confirm('Връзката ще бъде премахната!')"><i class="fas fa-user-times"></i></button>
+                            <button class="btn btn-danger" {{ Auth::user()->isAdmin() ?: 'disabled' }} onclick="return confirm('Връзката ще бъде премахната!')"><i class="fas fa-user-times"></i></button>
                         </form>
                     @else
                         <form style="display:inline-block; margin-left: 10px" action="{{ route('student-mentor.attach', ['student' => $student->id, 'mentor' => $mentor->id]) }}" method="POST">
                             @csrf
                             @method('PUT')
 
-                            <button class="btn btn-success" {{ $student->mentors->count() ? 'disabled' : null }}><i class="fas fa-user-plus"></i></button>
+                            <button class="btn btn-success" {{ Auth::user()->isAdmin() ?: 'disabled' }} {{ $student->mentors->count() ? 'disabled' : null }}><i class="fas fa-user-plus"></i></button>
                         </form>
                     @endif
                 </td>

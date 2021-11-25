@@ -13,13 +13,26 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $admin = new User;
-        $admin->name = 'Admin Admin';
-        $admin->email = 'admin@admin.com';
-        $admin->password = bcrypt('123456789');
-        $admin->remember_token = bcrypt('123456789');
-        $admin->role = 'admin';
-        $admin->approved = 1;
-        $admin->save();
+        User::insert([
+            [
+                'name' => 'Admin Admin',
+                'email' => 'admin@admin.com',
+                'password' => bcrypt('123456789'),
+                'role' => 'admin',
+                'created_at' => NOW(),
+            ], [
+                'name' => 'Operator',
+                'email' => 'operator@operator.com',
+                'password' => bcrypt('123456789'),
+                'role' => 'operator',
+                'created_at' => NOW(),
+            ], [
+                'name' => 'User',
+                'email' => 'user@user.com',
+                'password' => bcrypt('123456789'),
+                'role' => null,
+                'created_at' => NOW(),
+            ],
+        ]);
     }
 }

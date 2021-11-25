@@ -56,16 +56,18 @@
                                     <a href="{{ route('mentors.connect', $mentor->id) }}" class="btn btn-success">
                                         <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
                                     </a>
-                                    <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-warning">
-                                        <i class="fa fa-user-edit"></i>
-                                    </a>
-                                    <form id="deleteMentor-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('mentors-destroy', $mentor->id) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <span onclick="deleteMentor('deleteMentor-{{ $loop->iteration }}')" class="btn btn-danger">
-                                            <i class="fa fa-trash"></i>
-                                        </span>
-                                    </form>
+                                    @if (Auth::user()->isAdmin())
+                                        <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-warning">
+                                            <i class="fa fa-user-edit"></i>
+                                        </a>
+                                        <form id="deleteMentor-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('mentors-destroy', $mentor->id) }}" method="POST">
+                                            @csrf
+                                            @method('delete')
+                                            <span onclick="deleteMentor('deleteMentor-{{ $loop->iteration }}')" class="btn btn-danger">
+                                                <i class="fa fa-trash"></i>
+                                            </span>
+                                        </form>
+                                    @endif
                                 </div>
                             </td>
                             <td>{{ $mentor->age }}</td>

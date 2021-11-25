@@ -24,7 +24,7 @@ class User extends Authenticatable
      */
     public function scopeApproved($query)
     {
-        $query->where('approved', 1);
+        $query->whereNotNull('role');
     }
 
     /**
@@ -49,6 +49,13 @@ class User extends Authenticatable
      * Check if the user is approved
      */
     public function isApproved() {
-        return $this->approved == 1;
+        return !is_null($this->role);
+    }
+
+    /*
+     * Authenticated user is admin
+     */
+    public function isAdmin() {
+        return $this->role == 'admin';
     }
 }

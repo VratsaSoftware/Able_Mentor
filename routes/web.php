@@ -48,16 +48,21 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     Route::put('students/update/{student}', 'StudentsController@update')->name('students-update');
     Route::get('student-mentor-connect/{student}', 'StudentsController@mentors')->name('students.connect');
 
-    /* student-mentor operations - attach/detach */
-    Route::put('student-mentor-attach/student/{student}/mentor/{mentor}', 'StudentsController@attachMentor')->name('student-mentor.attach');
-    Route::put('student-mentor-detach/student/{student}/mentor/{mentor}', 'StudentsController@detachStudentMentor')->name('student-mentor.detach');
+    // authenticated user is admin
+    Route::middleware(['isAdmin'])->group(function () {
+        /* student-mentor operations - attach/detach */
+        Route::put('student-mentor-attach/student/{student}/mentor/{mentor}', 'StudentsController@attachMentor')->name('student-mentor.attach');
+        Route::put('student-mentor-detach/student/{student}/mentor/{mentor}', 'StudentsController@detachStudentMentor')->name('student-mentor.detach');
 
-    // import data
-    Route::post('mentors/import', 'MentorsController@importMentors')->name('mentors-import');
-    Route::post('students/import', 'StudentsController@importStudents')->name('students-import');
+        // import data
+        Route::post('mentors/import', 'MentorsController@importMentors')->name('mentors-import');
+        Route::post('students/import', 'StudentsController@importStudents')->name('students-import');
 
-    /* users */
-    Route::resource('users', 'UserController')->names('users');
-
-    Route::get('pending-approval', 'HomeController@pendingApproval')->name('pending-approval');
+        /* users */
+        Route::resource('users', 'UserController')->names('users');
+    });
 });
+
+Route::get('pending-approval', 'HomeController@pendingApproval')
+    ->middleware(['auth'])
+    ->name('pending-approval');
