@@ -1,5 +1,10 @@
 $(document).ready( function () {
-    $('.datatable').DataTable({
+    datatable('.datatable', 0);
+    datatable('.datatable-mentors', 4);
+});
+
+function datatable(className, columnOrderDesc) {
+    $(className).DataTable({
         dom: 'Bfrtip',
         buttons: [
             'excelHtml5',
@@ -36,6 +41,6 @@ $(document).ready( function () {
                 "sLast": "Последна"
             },
         },
-        order: [[ 0, "desc" ]],
+        order: [[ columnOrderDesc, "desc" ]],
     });
-});
+}

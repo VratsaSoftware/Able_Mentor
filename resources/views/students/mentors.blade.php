@@ -11,16 +11,16 @@
         <h1 class="text-black-50">Ментори на {{ $student->name }}</h1>
     </div>
     @if ($student->mentors->count())
-    <h3 class="mt-5 text-center">
-        {{ $student->mentors->first()->name }}
+        <h3 class="mt-5 text-center">
+            {{ $student->mentors->first()->name }}
 
-        <form style="display:inline-block; margin-left: 10px" action="{{ route('student-mentor.detach', ['student' => $student->id, 'mentor' => $student->mentors->first()->id]) }}" method="POST">
-            @csrf
-            @method('PUT')
+            <form style="display:inline-block; margin-left: 10px" action="{{ route('student-mentor.detach', ['student' => $student->id, 'mentor' => $student->mentors->first()->id]) }}" method="POST">
+                @csrf
+                @method('PUT')
 
-            <button class="btn btn-danger"><i class="fas fa-user-times"></i></button>
-        </form>
-    </h3>
+                <button class="btn btn-danger" onclick="return confirm('Връзката ще бъде премахната!')"><i class="fas fa-user-times"></i></button>
+            </form>
+        </h3>
     @endif
     <div style="margin-top: 30px;"></div>
     @if($appropriateMentors->count())
@@ -28,6 +28,7 @@
             <h3>Ментори от същия тип</h3>
             @include('students.partials.mentors-table', [
                 'mentors' => $appropriateMentors,
+                'type' => 'appropriate',
             ])
         </div>
     @endif
@@ -36,6 +37,7 @@
         <h3>Други ментори</h3>
         @include('students.partials.mentors-table', [
             'mentors' => $otherMentors,
+            'type' => 'other',
         ])
     </div>
 @endsection
