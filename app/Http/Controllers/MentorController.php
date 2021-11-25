@@ -12,7 +12,7 @@ use App\ProjectType;
 use App\Student;
 use Ramsey\Uuid\Uuid;
 
-class MentorsController extends Controller
+class MentorController extends Controller
 {
     /**
      * Display a listing of the resource.
