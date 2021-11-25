@@ -28,7 +28,7 @@
                         </td>
                         <td><b style="color: {{ $student->hours == $mentor->hours ? 'green' : 'red' }}">{{ $student->hours }}</b></td>
                         @if($type == 'appropriate')
-                            <td>0%</td>
+                            <td>{{ \App\Services\MentorStudentService::matchingCalculation($student, $mentor) }}</td>
                         @endif
                         <td>
                             @if(in_array($student->id, $mentor->students->pluck('id')->toArray()))
