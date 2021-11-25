@@ -1,6 +1,7 @@
 $(document).ready( function () {
     datatable('.datatable', 0);
     datatable('.matching-datatable', 4);
+    datatable('.datatable-season', 1);
 });
 
 function datatable(className, columnOrderDesc) {

@@ -14,7 +14,9 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        return view('seasons.index');
+        return view('seasons.index', [
+            'seasons' => Season::all(),
+        ]);
     }
 
     /**
