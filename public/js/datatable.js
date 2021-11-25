@@ -1,6 +1,6 @@
 $(document).ready( function () {
     datatable('.datatable', 0);
-    datatable('.datatable-mentors', 4);
+    datatable('.matching-datatable', 4);
 });
 
 function datatable(className, columnOrderDesc) {

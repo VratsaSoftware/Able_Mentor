@@ -1,4 +1,4 @@
-<table class="table {{ $type == 'appropriate' ? 'datatable-mentors' : 'datatable' }} table table-striped table-bordered nowrap" style="border:1px; width: 100%">
+<table class="table {{ $type == 'appropriate' ? 'matching-datatable' : 'datatable' }} table table-striped table-bordered nowrap" style="border:1px; width: 100%">
     <thead>
         <tr>
             <th>Име</th>
