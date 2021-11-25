@@ -74,7 +74,7 @@
                             <td>{{ $mentor->email }}</td>
                             <td>{{ $mentor->phone }}</td>
                             <td>{{ $mentor->gender->gender }}</td>
-                            <td>{{ $mentor->season }}</td>
+                            <td>{{ $mentor->previousSeason->name }}</td>
                             <td>{{ $mentor->city->name }}</td>
                             <td>{{ $mentor->education }}</td>
                             <td>{{ $mentor->work }}</td>

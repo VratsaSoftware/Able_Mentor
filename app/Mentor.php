@@ -36,6 +36,7 @@ class Mentor extends Model
             'city',
             'gender',
             'projectTypes',
+            'previousSeason',
         ]);
     }
 
@@ -44,9 +45,19 @@ class Mentor extends Model
         return $this->belongsTo('App\City', 'city_id', 'id');
     }
 
+    public function previousSeason()
+    {
+        return $this->belongsTo(Season::class, 'previous_season_id', 'id');
+    }
+
+    public function currentSeason()
+    {
+        return $this->belongsTo(Season::class, 'current_season_id', 'id');
+    }
+
     public function students()
     {
-        return $this->belongsToMany('App\Student', 'mentors_students');
+        return $this->belongsToMany(Student::class, 'mentors_students');
     }
 
     public function gender()

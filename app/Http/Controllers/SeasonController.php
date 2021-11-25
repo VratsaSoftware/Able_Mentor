@@ -14,8 +14,11 @@ class SeasonController extends Controller
      */
     public function index()
     {
+        $seasons = Season::where('id', '!=', 1)
+            ->get();
+
         return view('seasons.index', [
-            'seasons' => Season::all(),
+            'seasons' => $seasons,
         ]);
     }
 

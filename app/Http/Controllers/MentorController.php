@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MentorRequest;
+use App\Season;
 use App\Services\ImportDataService;
 use Illuminate\Http\Request;
 use App\Mentor;
@@ -39,11 +40,13 @@ class MentorController extends Controller
         $cities = City::all();
         $projectTypes = ProjectType::all();
         $genders = Gender::all();
+        $seasons = Season::all();
 
         return view('mentors.create', [
             'cities' => $cities,
             'genders' => $genders,
             'projectTypes' => $projectTypes,
+            'seasons' => $seasons,
         ]);
     }
 

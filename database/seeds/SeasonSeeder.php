@@ -13,6 +13,13 @@ class SeasonSeeder extends Seeder
     public function run()
     {
         $seasonsData = [];
+
+        $seasonsData[] = [
+            'name' => 'Не съм бил досега.',
+            'start' => Carbon::now()->subYears(50),
+            'end' => Carbon::now()->subYears(50),
+        ];
+
         for ($i = 0; $i < 17; $i++) {
             $seasonsData[] = [
                 'name' => 'Сезон ' . ($i + 1),
