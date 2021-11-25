@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">{{ __('Списък с всички ученици') }}</h1>
+        <h1 class="text-black-50">Списък с всички ученици ({{ $mentor->students->count() }})</h1>
     </div>
     <div style="margin-top: 30px;"></div>
     <div class="panel-body">
