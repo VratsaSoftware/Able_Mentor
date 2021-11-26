@@ -156,6 +156,7 @@ class StudentController extends Controller
     public function mentors(Student $student)
     {
         $otherMentors = Mentor::with('city', 'students')
+            ->where('current_season_id', $student->season_id)
             ->whereNotIn('hours', [
                 $student->hours,
                 $student->hours - 1,
@@ -168,6 +169,7 @@ class StudentController extends Controller
             })->get();
 
         $appropriateMentors = Mentor::with('city', 'students')
+            ->where('current_season_id', $student->season_id)
             ->whereNotIn('id', $otherMentors->pluck('id'))
             ->get();
 

@@ -6,6 +6,7 @@ use App\Http\Requests\MentorRequest;
 use App\Season;
 use App\Services\ImportDataService;
 use App\Services\MentorStudentService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Mentor;
 use App\City;
@@ -44,7 +45,8 @@ class MentorController extends Controller
         $cities = City::all();
         $projectTypes = ProjectType::all();
         $genders = Gender::all();
-        $seasons = Season::all();
+        $seasons = Season::whereDate('start', '<=', Carbon::now())
+            ->get();
 
         return view('mentors.create', [
             'cities' => $cities,
@@ -165,6 +167,7 @@ class MentorController extends Controller
     public function students(Mentor $mentor)
     {
         $otherStudents = Student::with('city', 'mentors', 'projectTypes')
+            ->where('season_id', $mentor->current_season_id)
             ->where(function ($q) use ($mentor) {
                 $q->doesntHave('mentors')
                     ->orWhereHas('mentors', function ($query) use ($mentor) {
@@ -182,6 +185,7 @@ class MentorController extends Controller
             })->get();
 
         $appropriateStudents = Student::with('city', 'mentors', 'projectTypes')
+            ->where('season_id', $mentor->current_season_id)
             ->where(function ($q) use ($mentor) {
                 $q->doesntHave('mentors')
                     ->orWhereHas('mentors', function ($query) use ($mentor) {

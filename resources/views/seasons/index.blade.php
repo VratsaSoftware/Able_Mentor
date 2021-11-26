@@ -13,6 +13,11 @@
                 <div class="col">
                     Сезони
                 </div>
+                @if(Auth::user()->isAdmin())
+                    <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#createSeason">
+                        <i class="fas fa-calendar-plus mr-1"></i> Добави
+                    </button>
+                @endif
             </div>
         </h1>
     </div>
@@ -59,6 +64,8 @@
             </table>
         </div>
     </div>
+
+    @include('seasons.partials.create-modal')
 @endsection
 
 @push('scripts')

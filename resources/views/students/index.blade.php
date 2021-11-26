@@ -56,7 +56,7 @@
                         <tr>
                             <td>{{ $student->created_at }}</td>
                             <td>
-                                {{ $student->name }}
+                                <a href="{{ route('student.show', $student->id) }}">{{ $student->name }}</a>
                                 <div style="float: right">
                                     <a href="{{ route('students.connect', $student->id) }}" class="btn btn-success">
                                         @if ($student->mentors->count() == 0)

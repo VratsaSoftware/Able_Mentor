@@ -45,7 +45,14 @@ class SeasonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $season = new Season;
+
+        $season->name = $request->name;
+        $season->start = $request->start;
+        $season->end = $request->end;
+        $season->save();
+
+        return redirect()->back()->with('success', 'Успешно създаден сезон!');
     }
 
     /**
@@ -90,6 +97,8 @@ class SeasonController extends Controller
      */
     public function destroy(Season $season)
     {
-        //
+        $season->delete();
+
+        return redirect()->back()->with('success', 'Успешно изтрит сезон!');
     }
 }
