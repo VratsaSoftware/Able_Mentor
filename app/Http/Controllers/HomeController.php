@@ -28,6 +28,9 @@ class HomeController extends Controller
         return view('home');
     }
 
+    /**
+     * @return \Illuminate\View\View
+     */
     public function pendingApproval()
     {
         if (Auth::user()->isApproved()) {

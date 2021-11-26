@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MentorRequest;
 use App\Season;
 use App\Services\ImportDataService;
+use App\Services\MentorStudentService;
 use Illuminate\Http\Request;
 use App\Mentor;
 use App\City;
@@ -18,15 +19,18 @@ class MentorController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param null $status
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($status = null)
     {
-    	$mentors = Mentor::withRelations()
-            ->get();
+    	$mentorsQuery = Mentor::query()
+            ->withRelations();
+
+        $mentorsQuery = MentorStudentService::mentorsFilter($status, $mentorsQuery);
 
         return view('mentors.index', [
-            'mentors' => $mentors,
+            'mentors' => $mentorsQuery->get(),
         ]);
     }
 
@@ -58,11 +62,16 @@ class MentorController extends Controller
      */
     public function store(MentorRequest $request)
     {
+        $newSeasonId = Season::new()
+            ->pluck('id')
+            ->first();
+
         $data = $request->all();
 
         unset($data['_token']);
         unset($data['project_type_ids']);
 
+        $data['current_season_id'] = $newSeasonId;
         $data['cv_path'] = self::saveCV($request->cv);
 
         $mentor = new Mentor($data);
@@ -73,8 +82,14 @@ class MentorController extends Controller
         return redirect()->back()->with('success', 'Успешно се записахте!');
     }
 
-    /* save cv */
-    private static function saveCV($cvFile) {
+    /**
+     * Save cv file
+     *
+     * @param $cvFile
+     * @return string
+     */
+    private static function saveCV($cvFile)
+    {
         $cvName = Uuid::uuid4() . '.' . $cvFile->getClientOriginalExtension();
 
         $cvFile->move(public_path() . '/cv/', $cvName);
@@ -140,6 +155,10 @@ class MentorController extends Controller
         return redirect()->back()->with('success', 'Успешно се записахте!');
     }
 
+    /**
+     * @param Mentor $mentor
+     * @return \Illuminate\View\View
+     */
     public function students(Mentor $mentor)
     {
         $otherStudents = Student::with('city', 'mentors', 'projectTypes')
@@ -181,8 +200,8 @@ class MentorController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function importMentors(Request $request) {
-
+    public function importMentors(Request $request)
+    {
         $fileName = Uuid::uuid4() . '.' . $request->file->getClientOriginalExtension();
 
         $request->file->move(public_path() . '/uploads/csv/', $fileName);

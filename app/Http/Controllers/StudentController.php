@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest;
+use App\Season;
 use App\Services\ImportDataService;
+use App\Services\MentorStudentService;
 use Illuminate\Http\Request;
 use App\Student;
 use App\City;
@@ -20,15 +22,18 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param null $status
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index($status = null)
     {
-        $students = Student::withRelations()
-            ->get();
+        $studentsQuery = Student::query()
+            ->withRelations();
+
+        $studentsQuery = MentorStudentService::studentsFilter($status, $studentsQuery);
 
         return view('students.index', [
-            'students' => $students,
+            'students' => $studentsQuery->get(),
         ]);
     }
 
@@ -64,10 +69,16 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
+        $newSeasonId = Season::new()
+            ->pluck('id')
+            ->first();
+
         $data = $request->all();
 
         unset($data['_token']);
         unset($data['project_type_ids']);
+
+        $data['season_id'] = $newSeasonId;
 
         $student = new Student($data);
         $student->save();
@@ -121,7 +132,8 @@ class StudentController extends Controller
      * @param \App\Http\Requests\StudentRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Student $student, StudentRequest $request) {
+    public function update(Student $student, StudentRequest $request)
+    {
         $data = $request->all();
 
         unset($data['_token']);
@@ -134,7 +146,12 @@ class StudentController extends Controller
         return redirect()->route('students.index')->with('success', 'Успешно редактиран студент!');
     }
 
-    public function mentors(Student $student) {
+    /**
+     * @param Student $student
+     * @return \Illuminate\View\View
+     */
+    public function mentors(Student $student)
+    {
         $otherMentors = Mentor::with('city', 'students')
             ->whereNotIn('hours', [
                 $student->hours,
@@ -164,7 +181,8 @@ class StudentController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function importStudents(Request $request) {
+    public function importStudents(Request $request)
+    {
         $fileName = Uuid::uuid4() . '.' . $request->file->getClientOriginalExtension();
 
         $request->file->move(public_path() . '/uploads/csv/', $fileName);
@@ -174,12 +192,18 @@ class StudentController extends Controller
         if (file_exists($fileFailed)) {
             $res = response()->download($fileFailed)->deleteFileAfterSend(true);
         } else {
-            $res = redirect()->back()->with('success', 'Успешно импортиран файл със ученици!');
+            $res = redirect()->back()->with('success', 'Успешно импортиран файл с ученици!');
         }
 
         return $res;
     }
 
+    /**
+     * Attach a mentor to a student
+     *
+     * @param  \App\Student  $student
+     * @param  \App\Mentor  $mentor
+     */
     public function attachMentor(Student $student, Mentor $mentor)
     {
         $student->mentors()->attach($mentor->id);
@@ -187,6 +211,12 @@ class StudentController extends Controller
         return redirect()->back()->with('success', 'Успешно свързване!');
     }
 
+    /**
+     * Detach a mentor from a student
+     *
+     * @param  \App\Student  $student
+     * @param  \App\Mentor  $mentor
+     */
     public function detachStudentMentor(Student $student, Mentor $mentor)
     {
         $student->mentors()->detach($mentor->id);

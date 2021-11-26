@@ -35,6 +35,8 @@ class CreateMentorsTable extends Migration
             $table->longText('notes')->nullable();
             $table->timestamps();
 
+            $table->unique(['email', 'current_season_id']);
+
             $table->foreign('current_season_id')->references('id')->on('seasons');
             $table->foreign('city_id')->references('id')->on('cities')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign('previous_season_id')->references('id')->on('seasons');

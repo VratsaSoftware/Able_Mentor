@@ -33,7 +33,7 @@ Route::post('students', 'StudentController@store')->name('students-store');
 // auth middleware
 Route::middleware(['auth', 'userApproved'])->group(function () {
     /*---- mentors ----*/
-    Route::get('mentors', 'MentorController@index')->name('mentors');
+    Route::get('mentors/{status?}', 'MentorController@index')->name('mentors.index');
 //    Route::get('mentors/single/{mentor}', 'MentorController@show')->name('mentors-show');
     Route::delete('mentors/delete/{mentor}', 'MentorController@destroy')->name('mentors-destroy');
     Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentors-edit');
@@ -41,7 +41,7 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     Route::get('mentors/connect/{mentor}', 'MentorController@students')->name('mentors.connect');
 
     /*---- students ----*/
-    Route::get('students', 'StudentController@index')->name('students.index');
+    Route::get('students/{status?}', 'StudentController@index')->name('students.index');
 //    Route::get('students/single/{student}', 'StudentController@show')->name('students-show');
     Route::delete('students/delete/{student}', 'StudentController@destroy')->name('students-destroy');
     Route::get('students/edit/{student}', 'StudentController@edit')->name('students-edit');

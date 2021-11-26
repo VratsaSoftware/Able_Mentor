@@ -1,16 +1,73 @@
-<!-- need to remove -->
-<li class="nav-item">
-    <a href="{{ route('mentors') }}" class="nav-link">
+<li class="nav-item has-treeview {{ Request::routeIs('mentors*') ? 'menu-open' : null }}">
+    <a href="#" class="nav-link">
         <i class="nav-icon fas fa-chalkboard-teacher"></i>
-        <p>Ментори</p>
+        <p>
+            Ментори
+            <i class="right fas fa-angle-left"></i>
+        </p>
     </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('mentors.index', config('consts.MENTOR_STATUS.current_season')) }}" class="nav-link {{ Request::routeIs('mentors.index') && Request::segment(2) == config('consts.MENTOR_STATUS.current_season') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Текущ сезон</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('mentors.index', config('consts.MENTOR_STATUS.new_season_approved')) }}" class="nav-link {{ Request::routeIs('mentors.index') && Request::segment(2) == config('consts.MENTOR_STATUS.new_season_approved') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Престоящ - свързани</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('mentors.index', config('consts.MENTOR_STATUS.new_season_pending')) }}" class="nav-link {{ Request::routeIs('mentors.index') && Request::segment(2) == config('consts.MENTOR_STATUS.new_season_pending') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Престоящ - нови</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('mentors.index', config('consts.MENTOR_STATUS.archive')) }}" class="nav-link {{ Request::routeIs('mentors.index') && Request::segment(2) == config('consts.MENTOR_STATUS.archive') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Архив</p>
+            </a>
+        </li>
+    </ul>
 </li>
 
-<li class="nav-item">
-    <a href="{{ route('students.index') }}" class="nav-link">
+<li class="nav-item has-treeview {{ Request::routeIs('students*') ? 'menu-open' : null }}">
+    <a href="#" class="nav-link">
         <i class="nav-icon fas fa-user-graduate"></i>
-        <p>Ученици</p>
+        <p>
+            Ученици
+            <i class="right fas fa-angle-left"></i>
+        </p>
     </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item">
+            <a href="{{ route('students.index', config('consts.STUDENT_STATUS.current_season')) }}" class="nav-link {{ Request::routeIs('students.index') && Request::segment(2) == config('consts.STUDENT_STATUS.current_season') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Текущ сезон</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('students.index', config('consts.STUDENT_STATUS.new_season_approved')) }}" class="nav-link {{ Request::routeIs('students.index') && Request::segment(2) == config('consts.STUDENT_STATUS.new_season_approved') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Престоящ - свързани</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('students.index', config('consts.STUDENT_STATUS.new_season_pending')) }}" class="nav-link {{ Request::routeIs('students.index') && Request::segment(2) == config('consts.STUDENT_STATUS.new_season_pending') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Престоящ - нови</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('students.index', config('consts.STUDENT_STATUS.archive')) }}" class="nav-link {{ Request::routeIs('students.index') && Request::segment(2) == config('consts.STUDENT_STATUS.archive') ? 'active' : null }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Архив</p>
+            </a>
+        </li>
+    </ul>
 </li>
 
 <li class="nav-item">
