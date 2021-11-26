@@ -1,128 +1,216 @@
 @extends('layouts.app')
 
-@section('title', 'Профил - ' . $student->name . ' ' . $student->name_second . ' - Able Mentor')
+@section('title', $student->name . ' - Able Mentor')
 
 @section('content')
-    <div class="container-fluid">
-        <h1 class="text-black-50">{{ $student->name }}</h1>
-    </div>
     <div class="card-body">
-    	<a href="{{ route('students-edit', $student->id) }}" class="text-black-15" >Редактирай информацията</a>
-    	<div class="form-group">
-			<label>Възраст:</label>
-			<div class="box-info">
-				{{ $student->age }}
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Електронна поща:</label>
-			<div class="box-info">
-				{{ $student->email }}
-			</div>
-		</div>
-    	<div class="form-group">
-			<label>Телефон:</label>
-			<div class="box-info">
-				{{ $student->phone }}
-			</div>
-		</div>
-    	<div class="form-group">
-			<label>Пол:</label>
-			<div class="box-info">
-				{{ $student->gender_id }} //add relations
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Град:</label>
-			<div class="box-info">
-				{{ $student->city_id }} //add relations
-			</div>
-		</div>
-		<div class="form-group">
-			<label>Училище:</label>
-			<div class="box-info">
-				{{ $student->school }}
-			</div>
-		</div>
-    	<div class="form-group">
-			<label>Клас:</label>
-			<div class="box-info">
-				{{ $student->class_id }} //add relations
-			</div>
-		</div>
-    	<div class="form-group">
-			<label>Любими предмети:</label>
-			<div class="box-info">{{ $student->favorite_subjects }}</div>
-		</div>
-		<div class="form-group">
-			<label>Хобита:</label>
-			<div class="box-info">{{ $student->hobbies }}</div>
-		</div>
-		<div class="form-group">
-			<label>Ниво на английски:</label>
-			<div class="box-info">
-				{{ $student->english_level_id }} //add relations
-			</div>
-		</div>
-	  	<div class="form-group">
-			<label>Любим спорт:</label>
-			<div class="box-info">
-				 {{ $student->sport_id }} //add relations
-			</div>
-		</div>
-	    <div class="form-group">
-			<label>Планове след училище:</label>
-			<div class="box-info">{{ $student->after_school_plans }}</div>
-		</div>
-	    <div class="form-group">
-			<label>Силни/Слаби страни:</label>
-			<div class="box-info">{{ $student->strong_weak_sides }}</div>
-		</div>
-	    <div class="form-group">
-			<label>Неща, които иска да промени:</label>
-			<div class="box-info">{{ $student->qualities_to_change }}</div>
-		</div>
-	    <div class="form-group">
-			<label>Активности в свободното време:</label>
-			<div class="box-info">{{ $student->free_time_activities }}</div>
-		</div>
-	    <div class="form-group">
-			<label>Трудни ситуации:</label>
-			<div class="box-info">{{ $student->difficult_situations }}</div>
-		</div>
-	    <div class="form-group">
-			<label>Идея за осъществяване:</label>
-			<div class="box-info">{{ $student->program_achievments }}</div>
-		</div>
-	   	<div class="form-group">
-			<label>Желае да промени:</label>
-            <div class="box-info">
-                {{ $student->want_to_change }}
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3">
+                        <!-- Profile -->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body box-profile">
+                                <div class="text-center"></div>
+                                @if(Auth::user()->isAdmin())
+                                    <a href="{{ route('students-edit', $student->id) }}" class="btn btn-success mt-3 float-right">
+                                        <i class="fa fa-user-edit"></i>
+                                    </a>
+                                @endif
+                                <h3 class="profile-username text-center">{{ $student->name }}</h3>
+
+                                <p class="text-muted text-center">{{ $student->currentSeason ? $student->currentSeason->name : '?' }}</p>
+
+                                <ul class="list-group list-group-unbordered mb-3">
+                                    <li class="list-group-item">
+                                        <b>Възраст</b> <a class="float-right">{{ $student->age }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Email</b> <a href="mailto:{{ $student->email }}" class="float-right">{{ $student->email }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Телефон</b> <a href="tel:{{ $student->phone }}" class="float-right">{{ $student->phone }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Град за участие</b> <a class="float-right">{{ $student->city ? $student->city->name : null }}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Ментори</h3>
+                                <a href="{{ route('students.connect', $student->id) }}" class="btn btn-success float-right">
+                                    <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                @foreach($student->mentors as $mentor)
+                                    <strong><i class="fas fa-book mr-1"></i> {{ $student->name }}</strong>
+                                    <div class="text-muted">
+                                        Проекти:
+                                        <ul>
+                                            @foreach($mentor->projectTypes as $projectType)
+                                                <li>
+                                                    <span style="color: {{ in_array($projectType->id, $student->projectTypes->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $projectType->type }}</span>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    @if(!$loop->last)
+                                        <hr>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Средно по колко часа седмично бихте отделяли на проекта:</b>
+                                            {{ $student->hours }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Училище:</b>
+                                            {{ $student->school }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Клас:</b>
+                                            {{ $student->schoolClass ? $student->schoolClass->class_name : null }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Ниво на английски:</b>
+                                            {{ $student->englishLevel ? $student->englishLevel->level : null }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Любим спорт:</b>
+                                            {{ $student->sport ? $student->sport->name : null }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Любими предмети:</b>
+                                            {{ $student->favorite_subjects }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Хобита:</b>
+                                            {{ $student->hobbies }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Планове след училище:</b>
+                                            {{ $student->after_school_plans }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Силни/Слаби страни:</b>
+                                            {{ $student->strong_weak_sides }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Неща, които иска да промени:</b>
+                                            {{ $student->qualities_to_change }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Активности в свободното време:</b>
+                                            {{ $student->free_time_activities }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Трудни ситуации:</b>
+                                            {{ $student->difficult_situations }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Идея за осъществяване:</b>
+                                            {{ $student->program_achievments }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Желае да промени:</b>
+                                            {{ $student->want_to_change }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Източник на информация за Able Mentor:</b>
+                                            {{ $student->able_mentor_info_source }}
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Тип проект:</b>
+                                            <div class="col-12 col-lg-6">
+                                                <div class="form-group">
+                                                    <b>Тип проект:</b>
+                                                    <ul>
+                                                        @foreach($student->projectTypes as $type)
+                                                            <li>{{ $type->type }}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <b><i class="fas fa-sticky-note"></i> Бележки:</b>
+                                            {{ $student->notes }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-		</div>
-	    <div class="form-group">
-			<label>Часове седмично за проекта:</label>
-            <div class="box-info">
-				{{ $student->hours ?: 'Повече' }}
-			</div>
-		</div>
-	    <div class="form-group">
-			<label>Тип проект:</label>
-            <div class="box-info">
-				{{ $student->projectTypes }} //add foreach
-			</div>
-		</div>
-	    <div class="form-group">
-			<label>Източник на информация за Able Mentor:</label>
-            <div class="box-info">
-			    {{ $student->able_mentor_info_source }}
-            </div>
-		</div>
-		<div class="form-group">
-			<label>Бележки:</label>
-            <div class="box-info">
-                {{ $student->notes }}
-            </div>
-		</div>
+        </section>
     </div>
 @endsection

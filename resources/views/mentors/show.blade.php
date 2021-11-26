@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
-@section('title')
-{{ __('Профил на ' . $mentor->name . ' ' . $mentor->name_second . ' - Able Mentor') }}
-@endsection
+@section('title', $mentor->name . ' - Able Mentor')
 
 @section('content')
     <div class="card-body">
@@ -16,7 +14,7 @@
                             <div class="card-body box-profile">
                                 <div class="text-center"></div>
                                     @if(Auth::user()->isAdmin())
-                                        <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-success mt-3 float-right">
+                                        <a href="{{ route('mentor.edit', $mentor->id) }}" class="btn btn-success mt-3 float-right">
                                             <i class="fa fa-user-edit"></i>
                                         </a>
                                     @endif
@@ -36,6 +34,9 @@
                                     </li>
                                     <li class="list-group-item">
                                         <b>Предишен сезон</b> <a class="float-right">{{ $mentor->previousSeason ? $mentor->previousSeason->name : '?' }}</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <b>Град за участие</b> <a class="float-right">{{ $mentor->city ? $mentor->city->name : null }}</a>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Автобиография</b>

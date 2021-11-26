@@ -57,7 +57,7 @@
                                         <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">
                                     </a>
                                     @if (Auth::user()->isAdmin())
-                                        <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-warning">
+                                        <a href="{{ route('mentor.edit', $mentor->id) }}" class="btn btn-warning">
                                             <i class="fa fa-user-edit"></i>
                                         </a>
                                         <form id="deleteMentor-{{ $loop->iteration }}" style="display:inline-block;" action="{{ route('mentors-destroy', $mentor->id) }}" method="POST">

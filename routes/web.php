@@ -36,13 +36,13 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     Route::get('mentors/{status?}', 'MentorController@index')->name('mentors.index');
     Route::get('mentor/{mentor}', 'MentorController@show')->name('mentor.show');
     Route::delete('mentors/delete/{mentor}', 'MentorController@destroy')->name('mentors-destroy');
-    Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentors-edit');
+    Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentor.edit');
     Route::put('mentors/update/{mentor}', 'MentorController@update')->name('mentors-update');
     Route::get('mentors/connect/{mentor}', 'MentorController@students')->name('mentors.connect');
 
     /*---- students ----*/
     Route::get('students/{status?}', 'StudentController@index')->name('students.index');
-//    Route::get('students/single/{student}', 'StudentController@show')->name('students-show');
+    Route::get('student/{student}', 'StudentController@show')->name('student.show');
     Route::delete('students/delete/{student}', 'StudentController@destroy')->name('students-destroy');
     Route::get('students/edit/{student}', 'StudentController@edit')->name('students-edit');
     Route::put('students/update/{student}', 'StudentController@update')->name('students-update');
