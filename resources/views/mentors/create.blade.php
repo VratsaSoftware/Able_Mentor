@@ -77,7 +77,7 @@
                     <select name="previous_season_id" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
                             aria-required="true" aria-invalid="false" required>
                         @foreach($seasons as $season)
-                            <option value="{{ $season->id }}" {{ old('season') == $season->id ? 'selected' : null }}>Сезон {{ $season->name }}</option>
+                            <option value="{{ $season->id }}" {{ old('season') == $season->id ? 'selected' : null }}>{{ $season->name }}</option>
                         @endforeach
                     </select>
                 </span>

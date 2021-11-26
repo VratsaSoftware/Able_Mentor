@@ -74,7 +74,7 @@
                             <td>{{ $mentor->email }}</td>
                             <td>{{ $mentor->phone }}</td>
                             <td>{{ $mentor->gender->gender }}</td>
-                            <td>{{ $mentor->previousSeason->name }}</td>
+                            <td>{{ $mentor->previousSeason ? $mentor->previousSeason->name : null }}</td>
                             <td>{{ $mentor->city->name }}</td>
                             <td>{{ $mentor->education }}</td>
                             <td>{{ $mentor->work }}</td>
@@ -92,7 +92,13 @@
                                     @endforeach
                                 </ul>
                             </td>
-                            <td><a href="{{ asset('cv/' . $mentor->cv_path) }}" download="{{ $mentor->name }}">Свали</a></td>
+                            <td>
+                                @if($mentor->cv_path)
+                                    <a href="{{ asset('cv/' . $mentor->cv_path) }}" download="{{ $mentor->name }}">Свали</a>
+                                @else
+                                    -
+                                @endif
+                            </td>
                             <td>{{ $mentor->able_mentor_info }}</td>
                         </tr>
                     @endforeach

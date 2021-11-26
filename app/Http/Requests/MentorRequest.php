@@ -29,7 +29,7 @@ class MentorRequest extends FormRequest
             'email' => 'required',
             'gender_id' => 'required',
             'phone' => 'required',
-            'season' => 'required',
+            'previous_season_id' => 'required',
             'city_id' => 'required',
             'work' => 'required',
             'education' => 'required',
