@@ -56,6 +56,6 @@ class User extends Authenticatable
      * Authenticated user is admin
      */
     public function isAdmin() {
-        return $this->role == 'admin';
+        return $this->role == config('consts.AUTH.role_admin');
     }
 }
