@@ -143,7 +143,7 @@ class StudentController extends Controller
 
         $student->projectTypes()->sync($request->project_type_ids);
 
-        return redirect()->route('students.index')->with('success', 'Успешно редактиран студент!');
+        return redirect()->back()->with('success', 'Успешно редактиран студент!');
     }
 
     /**

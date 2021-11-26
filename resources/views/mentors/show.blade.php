@@ -5,14 +5,6 @@
 @endsection
 
 @section('content')
-{{--    <div class="row">--}}
-{{--        <div class="container-fluid">--}}
-{{--            <h1 class="text-black-50 float-left"></h1>--}}
-{{--            <a href="{{ route('mentors-edit', $mentor->id) }}" class="btn btn-success mt-3 float-right">--}}
-{{--                <i class="fa fa-user-edit"></i>--}}
-{{--            </a>--}}
-{{--        </div>--}}
-{{--    </div>--}}
     <div class="card-body">
         <!-- Main content -->
         <section class="content">
@@ -37,10 +29,10 @@
                                         <b>Възраст</b> <a class="float-right">{{ $mentor->age }}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Email</b> <a class="float-right">{{ $mentor->email }}</a>
+                                        <b>Email</b> <a href="mailto:{{ $mentor->email }}" class="float-right">{{ $mentor->email }}</a>
                                     </li>
                                     <li class="list-group-item">
-                                        <b>Телефон</b> <a class="float-right">{{ $mentor->phone }}</a>
+                                        <b>Телефон</b> <a href="tel:{{ $mentor->phone }}" class="float-right">{{ $mentor->phone }}</a>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Предишен сезон</b> <a class="float-right">{{ $mentor->previousSeason ? $mentor->previousSeason->name : '?' }}</a>

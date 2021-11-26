@@ -15,7 +15,7 @@
     <tbody>
         @foreach($mentors as $mentor)
             <tr>
-                <td>{{ $mentor->name }}</td>
+                <td><a href="{{ route('mentor.show', $mentor->id) }}">{{ $mentor->name }}</a></td>
                 <td>{{ $mentor->city->name }}</td>
                 <td>
                     <ul>

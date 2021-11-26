@@ -51,7 +51,7 @@
                         <tr>
                             <td>{{ $mentor->created_at }}</td>
                             <td>
-                                {{ $mentor->name }}
+                                <a href="{{ route('mentor.show', $mentor->id) }}">{{ $mentor->name }}</a>
                                 <div style="float: right">
                                     <a href="{{ route('mentors.connect', $mentor->id) }}" class="btn btn-success">
                                         <img src="{{ asset('img/user-connection-317.svg') }}" width="24px">

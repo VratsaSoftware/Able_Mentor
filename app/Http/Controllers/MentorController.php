@@ -150,9 +150,9 @@ class MentorController extends Controller
 
         $mentor->update($data);
 
-        $mentor->projectTypes()->attach($request->project_type_ids);
+        $mentor->projectTypes()->sync($request->project_type_ids);
 
-        return redirect()->back()->with('success', 'Успешно се записахте!');
+        return redirect()->route('mentor.show', $mentor->id)->with('success', 'Успешно се редактиран ментор!');
     }
 
     /**
