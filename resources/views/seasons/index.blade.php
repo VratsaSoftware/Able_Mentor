@@ -33,11 +33,13 @@
                             <td>
                                 {{ $season->name }}
                                 @if($season->isCurrent())
-                                    <b style="color: green; float: right">Текущ</b>
+                                    <b class="badge badge-success float-right">Текущ</b>
+                                @elseif($season->id == $newOpenSeasonId)
+                                    <b class="badge badge-success float-right">Нов</b>
                                 @elseif($season->isNew())
-                                    <b style="color: green; float: right">Нов</b>
+                                    <b class="badge badge-warning float-right">Бъдещ</b>
                                 @else
-                                    <b style="color: red; float: right">Отминал</b>
+                                    <b class="badge badge-danger float-right">Отминал</b>
                                 @endif
                             </td>
                             <td>{{ $season->start }}</td>
@@ -46,7 +48,7 @@
                                 <form style="display:inline-block; float: right" action="{{ route('seasons.destroy', $season->id) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button onclick="return confirm('Сезонът ще бъде изтрит!')" class="btn btn-danger" {{ $season->isNew() ?: 'disabled' }}>
+                                    <button onclick="return confirm('Сезонът ще бъде изтрит!')" class="btn btn-danger" {{ $season->isNew() && $season->id !== $newOpenSeasonId ?: 'disabled' }}>
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>

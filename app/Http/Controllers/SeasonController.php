@@ -17,8 +17,13 @@ class SeasonController extends Controller
         $seasons = Season::where('id', '!=', 1)
             ->get();
 
+        $newOpenSeasonId = Season::new()
+            ->pluck('id')
+            ->first();
+
         return view('seasons.index', [
             'seasons' => $seasons,
+            'newOpenSeasonId' => $newOpenSeasonId,
         ]);
     }
 
