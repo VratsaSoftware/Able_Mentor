@@ -105,6 +105,9 @@ class MentorController extends Controller
      */
     public function show(Mentor $mentor)
     {
+        $mentor = Mentor::withRelations()
+            ->find($mentor->id);
+
         return view('mentors.show', [
             'mentor' => $mentor,
         ]);

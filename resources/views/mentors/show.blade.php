@@ -20,7 +20,7 @@
                                     @endif
                                 <h3 class="profile-username text-center">{{ $mentor->name }}</h3>
 
-                                <p class="text-muted text-center">{{ $mentor->currentSeason ? $mentor->currentSeason->name : '?' }}</p>
+                                <p class="text-muted text-center">Ментор {{ $mentor->currentSeason ? $mentor->currentSeason->name : '?' }}</p>
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
@@ -59,7 +59,9 @@
                             </div>
                             <div class="card-body">
                                 @foreach($mentor->students as $student)
-                                    <strong><i class="fas fa-book mr-1"></i> {{ $student->name }}</strong>
+                                    <strong>
+                                        <a href="{{ route('student.show', $student->id) }}"><i class="fas fa-user-graduate mr-1"></i> {{ $student->name }}</a>
+                                    </strong>
                                     <div class="text-muted">
                                         Проекти:
                                         <ul>

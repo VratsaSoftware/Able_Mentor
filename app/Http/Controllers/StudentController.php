@@ -96,6 +96,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
+        $student = Student::withRelations()
+            ->find($student->id);
+
         return view('students.show', [
             'student' => $student,
         ]);

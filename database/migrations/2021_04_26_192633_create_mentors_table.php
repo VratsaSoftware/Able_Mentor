@@ -23,15 +23,15 @@ class CreateMentorsTable extends Migration
             $table->unsignedBigInteger('previous_season_id')->nullable();
             $table->unsignedBigInteger('current_season_id')->nullable();
             $table->unsignedBigInteger('city_id');
-            $table->longText('work');
-            $table->longText('education');
-            $table->longText('experience');
-            $table->longText('expertise');
-            $table->longText('difficult_situations');
-            $table->longText('want_to_change');
+            $table->text('work');
+            $table->text('education');
+            $table->text('experience');
+            $table->text('expertise');
+            $table->text('difficult_situations');
+            $table->text('want_to_change');
             $table->integer('hours');
             $table->string('cv_path')->nullable();
-            $table->longText('able_mentor_info');
+            $table->text('able_mentor_info');
             $table->longText('notes')->nullable();
             $table->timestamps();
 
