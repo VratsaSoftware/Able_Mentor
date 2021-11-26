@@ -43,7 +43,13 @@
                 <div class="col-12 col-lg-4">
                     <div class="form-group">
                         <label>Сезон в който си бил ментор:</label>
-                        <input class="form-control" type="text" name="season" value="{{ $mentor->season }}">
+                        <select name="previous_season_id" class="form-control">
+                            @foreach( $seasons as $season )
+                                <option value="{{ $season->id }}" @if( $season->id == $mentor->previous_season_id ) selected="true" @endif>
+                                    {{ $season->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">

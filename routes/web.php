@@ -34,7 +34,7 @@ Route::post('students', 'StudentController@store')->name('students-store');
 Route::middleware(['auth', 'userApproved'])->group(function () {
     /*---- mentors ----*/
     Route::get('mentors/{status?}', 'MentorController@index')->name('mentors.index');
-//    Route::get('mentors/single/{mentor}', 'MentorController@show')->name('mentors-show');
+    Route::get('mentor/{mentor}', 'MentorController@show')->name('mentors.show');
     Route::delete('mentors/delete/{mentor}', 'MentorController@destroy')->name('mentors-destroy');
     Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentors-edit');
     Route::put('mentors/update/{mentor}', 'MentorController@update')->name('mentors-update');

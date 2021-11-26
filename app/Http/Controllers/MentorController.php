@@ -105,11 +105,9 @@ class MentorController extends Controller
      */
     public function show(Mentor $mentor)
     {
-//        $gender = Gender::find($mentor->gender_id);
-//        $city = City::find($mentor->city_id);
-//        $project_type = ProjectType::find($mentor->project_type_id);
-//
-//        return view('mentors.single', compact('mentor', 'gender', 'city', 'project_type'));
+        return view('mentors.show', [
+            'mentor' => $mentor,
+        ]);
     }
 
     /**
@@ -122,11 +120,13 @@ class MentorController extends Controller
     {
         $cities = City::all();
         $projectTypes = ProjectType::all();
+        $seasons = Season::all();
 
         return view('mentors.edit', [
             'mentor' => $mentor,
             'cities' => $cities,
             'projectTypes' => $projectTypes,
+            'seasons' => $seasons,
         ]);
     }
 
