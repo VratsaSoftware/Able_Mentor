@@ -6,6 +6,7 @@ use App\City;
 use App\EnglishLevel;
 use App\Mentor;
 use App\ProjectType;
+use App\Season;
 use App\Sport;
 use App\Student;
 use File;
@@ -92,13 +93,17 @@ class ImportDataService {
      */
     private static function createMentor($column)
     {
+        $seasonId = Season::where('name', $column[6])
+            ->pluck('id')
+            ->first();
+
         $mentor = Mentor::create([
             'name' => $column[0],
             'age' => $column[1],
             'email' => $column[2],
             'phone' => $column[3],
             'gender_id' => $column[4] == 'Мъж' ? 1 : 2,
-            'previous_season_id' => (int)$column[6],
+            'previous_season_id' => $seasonId,
             'city_id' => self::findCity($column[7]),
             'education' => $column[8],
             'work' => $column[9],
@@ -106,7 +111,7 @@ class ImportDataService {
             'expertise' => $column[11],
             'difficult_situations' => $column[12],
             'want_to_change' => $column[13],
-            'hours' => $column[14],
+            'hours' => (int)$column[14] ?: 5,
             'able_mentor_info' => $column[17],
         ]);
 
@@ -146,7 +151,7 @@ class ImportDataService {
             'difficult_situations' => $column[17],
             'program_achievments' => $column[18],
             'want_to_change' => $column[19],
-            'hours' => $column[20],
+            'hours' => (int)$column[20] ?: 5,
             'able_mentor_info_source' => $column[22],
         ]);
 
