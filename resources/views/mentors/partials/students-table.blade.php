@@ -15,7 +15,7 @@
             <tbody>
                 @foreach($students as $student)
                     <tr>
-                        <td>{{ $student->name }}</td>
+                        <td><a href="{{ route('student.show', $student->id) }}">{{ $student->name }}</a></td>
                         <td>{{ $student->city->name }}</td>
                         <td>
                             <ul>

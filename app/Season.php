@@ -26,6 +26,16 @@ class Season extends Model
     }
 
     /*
+     * local scope new
+     */
+    public function scopePast($query)
+    {
+        $query->whereDate('start', '<', Carbon::now()->format('Y-m-d'))
+            ->whereDate('end', '<', Carbon::now()->format('Y-m-d'))
+            ->where('id', '!=', 1);
+    }
+
+    /*
      * Season is current
      */
     public function isCurrent()

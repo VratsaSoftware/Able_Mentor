@@ -17,6 +17,8 @@ class MentorStudentService {
         foreach($student->projectTypes as $projectType) {
             if (in_array($projectType->id, $mentor->projectTypes->pluck('id')->toArray())) {
                 $matchPoints += 1;
+
+                break;
             }
         }
 

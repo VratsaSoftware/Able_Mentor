@@ -48,7 +48,10 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     Route::put('students/update/{student}', 'StudentController@update')->name('students-update');
     Route::get('student-mentor-connect/{student}', 'StudentController@mentors')->name('students.connect');
 
-    // authenticated user is admin
+    // archive
+    Route::get('archive', 'HomeController@archive')->name('archive');
+
+    /*---- authenticated user is admin ----*/
     Route::middleware(['isAdmin'])->group(function () {
         /* student-mentor operations - attach/detach */
         Route::put('student-mentor-attach/student/{student}/mentor/{mentor}', 'StudentController@attachMentor')->name('student-mentor.attach');

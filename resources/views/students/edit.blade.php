@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">{{ $student->name . ' ' . $student->name_second }}</h1>
+        <h1 class="text-black-50">{{ $student->name }}</h1>
     </div>
     <div class="card-body">
     	<form action="{{ route('students-update', ['student' => $student->id])}}" method="POST">

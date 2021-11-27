@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Providers\RouteServiceProvider;
+use App\Season;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,5 +40,25 @@ class HomeController extends Controller
         } else {
             return view('pendingApproval');
         }
+    }
+
+    /**
+     * @return \Illuminate\View\View
+     */
+    public function archive(Request $request)
+    {
+        $pastSeasons = Season::past()
+            ->orderByDesc('id')
+            ->get();
+
+        $students = Student::with(['mentors', 'projectTypes', 'mentors.projectTypes'])
+            ->where('season_id', $request->season ?: $pastSeasons->last()->id)
+            ->whereHas('mentors')
+            ->get();
+
+        return view('archive', [
+            'students' => $students,
+            'pastSeasons' => $pastSeasons,
+        ]);
     }
 }

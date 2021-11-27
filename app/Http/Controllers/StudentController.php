@@ -188,7 +188,7 @@ class StudentController extends Controller
      */
     public function importStudents(Request $request)
     {
-        return ImportDataService::importData($request->file, 'student');
+        return ImportDataService::importData($request->file, $request->seasonStatus, 'student');
     }
 
     /**

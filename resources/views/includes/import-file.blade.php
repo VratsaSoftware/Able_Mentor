@@ -1,4 +1,4 @@
-@if(Auth::user()->isAdmin())
+@if(Auth::user()->isAdmin() && Request::segment(2) !== config('consts.MENTOR_STATUS.new_season_approved'))
     <label for="file" style="float:right;">
         <span class="btn btn-success mt-3">
             <i class="fas fa-file-upload"></i> Импорт

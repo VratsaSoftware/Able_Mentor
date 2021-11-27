@@ -15,6 +15,7 @@ class Student extends Model
         'gender_id',
         'school',
         'class_id',
+        'season_id',
         'favorite_subjects',
         'hobbies',
         'english_level_id',

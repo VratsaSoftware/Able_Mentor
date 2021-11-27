@@ -71,6 +71,13 @@
 </li>
 
 <li class="nav-item">
+    <a href="{{ route('archive') }}" class="nav-link">
+        <i class="nav-icon fas fa-database"></i>
+        <p>Архив</p>
+    </a>
+</li>
+
+<li class="nav-item">
     <a href="{{ route('seasons.index') }}" class="nav-link">
         <i class="nav-icon fas fa-calendar-alt"></i>
         <p>Сезони</p>

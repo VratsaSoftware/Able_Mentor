@@ -17,7 +17,7 @@ class CreateMentorsTable extends Migration
             $table->id();
             $table->string('name', 100);
             $table->integer('age');
-            $table->string('email', 100)->unique();
+            $table->string('email', 100);
             $table->string('phone', 100);
             $table->unsignedBigInteger('gender_id');
             $table->unsignedBigInteger('previous_season_id')->nullable();

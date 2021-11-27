@@ -18,7 +18,7 @@ class ImportDataService {
      * @param $typeImport
      * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public static function importData($file, $typeImport)
+    public static function importData($file, $seasonStatus, $typeImport)
     {
         /* save file */
         $fileName = Uuid::uuid4() . '.' . $file->getClientOriginalExtension();
@@ -39,9 +39,9 @@ class ImportDataService {
             if ($rowIndex > 1) {
                 try {
                     if ($typeImport == 'mentor') {
-                        self::createMentor($column);
+                        self::createMentor($column, $seasonStatus);
                     } elseif ($typeImport == 'student') {
-                        self::createStudent($column);
+                        self::createStudent($column, $seasonStatus);
                     }
                 } catch (\Exception $exception) {
                     $column[] = $exception->getMessage();
@@ -108,7 +108,7 @@ class ImportDataService {
     /*
      * Create mentor
      */
-    private static function createMentor($column)
+    private static function createMentor($column, $seasonStatus)
     {
         $seasonId = Season::where('name', $column[6])
             ->pluck('id')
@@ -121,6 +121,7 @@ class ImportDataService {
             'phone' => $column[3],
             'gender_id' => $column[4] == 'Мъж' ? 1 : 2,
             'previous_season_id' => $seasonId,
+            'current_season_id' => self::findCurrentSeason($seasonStatus),
             'city_id' => self::findCity($column[7]),
             'education' => $column[8],
             'work' => $column[9],
@@ -138,7 +139,7 @@ class ImportDataService {
     /*
      * Create student
      */
-    private static function createStudent($column)
+    private static function createStudent($column, $seasonStatus)
     {
         $englishLevelId = EnglishLevel::where('level', 'like', '%' . $column[11] . '%')
             ->pluck('id')
@@ -157,6 +158,7 @@ class ImportDataService {
             'city_id' => self::findCity($column[6]),
             'school' => $column[7],
             'class_id' => $column[8],
+            'season_id' => self::findCurrentSeason($seasonStatus),
             'favorite_subjects' => $column[9],
             'hobbies' => $column[10],
             'english_level_id' => $englishLevelId,
@@ -198,5 +200,24 @@ class ImportDataService {
         }
 
         return $projectTypeIds;
+    }
+
+    /**
+     * @param $seasonStatus
+     * @return null | $seasonId
+     */
+    private static function findCurrentSeason($seasonStatus) {
+        $seasonId = null;
+        if ($seasonStatus == 'current-season') {
+            $seasonId = Season::current()
+                ->pluck('id')
+                ->first();
+        } elseif ($seasonStatus == 'new-season-approved' || $seasonStatus == 'new-season-pending') {
+            $seasonId = Season::new()
+                ->pluck('id')
+                ->first();
+        }
+
+        return $seasonId;
     }
 }
