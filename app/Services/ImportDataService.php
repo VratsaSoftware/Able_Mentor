@@ -10,10 +10,21 @@ use App\Season;
 use App\Sport;
 use App\Student;
 use File;
+use Ramsey\Uuid\Uuid;
 
 class ImportDataService {
-    public static function importData($fileName, $typeImport)
+    /**
+     * @param $file
+     * @param $typeImport
+     * @return \Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public static function importData($file, $typeImport)
     {
+        /* save file */
+        $fileName = Uuid::uuid4() . '.' . $file->getClientOriginalExtension();
+
+        $file->move(public_path() . '/uploads/csv/', $fileName);
+
         $fullPath = public_path('uploads/csv/' . $fileName);
 
         $file = fopen($fullPath, "r");
@@ -44,7 +55,13 @@ class ImportDataService {
         /* failed data */
         self::failedData($dataFailed, $fullPath);
 
-        return $fullPath;
+        if (file_exists($fullPath)) {
+            $res = response()->download($fullPath)->deleteFileAfterSend(true);
+        } else {
+            $res = redirect()->back()->with('success', 'Успешно импортиран файл с Ментори!');
+        }
+
+        return $res;
     }
 
     /*

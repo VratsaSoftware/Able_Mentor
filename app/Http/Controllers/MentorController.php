@@ -209,19 +209,7 @@ class MentorController extends Controller
      */
     public function importMentors(Request $request)
     {
-        $fileName = Uuid::uuid4() . '.' . $request->file->getClientOriginalExtension();
-
-        $request->file->move(public_path() . '/uploads/csv/', $fileName);
-
-        $fileFailed = ImportDataService::importData($fileName, 'mentor');
-
-        if (file_exists($fileFailed)) {
-            $res = response()->download($fileFailed)->deleteFileAfterSend(true);
-        } else {
-            $res = redirect()->back()->with('success', 'Успешно импортиран файл с Ментори!');
-        }
-
-        return $res;
+        return ImportDataService::importData($request->file, 'mentor');
     }
 
     /**

@@ -188,19 +188,7 @@ class StudentController extends Controller
      */
     public function importStudents(Request $request)
     {
-        $fileName = Uuid::uuid4() . '.' . $request->file->getClientOriginalExtension();
-
-        $request->file->move(public_path() . '/uploads/csv/', $fileName);
-
-        $fileFailed = ImportDataService::importData($fileName, 'student');
-
-        if (file_exists($fileFailed)) {
-            $res = response()->download($fileFailed)->deleteFileAfterSend(true);
-        } else {
-            $res = redirect()->back()->with('success', 'Успешно импортиран файл с ученици!');
-        }
-
-        return $res;
+        return ImportDataService::importData($request->file, 'student');
     }
 
     /**
