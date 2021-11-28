@@ -30,7 +30,7 @@ class MentorStudentService {
 
         $matchPercentage = ($matchPoints / 2) * 100;
 
-        return $matchPercentage . '% (' . $matchPoints . ')';
+        return $matchPercentage . '%';
     }
 
     /**

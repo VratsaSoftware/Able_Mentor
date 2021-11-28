@@ -1,10 +1,10 @@
 $(document).ready( function () {
-    datatable('.datatable', 0);
-    datatable('.matching-datatable', 4);
-    datatable('.datatable-season', 1);
+    datatable('.datatable', [0, 'desc']);
+    datatable('.matching-datatable', [4, 'desc']);
+    datatable('.datatable-season', [1, 'desc']);
 });
 
-function datatable(className, columnOrderDesc) {
+function datatable(className, columnOrder) {
     $(className).DataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -42,6 +42,6 @@ function datatable(className, columnOrderDesc) {
                 "sLast": "Последна"
             },
         },
-        order: [[ columnOrderDesc, "desc" ]],
+        order: columnOrder,
     });
 }
