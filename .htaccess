@@ -1,0 +1,16 @@
+
+# BEGIN WordPress
+# Директивите (редовете) между "BEGIN WordPress" и "END WordPress" са
+# динамично генерирани и трябва да се променят само чрез филтрите на WordPress.
+# Всяка промяна на директивите между тези маркери ще бъде заличена.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /other/able_mentor_wp/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /other/able_mentor_wp/index.php [L]
+</IfModule>
+
+# END WordPress
