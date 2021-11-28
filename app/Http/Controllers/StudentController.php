@@ -75,17 +75,24 @@ class StudentController extends Controller
 
         $data = $request->all();
 
-        unset($data['_token']);
-        unset($data['project_type_ids']);
+        try {
+            unset($data['_token']);
+            unset($data['project_type_ids']);
 
-        $data['season_id'] = $newSeasonId;
+            $data['season_id'] = $newSeasonId;
 
-        $student = new Student($data);
-        $student->save();
+            $student = new Student($data);
+            $student->save();
 
-        $student->projectTypes()->attach($request->project_type_ids);
+            $student->projectTypes()->attach($request->project_type_ids);
 
-        return redirect()->back()->with('success', 'Успешно се записахте!');
+            $response = ['success' => 'Успешно кандидатстване!'];
+        } catch (\Exception $e) {
+            $data['error'] = 'Грешка! Моля проверете формата за грешки!';
+            $response = $data;
+        }
+
+        return redirect()->route('mentors.create', $response);
     }
 
     /**

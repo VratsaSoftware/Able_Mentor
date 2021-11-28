@@ -4,8 +4,8 @@
     </div>
 @endif
 
-@if (Request::get('name'))
+@if (Request::get('error'))
     <div class="alert alert-danger" style="background-color: #ecbfbb">
-        Грешка! Моля проверете формата за грешки!
+        {{ Request::get('error') }}
     </div>
 @endif

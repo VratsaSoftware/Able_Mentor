@@ -2,7 +2,6 @@
 
 @section('content')
     <form action="{{ route('mentors.store') }}" method="post" class="wpcf7-form" enctype="multipart/form-data">
-        @csrf
         <div class="column one-second">
             <h6 style="color:#4a4a4a; ">Име и фамилия:</h6>
             <p>

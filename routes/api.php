@@ -28,5 +28,5 @@ Route::get('mentors/create', 'MentorController@create')->name('mentors.create');
 Route::post('mentors', 'MentorController@store')->name('mentors.store');
 
 /* create student api */
-Route::get('students/create', 'StudentController@create')->name('students-create');
-Route::post('students', 'StudentController@store')->name('students-store');
+Route::get('students/create', 'StudentController@create')->name('students.create');
+Route::post('students', 'StudentController@store')->name('students.store');

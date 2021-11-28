@@ -28,7 +28,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 //
 ///* create student api */
 //Route::get('students/create', 'StudentController@create')->name('students-create');
-//Route::post('students', 'StudentController@store')->name('students-store');
+//Route::post('students', 'StudentController@store')->name('students.store');
 
 // auth middleware
 Route::middleware(['auth', 'userApproved'])->group(function () {

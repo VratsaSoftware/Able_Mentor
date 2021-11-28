@@ -84,7 +84,7 @@ class MentorController extends Controller
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {
-            array_push($data, 'error');
+            $data['error'] = 'Грешка! Моля проверете формата за грешки!';
             $response = $data;
         }
 
