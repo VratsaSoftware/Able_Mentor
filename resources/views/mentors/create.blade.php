@@ -1,7 +1,7 @@
 @extends('layouts.registration')
 
 @section('content')
-    <form action="{{ route('mentors-store') }}" method="post" class="wpcf7-form" enctype="multipart/form-data">
+    <form action="{{ route('mentors.store') }}" method="post" class="wpcf7-form" enctype="multipart/form-data">
         @csrf
         <div class="column one-second">
             <h6 style="color:#4a4a4a; ">Име и фамилия:</h6>
@@ -10,19 +10,19 @@
                     <span class="wpcf7-form-control-wrap name">
                         <input type="text" name="name" size="40"
                                class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                               aria-required="true" aria-invalid="false" value="{{ old('name') }}" required>
+                               aria-required="true" aria-invalid="false" value="{{ Request::get('name') }}" required>
                     </span>
                 </label>
             </p>
         </div>
         <div class="column one-second">
-            <h6 style="color:#4a4a4a; ">Възраст:</h6>
+            <h6 style="color:#4a4a4a;">Възраст:</h6>
             <p>
                 <label>
                     <span class="wpcf7-form-control-wrap age">
                         <input type="text" name="age" size="40" minlength="1" maxlength="2"
                                class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                               aria-required="true" value="{{ old('age') }}" aria-invalid="false"  required>
+                               aria-required="true" value="{{ Request::get('age') }}" aria-invalid="false"  required>
                     </span>
                 </label>
             </p>
@@ -32,7 +32,7 @@
             <p>
                 <label style="margin-right:15px">
                     <span class="wpcf7-form-control-wrap email">
-                        <input type="email" name="email" value="{{ old('email') }}" size="40"
+                        <input type="email" name="email" value="{{ Request::get('email') }}" size="40"
                                class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email" aria-required="true" aria-invalid="false"  required>
                     </span>
                 </label>
@@ -43,7 +43,7 @@
             <p>
                 <label>
                     <span class="wpcf7-form-control-wrap number">
-                       <input type="text" name="phone" value="{{ old('phone') }}" size="40"
+                       <input type="text" name="phone" value="{{ Request::get('phone') }}" size="40"
                               class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" required>
                     </span>
                 </label>
@@ -59,7 +59,7 @@
                                 <span class="wpcf7-list-item first last">
                                     <input type="radio" name="gender_id"
                                            value="{{ $gender->id }}" {{ $loop->first ? 'required' : '' }}
-                                        {{ old('gender_id') == $gender->id ? 'checked' : null }}>
+                                        {{ Request::get('gender_id') == $gender->id ? 'checked' : null }}>
                                     <span class="wpcf7-list-item-label">{{ $gender->gender }}</span>
                                 </span>
                             </span>
@@ -77,7 +77,7 @@
                     <select name="previous_season_id" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
                             aria-required="true" aria-invalid="false" required>
                         @foreach($seasons as $season)
-                            <option value="{{ $season->id }}" {{ old('season') == $season->id ? 'selected' : null }}>{{ $season->name }}</option>
+                            <option value="{{ $season->id }}" {{ Request::get('season') == $season->id ? 'selected' : null }}>{{ $season->name }}</option>
                         @endforeach
                     </select>
                 </span>
@@ -91,7 +91,7 @@
                             aria-required="true" aria-invalid="false" required>
                        <option value="">---</option>
                        @foreach($cities as $city)
-                            <option value="{{ $city->id }}" {{ old('city_id') == $city->id ? 'selected' : null }}>{{ $city->name }}</option>
+                            <option value="{{ $city->id }}" {{ Request::get('city_id') == $city->id ? 'selected' : null }}>{{ $city->name }}</option>
                         @endforeach
                     </select>
                 </span>
@@ -101,7 +101,7 @@
             <h6 style="color:#4a4a4a;">Образование (специалност, степен и име на учебно заведение):</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-3">
-                    <input type="text" name="work" value="{{ old('work') }}" size="40"
+                    <input type="text" name="work" value="{{ Request::get('work') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
                            aria-invalid="false" required>
                 </span>
@@ -110,7 +110,7 @@
         <div class="column one">
             <h6 style="color:#4a4a4a;">Месторабота:</h6>
             <p><span class="wpcf7-form-control-wrap text-mentor-4">
-                    <input type="text" name="education" value="{{ old('education') }}" size="40"
+                    <input type="text" name="education" value="{{ Request::get('education') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -120,7 +120,7 @@
             <h6 style="color:#4a4a4a;">Професионален опит/интереси:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-5">
-                    <input type="text" name="experience" value="{{ old('experience') }}" size="40"
+                    <input type="text" name="experience" value="{{ Request::get('experience') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -130,7 +130,7 @@
             <h6 style="color:#4a4a4a;">Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-6">
-                    <input type="text" name="expertise" value="{{ old('expertise') }}" size="40"
+                    <input type="text" name="expertise" value="{{ Request::get('expertise') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -140,7 +140,7 @@
             <h6 style="color:#4a4a4a;">Разкажете ни за трудна ситуация/проблем и как сте се справили?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-7">
-                    <input type="text" name="difficult_situations" value="{{ old('difficult_situations') }}" size="40"
+                    <input type="text" name="difficult_situations" value="{{ Request::get('difficult_situations') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -150,7 +150,7 @@
             <h6 style="color:#4a4a4a;">Желая да променя/подобря...</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-8">
-                    <input type="text" name="want_to_change" value="{{ old('want_to_change') }}" size="40"
+                    <input type="text" name="want_to_change" value="{{ Request::get('want_to_change') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
@@ -165,11 +165,11 @@
                             aria-required="true"
                             aria-invalid="false" required>
                         <option value="">---</option>
-                        <option value="1" {{ old('hours') ? 'selected' : null }}>1 час</option>
-                        <option value="2" {{ old('hours') ? 'selected' : null }}>2 часа</option>
-                        <option value="3" {{ old('hours') ? 'selected' : null }}>3 часа</option>
-                        <option value="4" {{ old('hours') ? 'selected' : null }}>4 часа</option>
-                        <option value="5" {{ old('hours') ? 'selected' : null }}>повече</option>
+                        <option value="1" {{ Request::get('hours') == '1' ? 'selected' : null }}>1 час</option>
+                        <option value="2" {{ Request::get('hours') == '2' ? 'selected' : null }}>2 часа</option>
+                        <option value="3" {{ Request::get('hours') == '3' ? 'selected' : null }}>3 часа</option>
+                        <option value="4" {{ Request::get('hours') == '4' ? 'selected' : null }}>4 часа</option>
+                        <option value="5" {{ Request::get('hours') == '5' ? 'selected' : null }}>повече</option>
                     </select>
                  </span>
             </p>
@@ -184,7 +184,7 @@
                                 <label>
                                     <input type="checkbox" name="project_type_ids[]"
                                            value="{{ $projectType->id }}"
-                                           {{ old('project_type_ids') && in_array($projectType->id, old('project_type_ids')) ? 'checked' : null }}>
+                                           {{ Request::get('project_type_ids') && in_array($projectType->id, Request::get('project_type_ids')) ? 'checked' : null }}>
                                            {{ $projectType->type }}
                                 </label>
                             @endforeach
@@ -230,7 +230,7 @@
             <p>
                 <label style="margin-bottom:50px;">
                     <span class="wpcf7-form-control-wrap message">
-                        <input type="text" name="able_mentor_info" value="{{ old('able_mentor_info') }}" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" required>
+                        <input type="text" name="able_mentor_info" value="{{ Request::get('able_mentor_info') }}" size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true" aria-invalid="false" required>
                     </span>
                 </label>
             </p>

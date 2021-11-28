@@ -125,7 +125,7 @@
                             <div class="placeholder">&nbsp;</div>
                         </div>
                         <div class="column mcb-column mcb-item-jpn9ucq2j two-third column_column">
-                            @include('flash-messages')
+                            @include('layouts.includes.registration-flash')
                             <div class="column_attr clearfix" style=""><h3>Попълни регистрацията, за да участваш в ABLE
                                     Mentor!</h3>
                                 <hr class="no_line"/>

@@ -70,18 +70,25 @@ class MentorController extends Controller
 
         $data = $request->all();
 
-        unset($data['_token']);
-        unset($data['project_type_ids']);
+        try {
+            unset($data['_token']);
+            unset($data['project_type_ids']);
 
-        $data['current_season_id'] = $newSeasonId;
-        $data['cv_path'] = self::saveCV($request->cv);
+            $data['current_season_id'] = $newSeasonId;
+            $data['cv_path'] = self::saveCV($request->cv);
 
-        $mentor = new Mentor($data);
-        $mentor->save();
+            $mentor = new Mentor($data);
+            $mentor->save();
 
-        $mentor->projectTypes()->attach($request->project_type_ids);
+            $mentor->projectTypes()->attach($request->project_type_ids);
 
-        return redirect()->back()->with('success', 'Успешно се записахте!');
+            $response = ['success' => 'Успешно кандидатстване!'];
+        } catch (\Exception $e) {
+            array_push($data, 'error');
+            $response = $data;
+        }
+
+        return redirect()->route('mentors.create', $response);
     }
 
     /**
