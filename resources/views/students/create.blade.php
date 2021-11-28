@@ -265,11 +265,11 @@
                             aria-required="true"
                             aria-invalid="false" required>
                         <option value="">---</option>
-                        <option value="1" {{ Request::get('hours') ? 'selected' : null }}>1 час</option>
-                        <option value="2" {{ Request::get('hours') ? 'selected' : null }}>2 часа</option>
-                        <option value="3" {{ Request::get('hours') ? 'selected' : null }}>3 часа</option>
-                        <option value="4" {{ Request::get('hours') ? 'selected' : null }}>4 часа</option>
-                        <option value="5" {{ Request::get('hours') ? 'selected' : null }}>повече</option>
+                        <option value="1" {{ Request::get('hours') == '1' ? 'selected' : null }}>1 час</option>
+                        <option value="2" {{ Request::get('hours') == '2' ? 'selected' : null }}>2 часа</option>
+                        <option value="3" {{ Request::get('hours') == '3' ? 'selected' : null }}>3 часа</option>
+                        <option value="4" {{ Request::get('hours') == '4' ? 'selected' : null }}>4 часа</option>
+                        <option value="5" {{ Request::get('hours') == '5' ? 'selected' : null }}>повече</option>
                     </select>
                  </span>
             </p>

@@ -84,8 +84,8 @@ class MentorController extends Controller
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {
-            $data['error'] = 'Грешка! Моля проверете формата за грешки!';
-            $response = $data;
+            $request['error'] = 'Грешка! Моля проверете формата за грешки!';
+            $response = $request->all();
         }
 
         return redirect()->route('mentors.create', $response);
