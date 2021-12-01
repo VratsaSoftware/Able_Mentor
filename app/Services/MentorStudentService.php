@@ -60,7 +60,11 @@ class MentorStudentService {
             $query->where('current_season_id', $newSeasonId)
                 ->doesntHave('students');
         } elseif ($status == config('consts.MENTOR_STATUS.archive')) {
-            // todo
+            $pastSeasonsIds = Season::past()
+                ->pluck('id');
+
+            $query->whereIn('current_season_id', $pastSeasonsIds)
+                ->orWhereNull('current_season_id');
         } else {
             abort(404);
         }
@@ -95,7 +99,11 @@ class MentorStudentService {
             $query->where('season_id', $newSeasonId)
                 ->doesntHave('mentors');
         } elseif ($status == config('consts.STUDENT_STATUS.archive')) {
-            // todo
+            $pastSeasonsIds = Season::past()
+                ->pluck('id');
+
+            $query->whereIn('season_id', $pastSeasonsIds)
+                ->orWhereNull('season_id');
         } else {
             abort(404);
         }
