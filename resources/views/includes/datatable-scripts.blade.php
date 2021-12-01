@@ -9,4 +9,8 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/responsive.bootstrap.min.js"></script>
 
-<script type="text/javascript" charset="utf8" src="{{ asset('js/datatable.js') }}"></script>
+@if(Auth::user()->mode == 1)
+    <script type="text/javascript" charset="utf8" src="{{ asset('js/datatable/datatable.js') }}"></script>
+@else
+    <script type="text/javascript" charset="utf8" src="{{ asset('js/datatable/datatable-scroll.js') }}"></script>
+@endif

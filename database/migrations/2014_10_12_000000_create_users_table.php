@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
                 'admin',
                 'operator',
             ])->nullable();
+            $table->boolean('mode')->default(0);
 
             $table->timestamps();
             $table->softDeletes();

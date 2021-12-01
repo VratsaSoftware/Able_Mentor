@@ -45,6 +45,8 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     // archive
     Route::get('archive', 'HomeController@archive')->name('archive');
 
+    Route::get('mode', 'HomeController@changeMode')->name('change-mode');
+
     /*---- authenticated user is admin ----*/
     Route::middleware(['isAdmin'])->group(function () {
         /* student-mentor operations - attach/detach */

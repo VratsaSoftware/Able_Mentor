@@ -11,20 +11,19 @@ function datatable(className, columnOrder) {
             'excelHtml5',
             'csvHtml5',
         ],
-        responsive: false,
-        //     {
-        //     details: {
-        //         display: $.fn.dataTable.Responsive.display.modal( {
-        //             header: function ( row ) {
-        //                 var data = row.data();
-        //                 return 'Details for ' + data[0] + ' ' + data[1];
-        //             }
-        //         }),
-        //         renderer: $.fn.dataTable.Responsive.renderer.tableAll({
-        //             tableClass: 'table'
-        //         })
-        //     }
-        // },
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal( {
+                    header: function ( row ) {
+                        var data = row.data();
+                        return 'Details for ' + data[0] + ' ' + data[1];
+                    }
+                }),
+                renderer: $.fn.dataTable.Responsive.renderer.tableAll({
+                    tableClass: 'table'
+                })
+            }
+        },
         language: {
             "sProcessing": "Обработка на резултатите...",
             "sLengthMenu": "Показване на _MENU_ резултата...",

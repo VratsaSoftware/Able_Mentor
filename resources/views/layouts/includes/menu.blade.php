@@ -94,14 +94,14 @@
 @endif
 
 <li class="nav-header mt-5">Управление на профила</li>
-{{--<li class="nav-item">--}}
-{{--    <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">--}}
-{{--        <i class="nav-icon fas fa-cogs"></i>--}}
-{{--        <p>--}}
-{{--            Смени режима--}}
-{{--        </p>--}}
-{{--    </a>--}}
-{{--</li>--}}
+<li class="nav-item">
+    <a href="{{ route('change-mode') }}" class="nav-link">
+        <i class="nav-icon fas fa-cogs"></i>
+        <p>
+            Смени режима
+        </p>
+    </a>
+</li>
 <li class="nav-item">
     <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
         <i class="nav-icon fas fa-sign-out-alt"></i>

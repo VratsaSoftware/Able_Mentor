@@ -61,4 +61,18 @@ class HomeController extends Controller
             'pastSeasons' => $pastSeasons,
         ]);
     }
+
+    /**
+     * @param User $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function changeMode() {
+        $oldMode = Auth::user()->mode;
+        $newMode = $oldMode ? 0 : 1;
+
+        Auth::user()->mode = $newMode;
+        Auth::user()->save();
+
+        return back();
+    }
 }
