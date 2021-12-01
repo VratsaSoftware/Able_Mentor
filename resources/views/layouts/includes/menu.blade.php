@@ -62,7 +62,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('students.index', config('consts.STUDENT_STATUS.archive')) }}" class="nav-link {{ Request::routeIs('students.index') && Request::segment(2) == config('consts.STUDENT_STATUS.archive') ? 'active' : null }}">
+            <a href="{{ route('students.archive') }}" class="nav-link {{ Request::routeIs('students.archive') ? 'active' : null }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Архив</p>
             </a>

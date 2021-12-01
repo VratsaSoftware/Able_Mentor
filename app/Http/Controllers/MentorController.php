@@ -38,23 +38,19 @@ class MentorController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param null $status
+     * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function archive(Request $request)
     {
-        $mentorsQuery = Mentor::query()
-            ->withRelations();
-
-        if ($request->seasonId) {
-            $mentorsQuery->where('current_season_id', $request->seasonId);
-        } else {
-            $mentorsQuery = MentorStudentService::mentorsFilter(config('consts.MENTOR_STATUS.archive'), $mentorsQuery);
-        }
-
         $pastSeasons = Season::past()
             ->orderByDesc('id')
             ->get();
+
+        $mentorsQuery = Mentor::query()
+            ->withRelations();
+
+        $mentorsQuery->where('current_season_id', $request->seasonId ?: $pastSeasons->first()->id);
 
         return view('mentors.index', [
             'mentors' => $mentorsQuery->get(),

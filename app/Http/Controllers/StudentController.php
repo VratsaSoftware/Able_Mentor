@@ -38,6 +38,29 @@ class StudentController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function archive(Request $request)
+    {
+        $pastSeasons = Season::past()
+            ->orderByDesc('id')
+            ->get();
+
+        $studentsQuery = Student::query()
+            ->withRelations();
+
+        $studentsQuery->where('season_id', $request->seasonId ?: $pastSeasons->first()->id);
+
+        return view('students.index', [
+            'students' => $studentsQuery->get(),
+            'pastSeasons' => $pastSeasons,
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

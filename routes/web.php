@@ -36,6 +36,7 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     /*---- students ----*/
     Route::get('students/{status?}', 'StudentController@index')->name('students.index');
     Route::get('student/{student}', 'StudentController@show')->name('student.show');
+    Route::get('students-archive', 'StudentController@archive')->name('students.archive');
     Route::delete('students/delete/{student}', 'StudentController@destroy')->name('students-destroy');
     Route::get('students/edit/{student}', 'StudentController@edit')->name('students-edit');
     Route::put('students/update/{student}', 'StudentController@update')->name('students-update');
