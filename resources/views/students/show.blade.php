@@ -20,7 +20,7 @@
                                 @endif
                                 <h3 class="profile-username text-center">{{ $student->name }}</h3>
 
-                                <p class="text-muted text-center">Ученик {{ $student->currentSeason ? $student->currentSeason->name : '?' }}</p>
+                                <p class="text-muted text-center">Ученик {{ $student->season ? $student->season->name : '?' }}</p>
 
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">

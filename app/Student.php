@@ -63,6 +63,11 @@ class Student extends Model
         return $this->belongsTo(EnglishLevel::class);
     }
 
+    public function season()
+    {
+        return $this->belongsTo(Season::class);
+    }
+
     public function schoolClass()
     {
         return $this->belongsTo(SchoolClass::class,'class_id');
