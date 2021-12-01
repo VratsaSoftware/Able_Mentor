@@ -38,9 +38,7 @@
                 <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <!-- User image -->
                     <li class="user-header bg-primary" style="background-color: #5f6164!important;">
-                        <img src="{{ asset('img/AdminLTELogo.png') }}"
-                             class="img-circle elevation-2"
-                             alt="User Image">
+                        <i class="fa fa-user fa-4x"></i>
                         <p>
                             {{ Auth::user()->name }}
                             <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>

@@ -77,14 +77,14 @@
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="{{ route('seasons.index') }}" class="nav-link">
-        <i class="nav-icon fas fa-calendar-alt"></i>
-        <p>Сезони</p>
-    </a>
-</li>
+@if(Auth::user()->isadmin())
+    <li class="nav-item">
+        <a href="{{ route('seasons.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-calendar-alt"></i>
+            <p>Сезони</p>
+        </a>
+    </li>
 
-@if (Auth::user()->isAdmin())
     <li class="nav-item">
         <a href="{{ route('users.index') }}" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
