@@ -9,7 +9,9 @@
         @csrf
         <input id="file" type="file" onchange="importData()" name="file" accept="text/csv" style="display:none">
         <input type="hidden" name="seasonStatus" value="{{ Request::segment(2) }}">
-        <input type="hidden" name="seasonId" value="{{ Request::get('seasonId') ?: $pastSeasons->first()->id }}">
+        @if(isset($pastSeasons))
+            <input type="hidden" name="seasonId" value="{{ Request::get('seasonId') ?: $pastSeasons->first()->id }}">
+        @endif
     </form>
 
     @push('scripts')
