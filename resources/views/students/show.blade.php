@@ -186,16 +186,11 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <b>Тип проект:</b>
-                                            <div class="col-12 col-lg-6">
-                                                <div class="form-group">
-                                                    <b>Тип проект:</b>
-                                                    <ul>
-                                                        @foreach($student->projectTypes as $type)
-                                                            <li>{{ $type->type }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                            <ul>
+                                                @foreach($student->projectTypes as $type)
+                                                    <li>{{ $type->type }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
