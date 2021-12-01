@@ -27,6 +27,7 @@ Route::middleware(['auth', 'userApproved'])->group(function () {
     /*---- mentors ----*/
     Route::get('mentors/{status?}', 'MentorController@index')->name('mentors.index');
     Route::get('mentor/{mentor}', 'MentorController@show')->name('mentor.show');
+    Route::get('mentors-archive', 'MentorController@archive')->name('mentors.archive');
     Route::delete('mentors/delete/{mentor}', 'MentorController@destroy')->name('mentors-destroy');
     Route::get('mentors/edit/{mentor}', 'MentorController@edit')->name('mentor.edit');
     Route::put('mentors/update/{mentor}', 'MentorController@update')->name('mentors-update');

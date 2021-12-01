@@ -13,6 +13,17 @@
                 <div class="col">
                     Ментори
                 </div>
+                @if(isset($pastSeasons))
+                    <div class="col-2">
+                        <form method="get" action="{{ route(Request::route()->getName()) }}" class="mt-3">
+                            <select name="seasonId" class="form-control" onchange="this.form.submit()">
+                                @foreach($pastSeasons as $season)
+                                    <option value="{{ $season->id }}" {{ Request::get('seasonId') == $season->id ? 'selected' : null }}>{{ $season->name }}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                @endif
                 <div class="col-2">
                     @include('includes.import-file', [
                         'routeName' => 'mentors-import',

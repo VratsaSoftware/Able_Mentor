@@ -1,4 +1,4 @@
-<li class="nav-item has-treeview {{ Request::routeIs('mentors*') ? 'menu-open' : null }}">
+<li class="nav-item has-treeview {{ Request::routeIs('mentors*') || Request::routeIs('mentors.archive') ? 'menu-open' : null }}">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-chalkboard-teacher"></i>
         <p>
@@ -26,7 +26,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="{{ route('mentors.index', config('consts.MENTOR_STATUS.archive')) }}" class="nav-link {{ Request::routeIs('mentors.index') && Request::segment(2) == config('consts.MENTOR_STATUS.archive') ? 'active' : null }}">
+            <a href="{{ route('mentors.archive') }}" class="nav-link {{ Request::routeIs('mentors.archive') ? 'active' : null }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Архив</p>
             </a>

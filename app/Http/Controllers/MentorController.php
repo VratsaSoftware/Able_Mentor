@@ -36,6 +36,33 @@ class MentorController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @param null $status
+     * @return \Illuminate\Http\Response
+     */
+    public function archive(Request $request)
+    {
+        $mentorsQuery = Mentor::query()
+            ->withRelations();
+
+        if ($request->seasonId) {
+            $mentorsQuery->where('current_season_id', $request->seasonId);
+        } else {
+            $mentorsQuery = MentorStudentService::mentorsFilter(config('consts.MENTOR_STATUS.archive'), $mentorsQuery);
+        }
+
+        $pastSeasons = Season::past()
+            ->orderByDesc('id')
+            ->get();
+
+        return view('mentors.index', [
+            'mentors' => $mentorsQuery->get(),
+            'pastSeasons' => $pastSeasons,
+        ]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
