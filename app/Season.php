@@ -21,7 +21,7 @@ class Season extends Model
      */
     public function scopeNew($query)
     {
-        $query->whereDate('start', '>', Carbon::now()->subDay())
+        $query->whereDate('start', '>', Carbon::now())
             ->whereDate('end', '>', Carbon::now()->subDay());
     }
 
@@ -40,7 +40,7 @@ class Season extends Model
      */
     public function isCurrent()
     {
-        return Carbon::parse($this->start)->lt(Carbon::now()->subDay()) && Carbon::parse($this->end)->gt(Carbon::now()->subDay());
+        return Carbon::parse($this->start)->lt(Carbon::now()) && Carbon::parse($this->end)->gt(Carbon::now()->subDay());
     }
 
     /*
