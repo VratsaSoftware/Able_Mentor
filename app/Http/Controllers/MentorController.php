@@ -239,7 +239,7 @@ class MentorController extends Controller
      */
     public function importMentors(Request $request)
     {
-        return ImportDataService::importData($request->file, $request->seasonStatus, 'mentor');
+        return ImportDataService::importData($request->file, $request->seasonStatus, 'mentor', $request->seasonId);
     }
 
     /**
