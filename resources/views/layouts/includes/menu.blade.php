@@ -77,7 +77,7 @@
     </a>
 </li>
 
-@if(Auth::user()->isadmin())
+@if(Auth::user()->isAdmin())
     <li class="nav-item">
         <a href="{{ route('seasons.index') }}" class="nav-link">
             <i class="nav-icon fas fa-calendar-alt"></i>
