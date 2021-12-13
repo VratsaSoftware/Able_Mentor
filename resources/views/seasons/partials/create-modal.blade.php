@@ -22,13 +22,13 @@
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Начало</label>
-                                <input type="date" class="form-control" name="start" placeholder="Начало дата" value="{{ \Carbon\Carbon::parse($seasons->last()->start)->addDay()->format('Y-m-d') }}" required>
+                                <input type="date" class="form-control" name="start" placeholder="Начало дата" value="{{ \Carbon\Carbon::parse($seasons->last()->end)->addDay()->format('Y-m-d') }}" required>
                             </div>
                         </div>
                         <div class="col-12 col-lg-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Край</label>
-                                <input type="date" class="form-control" name="end" placeholder="Край дата" value="{{ \Carbon\Carbon::parse($seasons->last()->start)->addMonths(6)->format('Y-m-d') }}" required>
+                                <input type="date" class="form-control" name="end" placeholder="Край дата" value="{{ \Carbon\Carbon::parse($seasons->last()->end)->addMonths(6)->format('Y-m-d') }}" required>
                             </div>
                         </div>
                     </div>
