@@ -35323,13 +35323,6 @@ body.iframe-mode-fullscreen .content-wrapper.iframe-mode {
   margin-top: 0.31rem;
 }
 
-.select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-  color: rgba(255, 255, 255, 0.7);
-  float: right;
-  margin-left: 5px;
-  margin-right: -2px;
-}
-
 .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
   color: #fff;
 }

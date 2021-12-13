@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use App\Season;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class SeasonController extends Controller
      */
     public function index()
     {
-        $seasons = Season::where('id', '!=', 1)
+        $seasons = Season::with('cities')
+            ->where('id', '!=', 1)
             ->get();
 
         $newOpenSeasonId = Season::new()
@@ -24,6 +26,7 @@ class SeasonController extends Controller
         return view('seasons.index', [
             'seasons' => $seasons,
             'newOpenSeasonId' => $newOpenSeasonId,
+            'cities' => City::all(),
         ]);
     }
 
@@ -51,6 +54,8 @@ class SeasonController extends Controller
         $season->start = $request->start;
         $season->end = $request->end;
         $season->save();
+
+        $season->cities()->attach($request->cities);
 
         return redirect()->back()->with('success', 'Успешно създаден сезон!');
     }

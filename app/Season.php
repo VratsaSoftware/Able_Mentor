@@ -50,4 +50,9 @@ class Season extends Model
     {
         return Carbon::parse($this->start)->gt(Carbon::now()) && Carbon::parse($this->end)->addDay()->gt(Carbon::now());
     }
+
+    public function cities()
+    {
+        return $this->belongsToMany(City::class, 'seasons_cities');
+    }
 }
