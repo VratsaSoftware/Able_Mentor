@@ -65,14 +65,17 @@ class MentorController extends Controller
      */
     public function create()
     {
-        $cities = City::all();
         $projectTypes = ProjectType::all();
         $genders = Gender::all();
         $seasons = Season::whereDate('start', '<=', Carbon::now())
             ->get();
 
+        $newSeason = Season::with('cities')
+            ->new()
+            ->first();
+
         return view('mentors.create', [
-            'cities' => $cities,
+            'cities' => $newSeason->cities,
             'genders' => $genders,
             'projectTypes' => $projectTypes,
             'seasons' => $seasons,

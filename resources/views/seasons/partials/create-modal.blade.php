@@ -1,3 +1,7 @@
+@push('head')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 <div class="modal fade" id="createSeason">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -28,6 +32,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="select2-info">
+                                    <select class="select2" name="cities[]" multiple="multiple" data-placeholder="Градове за провеждане" data-dropdown-css-class="select2-info" style="width: 100%;" required>
+                                        @foreach($cities as $city)
+                                            <option value="{{ $city->id }}">{{ $city->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
@@ -37,3 +54,12 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+@endpush

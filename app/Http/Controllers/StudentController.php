@@ -67,15 +67,18 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $cities = City::all();
         $schoolClass = SchoolClass::all();
         $englishLevels = EnglishLevel::all();
         $sports = Sport::all();
         $projectTypes = ProjectType::all();
         $genders = Gender::all();
 
+        $newSeason = Season::with('cities')
+            ->new()
+            ->first();
+
         return view('students.create', [
-            'cities' => $cities,
+            'cities' => $newSeason->cities,
             'genders' => $genders,
             'schoolClass' => $schoolClass,
             'englishLevels' => $englishLevels,

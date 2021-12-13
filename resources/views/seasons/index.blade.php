@@ -29,6 +29,7 @@
                         <th>Име на сезон</th>
                         <th>Начало</th>
                         <th>Край</th>
+                        <th>Градове</th>
                         <th>...</th>
                     </tr>
                 </thead>
@@ -49,6 +50,11 @@
                             </td>
                             <td>{{ $season->start }}</td>
                             <td>{{ $season->end }}</td>
+                            <td>
+                                @foreach($season->cities as $city)
+                                    {{ $city->name }}
+                                @endforeach
+                            </td>
                             <td>
                                 <form style="display:inline-block; float: right" action="{{ route('seasons.destroy', $season->id) }}" method="POST">
                                     @csrf
