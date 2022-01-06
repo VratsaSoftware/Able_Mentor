@@ -12,6 +12,8 @@ class MentorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Mentor::class, 100)->create();
+        if (env('APP_ENV') !== 'production') {
+            factory(App\Mentor::class, 100)->create();
+        }
     }
 }

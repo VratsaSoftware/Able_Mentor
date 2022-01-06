@@ -12,6 +12,8 @@ class StudentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Student::class, 100)->create();
+        if (env('APP_ENV') !== 'production') {
+            factory(App\Student::class, 100)->create();
+        }
     }
 }

@@ -116,7 +116,7 @@ class ImportDataService {
 
         $mentor = Mentor::create([
             'name' => $column[0],
-            'age' => $column[1],
+            'age' => (int)$column[1],
             'email' => $column[2],
             'phone' => $column[3],
             'gender_id' => $column[4] == 'Мъж' ? 1 : 2,
