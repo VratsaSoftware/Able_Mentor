@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +19,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',
     ];
+
+    /*
+     * local scope approved
+     */
+    public function scopeApproved($query)
+    {
+        $query->whereNotNull('role');
+    }
 
     /**
      * The attributes that should be hidden for arrays.
@@ -36,4 +45,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /*
+     * Check if the user is approved
+     */
+    public function isApproved() {
+        return !is_null($this->role);
+    }
+
+    /*
+     * Authenticated user is admin
+     */
+    public function isAdmin() {
+        return $this->role == config('consts.AUTH.role_admin');
+    }
 }
