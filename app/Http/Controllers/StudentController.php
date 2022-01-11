@@ -196,10 +196,17 @@ class StudentController extends Controller
                 $student->hours - 1,
                 $student->hours + 1,
             ])->where(function ($q) use ($student) {
-                $q->doesntHave('projectTypes')
-                    ->orWhereHas('projectTypes', function ($q) use ($student) {
-                        $q->whereNotIn('type', $student->projectTypes);
-                    });
+                $q->where(function ($query) use ($student) {
+                    $query->doesntHave('projectTypes')
+                        ->orWhereHas('projectTypes', function ($q) use ($student) {
+                            $q->whereNotIn('type', $student->projectTypes);
+                        });
+                })->orWhere(function ($query) use ($student) {
+                    $query->doesntHave('spheres')
+                        ->orWhereHas('spheres', function ($q) use ($student) {
+                            $q->whereNotIn('name', $student->spheres);
+                        });
+                });
             })->get();
 
         $appropriateMentors = Mentor::with('city', 'students')
