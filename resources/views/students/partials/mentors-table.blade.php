@@ -5,6 +5,7 @@
                 <th>Име</th>
                 <th>Град</th>
                 <th>Тип проект</th>
+                <th>Сфера на развитие</th>
                 <th>Часове за проекта</th>
                 @if($type == 'appropriate')
                     <th>%</th>
@@ -23,6 +24,15 @@
                             @foreach($mentor->projectTypes as $projectType)
                                 <li>
                                     <span style="color: {{ in_array($projectType->id, $student->projectTypes->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $projectType->type }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach($mentor->spheres as $sphere)
+                                <li>
+                                    <span style="color: {{ in_array($sphere->id, $student->spheres->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $sphere->name }}</span>
                                 </li>
                             @endforeach
                         </ul>
@@ -57,6 +67,7 @@
                 <th>Име</th>
                 <th>Град</th>
                 <th>Тип проект</th>
+                <th>Сфера на развитие</th>
                 <th>Часове за проекта</th>
                 @if($type == 'appropriate')
                     <th>%</th>

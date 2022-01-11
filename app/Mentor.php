@@ -67,6 +67,11 @@ class Mentor extends Model
 
     public function projectTypes()
     {
-        return $this->belongsToMany('App\ProjectType', 'mentors_project_types');
+        return $this->belongsToMany(ProjectType::class, 'mentors_project_types');
+    }
+
+    public function spheres()
+    {
+        return $this->belongsToMany(Sphere::class, 'mentors_spheres');
     }
 }

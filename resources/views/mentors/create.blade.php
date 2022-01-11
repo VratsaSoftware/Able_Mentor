@@ -116,12 +116,17 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Професионален опит/интереси:</h6>
+            <h6 style="color:#4a4a4a;">Сфера, в която имате опит и експертиза?</h6>
             <p>
-                <span class="wpcf7-form-control-wrap text-mentor-5">
-                    <input type="text" name="experience" value="{{ Request::get('experience') }}" size="40"
-                           class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                           aria-required="true" aria-invalid="false" required>
+               <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       <option value="">---</option>
+                       @foreach($spheres as $sphere)
+                            <option value="{{ $sphere->id }}"
+                            {{ Request::get('spheres') && in_array($sphere->id, Request::get('spheres')) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                        @endforeach
+                    </select>
                 </span>
             </p>
         </div>
