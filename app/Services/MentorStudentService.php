@@ -22,15 +22,23 @@ class MentorStudentService {
             }
         }
 
+        foreach($student->spheres as $sphere) {
+            if (in_array($sphere->id, $mentor->spheres->pluck('id')->toArray())) {
+                $matchPoints += 1;
+
+                break;
+            }
+        }
+
         if ($student->hours == $mentor->hours) {
             $matchPoints += 1;
         } elseif (in_array($student->hours, [$mentor->hours - 1, $mentor->hours + 1])) {
             $matchPoints += 0.5;
         }
 
-        $matchPercentage = ($matchPoints / 2) * 100;
+        $matchPercentage = ($matchPoints / 3) * 100;
 
-        return $matchPercentage . '%';
+        return round($matchPercentage) . '%';
     }
 
     /**

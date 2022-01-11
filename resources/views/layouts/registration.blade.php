@@ -69,6 +69,17 @@
         .wpb-ea-service-box-image .wpb-ea-service-box-btn:hover {
             border-color: #3878ff;
         }
+
+        .select2-container .select2-search--inline .select2-search__field {
+            background: red!important;
+            display: none!important;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border-width: 0 0 0.7px 0!important;
+            background-color: #fef2f0!important;
+            border-radius: 0px!important;
+        }
     </style>
 
     <link rel='stylesheet' id='style-css'
@@ -108,6 +119,8 @@
     <link rel='stylesheet' href="{{ asset('css/registration.css') }}" type='text/css'/>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 
 <!-- body -->
@@ -155,5 +168,11 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
 </body>
 </html>

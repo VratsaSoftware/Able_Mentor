@@ -6,6 +6,7 @@ use App\Http\Requests\StudentRequest;
 use App\Season;
 use App\Services\ImportDataService;
 use App\Services\MentorStudentService;
+use App\Sphere;
 use Illuminate\Http\Request;
 use App\Student;
 use App\City;
@@ -67,23 +68,22 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $schoolClass = SchoolClass::all();
-        $englishLevels = EnglishLevel::all();
-        $sports = Sport::all();
-        $projectTypes = ProjectType::all();
-        $genders = Gender::all();
-
         $newSeason = Season::with('cities')
             ->new()
             ->first();
 
+        if (!$newSeason) {
+            abort(404);
+        }
+
         return view('students.create', [
             'cities' => $newSeason->cities,
-            'genders' => $genders,
-            'schoolClass' => $schoolClass,
-            'englishLevels' => $englishLevels,
-            'sports' => $sports,
-            'projectTypes' => $projectTypes,
+            'genders' => Gender::all(),
+            'schoolClass' => SchoolClass::all(),
+            'englishLevels' => EnglishLevel::all(),
+            'sports' => Sport::all(),
+            'projectTypes' => ProjectType::all(),
+            'spheres' => Sphere::all(),
         ]);
     }
 
@@ -111,6 +111,7 @@ class StudentController extends Controller
             $student->save();
 
             $student->projectTypes()->attach($request->project_type_ids);
+            $student->spheres()->attach($request->spheres);
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {
@@ -195,10 +196,17 @@ class StudentController extends Controller
                 $student->hours - 1,
                 $student->hours + 1,
             ])->where(function ($q) use ($student) {
-                $q->doesntHave('projectTypes')
-                    ->orWhereHas('projectTypes', function ($q) use ($student) {
-                        $q->whereNotIn('type', $student->projectTypes);
-                    });
+                $q->where(function ($query) use ($student) {
+                    $query->doesntHave('projectTypes')
+                        ->orWhereHas('projectTypes', function ($q) use ($student) {
+                            $q->whereNotIn('type', $student->projectTypes);
+                        });
+                })->orWhere(function ($query) use ($student) {
+                    $query->doesntHave('spheres')
+                        ->orWhereHas('spheres', function ($q) use ($student) {
+                            $q->whereNotIn('name', $student->spheres);
+                        });
+                });
             })->get();
 
         $appropriateMentors = Mentor::with('city', 'students')

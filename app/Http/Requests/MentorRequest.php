@@ -33,7 +33,6 @@ class MentorRequest extends FormRequest
             'city_id' => 'required',
             'work' => 'required',
             'education' => 'required',
-            'experience' => 'required',
             'expertise' => 'required',
             'difficult_situations' => 'required',
             'want_to_change' => 'required',
