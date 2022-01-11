@@ -86,7 +86,7 @@
                             <td>{{ $mentor->phone }}</td>
                             <td>{{ $mentor->gender->gender }}</td>
                             <td>{{ $mentor->previousSeason ? $mentor->previousSeason->name : null }}</td>
-                            <td>{{ $mentor->city->name }}</td>
+                            <td>{{ $mentor->city ? $mentor->city->name : null }}</td>
                             <td>{{ $mentor->education }}</td>
                             <td>{{ $mentor->work }}</td>
                             <td>{{ $mentor->experience }}</td>
