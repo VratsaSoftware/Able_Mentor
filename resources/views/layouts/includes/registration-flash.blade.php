@@ -1,11 +1,19 @@
-@if (Request::get('success'))
+@if ($success = Session::get('success'))
     <div class="alert alert-success" style="background-color: #d1e7dd">
-        {{ Request::get('success') }}
+        {{ $success }}
     </div>
 @endif
 
-@if (Request::get('error'))
+@if ($error = Session::get('error'))
     <div class="alert alert-danger" style="background-color: #ecbfbb">
-        {{ Request::get('error') }}
+        {{ $error }}
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger" style="background-color: #ecbfbb">
+        @foreach($errors->all() as $error)
+            {{ $error }}
+        @endforeach
     </div>
 @endif

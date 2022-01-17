@@ -112,14 +112,9 @@ class StudentController extends Controller
 
             $student->projectTypes()->attach($request->project_type_ids);
             $student->spheres()->attach($request->spheres);
+        } catch (\Exception $e) { }
 
-            $response = ['success' => 'Успешно кандидатстване!'];
-        } catch (\Exception $e) {
-            $request['error'] = 'Грешка! Моля проверете формата за грешки!';
-            $response = $request->all();
-        }
-
-        return redirect()->route('students.create', $response);
+        return redirect()->route('students.create')->with('success', 'Формата е изпратена успешно!');
     }
 
     /**
