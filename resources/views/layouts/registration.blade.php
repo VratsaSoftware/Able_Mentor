@@ -276,26 +276,7 @@
                             <!-- Logo -->
                             <div class="logo"><a id="logo" href="https://www.ablementor.bg" title="ABLE Mentor" data-height="60" data-padding="15"><img class="logo-main scale-with-grid" src="https://www.ablementor.bg/wp-content/uploads/2019/01/BRAND_logotype_white.png" data-retina="" data-height="80" alt="BRAND_logotype_white" data-no-retina /><img class="logo-sticky scale-with-grid" src="https://www.ablementor.bg/wp-content/uploads/2019/01/BRAND_logotype_white.png" data-retina="" data-height="80" alt="BRAND_logotype_white" data-no-retina /><img class="logo-mobile scale-with-grid" src="https://www.ablementor.bg/wp-content/uploads/2019/01/BRAND_logotype_white.png" data-retina="" data-height="80" alt="BRAND_logotype_white" data-no-retina /><img class="logo-mobile-sticky scale-with-grid" src="https://www.ablementor.bg/wp-content/uploads/2019/01/BRAND_logotype_white.png" data-retina="" data-height="80" alt="BRAND_logotype_white" data-no-retina /></a></div>
                             <div class="menu_wrapper">
-                                <nav id="menu"><ul id="menu-main-menu" class="menu menu-main"><li id="menu-item-1145" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home"><a href="https://www.ablementor.bg/"><span>Начало</span></a></li>
-                                        <li id="menu-item-990" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.ablementor.bg/about-us/"><span>За нас</span></a>
-                                            <ul class="sub-menu">
-                                                <li id="menu-item-1129" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.ablementor.bg/partners/"><span>Партньори</span></a></li>
-                                                <li id="menu-item-987" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.ablementor.bg/contact/"><span>Контакти</span></a></li>
-                                            </ul>
-                                        </li>
-                                        <li id="menu-item-988" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.ablementor.bg/blog/"><span>Блог</span></a>
-                                            <ul class="sub-menu">
-                                                <li id="menu-item-1356" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="https://www.ablementor.bg/able-mentor-stories/all/"><span>My Story</span></a></li>
-                                            </ul>
-                                        </li>
-                                        <li id="menu-item-2347" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children"><a href="https://www.ablementor.bg/adventure-route/"><span>За Програмата</span></a>
-                                            <ul class="sub-menu">
-                                                <li id="menu-item-1355" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.ablementor.bg/online/"><span>Онлайн</span></a></li>
-                                            </ul>
-                                        </li>
-                                        <li id="menu-item-1056" class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-1049 current_page_item"><a href="https://www.ablementor.bg/students/"><span>За Ученици</span></a></li>
-                                        <li id="menu-item-1055" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.ablementor.bg/mentors/"><span>Стани Ментор</span></a></li>
-                                        <li id="menu-item-1561" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.ablementor.bg/donate/"><span>Дари</span></a></li>
+                                <nav id="menu"><ul id="menu-main-menu" class="menu menu-main"><li id="menu-item-1145" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-1049 current_page_item"><a href="https://www.ablementor.bg/"><span>Начало</span></a></li>
                                     </ul></nav><a class="responsive-menu-toggle " href="#"><i class="icon-menu-fine"></i></a>				</div>
 
                             <div class="secondary_menu_wrapper">
