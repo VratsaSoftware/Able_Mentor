@@ -171,12 +171,7 @@ class StudentController extends Controller
      */
     public function update(Student $student, StudentRequest $request)
     {
-        $data = $request->all();
-
-        unset($data['_token']);
-        unset($data['project_type_ids']);
-
-        $student->update($data);
+        $student->update($request->all());
 
         $student->projectTypes()->sync($request->project_type_ids);
 

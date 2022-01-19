@@ -179,16 +179,11 @@ class MentorController extends Controller
      */
     public function update(MentorRequest $request, Mentor $mentor)
     {
-        $data = $request->all();
-
-        unset($data['_token']);
-        unset($data['project_type_ids']);
-
         if ($request->cv) {
-            $data['cv_path'] = self::saveCV($request->cv);
+            $request['cv_path'] = self::saveCV($request->cv);
         }
 
-        $mentor->update($data);
+        $mentor->update($request->all());
 
         $mentor->projectTypes()->sync($request->project_type_ids);
 
