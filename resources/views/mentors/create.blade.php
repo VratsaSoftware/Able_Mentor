@@ -116,7 +116,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Сфера, в която имате опит и експертиза?</h6>
+            <h6 style="color:#4a4a4a;">Сфери, в които имате опит и интереси?</h6>
             <p>
                <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"

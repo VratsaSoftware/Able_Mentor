@@ -169,7 +169,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Сфера, в която искаш да се развиваш?</h6>
+            <h6 style="color:#4a4a4a;">Сфери, които са ти интересни и искаш да се развиваш?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
