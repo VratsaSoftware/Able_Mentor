@@ -13,7 +13,7 @@ $factory->define(Student::class, function (Faker $faker) {
         'phone' => $faker->phoneNumber(),
         'gender_id' => $faker->numberBetween(1, 2),
         'city_id' => $faker->numberBetween(1, 257),
-        'season_id' => $faker->numberBetween(1, 18),
+        'season_id' => $faker->numberBetween(1, 17),
         'school' => $faker->regexify('[A-Za-z0-9\s]{100}'),
         'class_id' => $faker->numberBetween(1, 12),
         'favorite_subjects' => $faker->regexify('[A-Za-z0-9\s]{100}'),
