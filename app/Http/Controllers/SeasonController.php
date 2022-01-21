@@ -91,7 +91,11 @@ class SeasonController extends Controller
      */
     public function update(Request $request, Season $season)
     {
-        //
+        $season->update($request->all());
+
+        $season->cities()->sync($request->cities);
+
+        return redirect()->back()->with('success', 'Успешно редактиран сезон!');
     }
 
     /**

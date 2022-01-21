@@ -17,8 +17,8 @@ class CreateSeasonsCitiesTable extends Migration
             $table->unsignedBigInteger('season_id')->nullable();
             $table->unsignedBigInteger('city_id')->nullable();
 
-            $table->foreign('season_id')->references('id')->on('seasons');
-            $table->foreign('city_id')->references('id')->on('cities');
+            $table->foreign('season_id')->references('id')->on('seasons')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
         });
     }
 

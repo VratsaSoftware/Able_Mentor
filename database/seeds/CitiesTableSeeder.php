@@ -272,7 +272,7 @@ class CitiesTableSeeder extends Seeder
 				['name' => 'Ябланица'],
 				['name' => 'Якоруда'],
 				['name' => 'Ямбол'],
-				['name' => 'Онлайн'],
+				['name' => 'Онлайн за цялата страна'],
 			]
 		);
     }
