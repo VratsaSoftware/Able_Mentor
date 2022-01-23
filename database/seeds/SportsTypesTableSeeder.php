@@ -26,7 +26,6 @@ class SportsTypesTableSeeder extends Seeder
         		['name' => 'Бойни спортове'],
         		['name' => 'Футбол'],
         		['name' => 'Хандбал'],
-        		['name' => 'Начално (А1)'],
         		['name' => 'Лека атлетика'],
         		['name' => 'Алпийски ски'],
         		['name' => 'Хокей'],
@@ -34,7 +33,8 @@ class SportsTypesTableSeeder extends Seeder
         		['name' => 'Шах'],
         		['name' => 'Гребане'],
         		['name' => 'Плуване'],
-        		['name' => 'Други']
+        		['name' => 'Не спортувам'],
+        		['name' => 'Други'],
         	]
         );
     }

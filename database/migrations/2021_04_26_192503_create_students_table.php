@@ -27,7 +27,7 @@ class CreateStudentsTable extends Migration
             $table->text('favorite_subjects');
             $table->text('hobbies');
             $table->unsignedBigInteger('english_level_id');
-            $table->unsignedBigInteger('sport_id');
+            $table->unsignedBigInteger('sport_id')->nullable();
             $table->text('after_school_plans');
             $table->text('strong_weak_sides')->nullable();
             $table->text('qualities_to_change');

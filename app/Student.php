@@ -92,4 +92,9 @@ class Student extends Model
     {
         return $this->belongsToMany(Sphere::class, 'students_spheres');
     }
+
+    public function sports()
+    {
+        return $this->belongsToMany(Sport::class, 'students_sports');
+    }
 }

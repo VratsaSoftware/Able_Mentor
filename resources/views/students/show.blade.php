@@ -104,8 +104,13 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <b>Любим спорт:</b>
+                                            <b>Любими спортове:</b>
                                             {{ $student->sport ? $student->sport->name : null }}
+                                            <ul>
+                                                @foreach($student->sports as $sport)
+                                                    <li>{{ $sport->name }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">
@@ -134,8 +139,13 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <b>Силни/Слаби страни:</b>
+                                            <b>Сфери, които са ти интересни и искаш да се развиваш?</b>
                                             {{ $student->strong_weak_sides }}
+                                            <ul>
+                                                @foreach($student->spheres as $sphere)
+                                                    <li>{{ $sphere->name }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">

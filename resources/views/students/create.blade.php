@@ -144,14 +144,15 @@
         <div class="column one">
             <h6 style="color:#4a4a4a;">Спорт</h6>
             <p>
-                <span class="wpcf7-form-control-wrap menu-english_students">
-                    <select name="sport_id" class="wpcf7-form-control wpcf7-select" aria-invalid="false" required>
-                        <option value="">---</option>
-                        @foreach($sports as $sport)
-                            <option value="{{ $sport->id }}" {{ Request::get('sport_id') == $sport->id ? 'selected' : null }}>{{ $sport->name }}</option>
+                <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="sport_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($sports as $sport)
+                            <option value="{{ $sport->id }}"
+                            {{ Request::get('sport_ids') && in_array($sport->id, Request::get('sport_ids')) ? 'selected' : null }}>{{ $sport->name }}</option>
                         @endforeach
                     </select>
-                 </span>
+                </span>
             </p>
         </div>
         <div class="column one">

@@ -99,19 +99,15 @@ class StudentController extends Controller
             ->pluck('id')
             ->first();
 
-        $data = $request->all();
-
         try {
-            unset($data['_token']);
-            unset($data['project_type_ids']);
+            $request['season_id'] = $newSeasonId;
 
-            $data['season_id'] = $newSeasonId;
-
-            $student = new Student($data);
+            $student = new Student($request->all());
             $student->save();
 
             $student->projectTypes()->attach($request->project_type_ids);
             $student->spheres()->attach($request->spheres);
+            $student->sports()->attach($request->sport_ids);
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {
@@ -184,27 +180,27 @@ class StudentController extends Controller
      */
     public function mentors(Student $student)
     {
-        $otherMentors = Mentor::with('city', 'students')
+        $otherMentors = Mentor::with('city', 'students', 'projectTypes')
             ->where('current_season_id', $student->season_id)
-            ->whereNotIn('hours', [
-                $student->hours,
-                $student->hours - 1,
-                $student->hours + 1,
-            ])->where(function ($q) use ($student) {
-                $q->where(function ($query) use ($student) {
+            ->where(function ($q) use ($student) {
+                $q->whereNotIn('hours', [
+                    $student->hours,
+                    $student->hours - 1,
+                    $student->hours + 1,
+                ])->orWhere(function ($query) use ($student) {
                     $query->doesntHave('projectTypes')
                         ->orWhereHas('projectTypes', function ($q) use ($student) {
-                            $q->whereNotIn('type', $student->projectTypes);
+                            $q->whereNotIn('id', $student->projectTypes->pluck('id'));
                         });
                 })->orWhere(function ($query) use ($student) {
                     $query->doesntHave('spheres')
                         ->orWhereHas('spheres', function ($q) use ($student) {
-                            $q->whereNotIn('name', $student->spheres);
+                            $q->whereNotIn('id', $student->spheres->pluck('id'));
                         });
                 });
             })->get();
 
-        $appropriateMentors = Mentor::with('city', 'students')
+        $appropriateMentors = Mentor::with('city', 'students', 'projectTypes')
             ->where('current_season_id', $student->season_id)
             ->whereNotIn('id', $otherMentors->pluck('id'))
             ->get();

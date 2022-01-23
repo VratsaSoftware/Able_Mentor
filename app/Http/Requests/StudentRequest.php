@@ -35,7 +35,7 @@ class StudentRequest extends FormRequest
             'favorite_subjects' => 'required',
             'hobbies' => 'required',
             'english_level_id' => 'nullable',
-            'sport_id' => 'required',
+            'sport_ids' => 'required',
             'after_school_plans' => 'required',
             'qualities_to_change' => 'required',
             'free_time_activities' => 'required',

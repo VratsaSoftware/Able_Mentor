@@ -203,20 +203,20 @@ class MentorController extends Controller
                     ->orWhereHas('mentors', function ($query) use ($mentor) {
                         $query->where('mentor_id', $mentor->id);
                     });
-            })->whereNotIn('hours', [
-                $mentor->hours,
-                $mentor->hours - 1,
-                $mentor->hours + 1,
-            ])->where(function ($q) use ($mentor) {
-                $q->where(function ($query) use ($mentor) {
+            })->where(function ($q) use ($mentor) {
+                $q->whereNotIn('hours', [
+                    $mentor->hours,
+                    $mentor->hours - 1,
+                    $mentor->hours + 1,
+                ])->where(function ($query) use ($mentor) {
                     $query->doesntHave('projectTypes')
                         ->orWhereHas('projectTypes', function ($q) use ($mentor) {
-                            $q->whereNotIn('type', $mentor->projectTypes);
+                            $q->whereNotIn('id', $mentor->projectTypes->pluck('id'));
                         });
-                })->orWhere(function ($query) use ($mentor) {
+                })->where(function ($query) use ($mentor) {
                     $query->doesntHave('spheres')
                         ->orWhereHas('spheres', function ($q) use ($mentor) {
-                            $q->whereNotIn('name', $mentor->spheres);
+                            $q->whereNotIn('id', $mentor->spheres->pluck('id'));
                         });
                 });
             })->get();

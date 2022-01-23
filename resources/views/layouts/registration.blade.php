@@ -80,6 +80,10 @@
             background-color: #fef2f0!important;
             border-radius: 0px!important;
         }
+
+        .select2-container--default .select2-results>.select2-results__options {
+            background-color: #fef2f0;
+        }
     </style>
 
     <link rel='stylesheet' id='style-css'
@@ -138,7 +142,6 @@
                             <div class="placeholder">&nbsp;</div>
                         </div>
                         <div class="column mcb-column mcb-item-jpn9ucq2j two-third column_column">
-                            @include('layouts.includes.registration-flash')
                             <div class="column_attr clearfix" style=""><h3>Попълни регистрацията, за да участваш в ABLE
                                     Mentor!</h3>
                                 <hr class="no_line"/>
@@ -150,6 +153,7 @@
                                 <!-- content END -->
                                 </div>
                             </div>
+                            @include('layouts.includes.registration-flash')
                         </div>
                     </div>
                 </div>
