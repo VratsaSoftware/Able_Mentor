@@ -142,19 +142,14 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        $cities = City::all();
-        $schoolClasses = SchoolClass::all();
-        $englishLevels = EnglishLevel::all();
-        $sports = Sport::all();
-        $projectTypes = ProjectType::all();
-
         return view('students.edit', [
             'student' => $student,
-            'cities' => $cities,
-            'schoolClasses' => $schoolClasses,
-            'englishLevels' => $englishLevels,
-            'sports' => $sports,
-            'projectTypes' => $projectTypes,
+            'cities' => City::all(),
+            'schoolClasses' => SchoolClass::all(),
+            'englishLevels' => EnglishLevel::all(),
+            'sports' => Sport::all(),
+            'spheres' => Sphere::all(),
+            'projectTypes' => ProjectType::all(),
         ]);
     }
 
@@ -170,6 +165,8 @@ class StudentController extends Controller
         $student->update($request->all());
 
         $student->projectTypes()->sync($request->project_type_ids);
+        $student->spheres()->sync($request->spheres);
+        $student->sports()->sync($request->sport_ids);
 
         return redirect()->route('student.show', $student->id)->with('success', 'Успешно редактиран студент!');
     }

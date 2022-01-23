@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
-@section('title')
-{{ __('Редакция на ' . $mentor->name . ' - Able Mentor') }}
-@endsection
+@section('title', __('Редакция на ' . $mentor->name . ' - Able Mentor'))
+
+@push('head')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
 
 @section('content')
     <div class="container-fluid">
@@ -87,8 +89,16 @@
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
-                        <label>Професионален опит/интереси:</label>
-                        <textarea class="form-control" rows="4" cols="50" name="experience" form="mentorInfo">{{ $mentor->experience }}</textarea>
+                        <label>Сфери, в които имате опит и интереси?</label>
+                        <div class="select2-info">
+                            <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                                    aria-required="true" style="width: 100%;" aria-invalid="false" multiple="multiple" required>
+                                @foreach($spheres as $sphere)
+                                    <option value="{{ $sphere->id }}"
+                                        {{ in_array($sphere->id, $mentor->spheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -166,3 +176,12 @@
     	</form>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+@endpush

@@ -156,17 +156,17 @@ class MentorController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mentor $mentor)
+    public function edit($mentor)
     {
-        $cities = City::all();
-        $projectTypes = ProjectType::all();
-        $seasons = Season::all();
+        $mentor = Mentor::with('spheres')
+            ->findOrFail($mentor);
 
         return view('mentors.edit', [
             'mentor' => $mentor,
-            'cities' => $cities,
-            'projectTypes' => $projectTypes,
-            'seasons' => $seasons,
+            'cities' => City::all(),
+            'projectTypes' => ProjectType::all(),
+            'seasons' => Season::all(),
+            'spheres' => Sphere::all(),
         ]);
     }
 
@@ -186,6 +186,7 @@ class MentorController extends Controller
         $mentor->update($request->all());
 
         $mentor->projectTypes()->sync($request->project_type_ids);
+        $mentor->spheres()->sync($request->spheres);
 
         return redirect()->route('mentor.show', $mentor->id)->with('success', 'Успешно се редактиран ментор!');
     }

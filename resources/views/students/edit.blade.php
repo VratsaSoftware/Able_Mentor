@@ -2,6 +2,10 @@
 
 @section('title', 'Редакция на ' . $student->name . ' - Able Mentor')
 
+@push('head')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endpush
+
 @section('content')
     <div class="container-fluid">
         <h1 class="text-black-50">{{ $student->name }}</h1>
@@ -82,14 +86,16 @@
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="form-group">
-                        <label>Любим спорт:</label>
-                        <select name="sport_id" class="form-control">
-                            @foreach ($sports as $sport)
-                                <option value="{{ $sport->id }}" @if( $sport->id == $student->sport_id ) selected="true" @endif>
-                                    {{ $sport->name }}
-                                </option>
-                            @endforeach
-                        </select>
+                        <label>Любими спортове:</label>
+                        <div class="select2-info">
+                            <select name="sport_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                                    aria-required="true" style="width: 100%" aria-invalid="false" multiple="multiple" required>
+                                @foreach($sports as $sport)
+                                    <option value="{{ $sport->id }}"
+                                        {{ in_array($sport->id, $student->sports->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sport->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -118,8 +124,16 @@
                 </div>
                 <div class="col-12 col-lg">
                     <div class="form-group">
-                        <label>Силни/Слаби страни:</label>
-                        <textarea class="form-control" rows="4" cols="50" name="strong_weak_sides">{{ $student->strong_weak_sides }}</textarea>
+                        <label>Сфери, които са ти интересни и искаш да се развиваш?</label>
+                        <div class="select2-info">
+                            <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                                    aria-required="true" style="width: 100%" aria-invalid="false" multiple="multiple" required>
+                                @foreach($spheres as $sphere)
+                                    <option value="{{ $sphere->id }}"
+                                        {{ in_array($sphere->id, $student->spheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -202,3 +216,12 @@
     	</form>
     </div>
 @endsection
+
+@push('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+@endpush

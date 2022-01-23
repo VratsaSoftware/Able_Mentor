@@ -121,7 +121,6 @@
                <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
                             aria-required="true" aria-invalid="false" multiple="multiple" required>
-                       <option value="">---</option>
                        @foreach($spheres as $sphere)
                             <option value="{{ $sphere->id }}"
                             {{ Request::get('spheres') && in_array($sphere->id, Request::get('spheres')) ? 'selected' : null }}>{{ $sphere->name }}</option>

@@ -142,7 +142,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Спорт</h6>
+            <h6 style="color:#4a4a4a;">Любими спортове</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="sport_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
@@ -175,7 +175,6 @@
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
                             aria-required="true" aria-invalid="false" multiple="multiple" required>
-                       <option value="">---</option>
                        @foreach($spheres as $sphere)
                             <option value="{{ $sphere->id }}"
                             {{ Request::get('spheres') && in_array($sphere->id, Request::get('spheres')) ? 'selected' : null }}>{{ $sphere->name }}</option>
