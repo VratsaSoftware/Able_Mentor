@@ -180,20 +180,20 @@ class StudentController extends Controller
         $otherMentors = Mentor::with('city', 'students', 'projectTypes')
             ->where('current_season_id', $student->season_id)
             ->whereNotIn('hours', [
-                    $student->hours,
-                    $student->hours - 1,
-                    $student->hours + 1,
-                ])->where(function ($query) use ($student) {
-                    $query->doesntHave('projectTypes')
-                        ->orWhereHas('projectTypes', function ($q) use ($student) {
-                            $q->whereNotIn('id', $student->projectTypes->pluck('id'));
-                        });
-                })->where(function ($query) use ($student) {
-                    $query->doesntHave('spheres')
-                        ->orWhereHas('spheres', function ($q) use ($student) {
-                            $q->whereNotIn('id', $student->spheres->pluck('id'));
-                        });
-                })->get();
+                $student->hours,
+                $student->hours - 1,
+                $student->hours + 1,
+            ])->where(function ($query) use ($student) {
+                $query->doesntHave('projectTypes')
+                    ->orWhereHas('projectTypes', function ($q) use ($student) {
+                        $q->whereNotIn('id', $student->projectTypes->pluck('id'));
+                    });
+            })->where(function ($query) use ($student) {
+                $query->doesntHave('spheres')
+                    ->orWhereHas('spheres', function ($q) use ($student) {
+                        $q->whereNotIn('id', $student->spheres->pluck('id'));
+                    });
+            })->get();
 
         $appropriateMentors = Mentor::with('city', 'students', 'projectTypes')
             ->where('current_season_id', $student->season_id)
