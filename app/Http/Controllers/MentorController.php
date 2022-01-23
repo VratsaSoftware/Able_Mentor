@@ -204,8 +204,7 @@ class MentorController extends Controller
                     ->orWhereHas('mentors', function ($query) use ($mentor) {
                         $query->where('mentor_id', $mentor->id);
                     });
-            })->where(function ($q) use ($mentor) {
-                $q->whereNotIn('hours', [
+            })->whereNotIn('hours', [
                     $mentor->hours,
                     $mentor->hours - 1,
                     $mentor->hours + 1,
@@ -219,8 +218,7 @@ class MentorController extends Controller
                         ->orWhereHas('spheres', function ($q) use ($mentor) {
                             $q->whereNotIn('id', $mentor->spheres->pluck('id'));
                         });
-                });
-            })->get();
+                })->get();
 
         $appropriateStudents = Student::with('city', 'mentors', 'projectTypes')
             ->where('season_id', $mentor->current_season_id)
