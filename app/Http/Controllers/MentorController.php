@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MentorRequest;
 use App\Season;
 use App\Services\ImportDataService;
+use App\Services\MentorService;
 use App\Services\MentorStudentService;
+use App\Services\StudentService;
 use App\Sphere;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -197,38 +199,9 @@ class MentorController extends Controller
      */
     public function students(Mentor $mentor)
     {
-        $otherStudents = Student::with('city', 'mentors', 'projectTypes')
-            ->where('season_id', $mentor->current_season_id)
-            ->where(function ($q) use ($mentor) {
-                $q->doesntHave('mentors')
-                    ->orWhereHas('mentors', function ($query) use ($mentor) {
-                        $query->where('mentor_id', $mentor->id);
-                    });
-            })->whereNotIn('hours', [
-                $mentor->hours,
-                $mentor->hours - 1,
-                $mentor->hours + 1,
-            ])->where(function ($query) use ($mentor) {
-                $query->doesntHave('projectTypes')
-                    ->orWhereHas('projectTypes', function ($q) use ($mentor) {
-                        $q->whereNotIn('id', $mentor->projectTypes->pluck('id'));
-                    });
-            })->where(function ($query) use ($mentor) {
-                $query->doesntHave('spheres')
-                    ->orWhereHas('spheres', function ($q) use ($mentor) {
-                        $q->whereNotIn('id', $mentor->spheres->pluck('id'));
-                    });
-            })->get();
+        $otherStudents = MentorService::inappropriateStudents($mentor);
 
-        $appropriateStudents = Student::with('city', 'mentors', 'projectTypes')
-            ->where('season_id', $mentor->current_season_id)
-            ->where(function ($q) use ($mentor) {
-                $q->doesntHave('mentors')
-                    ->orWhereHas('mentors', function ($query) use ($mentor) {
-                        $query->where('mentor_id', $mentor->id);
-                    });
-            })->whereNotIn('id', $otherStudents->pluck('id'))
-            ->get();
+        $appropriateStudents = MentorService::appropriateStudents($mentor, $otherStudents);
 
         return view('mentors.students', [
             'mentor' => $mentor,
