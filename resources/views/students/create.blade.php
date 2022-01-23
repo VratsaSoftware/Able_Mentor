@@ -142,16 +142,17 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Спорт</h6>
+            <h6 style="color:#4a4a4a;">Любими спортове</h6>
             <p>
-                <span class="wpcf7-form-control-wrap menu-english_students">
-                    <select name="sport_id" class="wpcf7-form-control wpcf7-select" aria-invalid="false" required>
-                        <option value="">---</option>
-                        @foreach($sports as $sport)
-                            <option value="{{ $sport->id }}" {{ Request::get('sport_id') == $sport->id ? 'selected' : null }}>{{ $sport->name }}</option>
+                <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="sport_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($sports as $sport)
+                            <option value="{{ $sport->id }}"
+                            {{ Request::get('sport_ids') && in_array($sport->id, Request::get('sport_ids')) ? 'selected' : null }}>{{ $sport->name }}</option>
                         @endforeach
                     </select>
-                 </span>
+                </span>
             </p>
         </div>
         <div class="column one">
@@ -169,16 +170,16 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">В кои сфери имаш силен интерес да се развиваш и в кои по-слаб?</h6>
+            <h6 style="color:#4a4a4a;">Сфери, които са ти интересни и искаш да се развиваш?</h6>
             <p>
-                <span class="wpcf7-form-control-wrap students7">
-                    <input type="text"
-                        name="strong_weak_sides"
-                        value="{{ Request::get('strong_weak_sides') }}"
-                        size="40"
-                        class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                        aria-required="true"
-                        aria-invalid="false" required>
+                <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($spheres as $sphere)
+                            <option value="{{ $sphere->id }}"
+                            {{ Request::get('spheres') && in_array($sphere->id, Request::get('spheres')) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                        @endforeach
+                    </select>
                 </span>
             </p>
         </div>

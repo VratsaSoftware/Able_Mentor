@@ -100,8 +100,14 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <b>Професионален опит/интереси:</b>
+                                            <b>Сфери, в които имате опит и интереси?</b>
                                             {{ $mentor->experience }}
+
+                                            <ul>
+                                                @foreach($mentor->spheres as $sphere)
+                                                    <li>{{ $sphere->name }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-6">

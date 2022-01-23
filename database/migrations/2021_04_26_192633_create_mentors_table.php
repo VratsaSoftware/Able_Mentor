@@ -22,10 +22,10 @@ class CreateMentorsTable extends Migration
             $table->unsignedBigInteger('gender_id');
             $table->unsignedBigInteger('previous_season_id')->nullable();
             $table->unsignedBigInteger('current_season_id')->nullable();
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->nullable();
             $table->text('work');
             $table->text('education');
-            $table->text('experience');
+            $table->text('experience')->nullable();
             $table->text('expertise');
             $table->text('difficult_situations');
             $table->text('want_to_change');

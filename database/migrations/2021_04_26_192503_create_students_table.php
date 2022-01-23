@@ -21,15 +21,15 @@ class CreateStudentsTable extends Migration
             $table->string('phone', 100);
             $table->unsignedBigInteger('season_id')->nullable();
             $table->unsignedBigInteger('gender_id');
-            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('city_id')->nullable();
             $table->string('school', 100);
             $table->unsignedBigInteger('class_id');
             $table->text('favorite_subjects');
             $table->text('hobbies');
             $table->unsignedBigInteger('english_level_id');
-            $table->unsignedBigInteger('sport_id');
+            $table->unsignedBigInteger('sport_id')->nullable();
             $table->text('after_school_plans');
-            $table->text('strong_weak_sides');
+            $table->text('strong_weak_sides')->nullable();
             $table->text('qualities_to_change');
             $table->text('free_time_activities');
             $table->text('difficult_situations');

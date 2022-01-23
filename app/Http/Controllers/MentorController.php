@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\MentorRequest;
 use App\Season;
 use App\Services\ImportDataService;
+use App\Services\MentorService;
 use App\Services\MentorStudentService;
+use App\Services\StudentService;
+use App\Sphere;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Mentor;
@@ -65,8 +68,6 @@ class MentorController extends Controller
      */
     public function create()
     {
-        $projectTypes = ProjectType::all();
-        $genders = Gender::all();
         $seasons = Season::whereDate('start', '<=', Carbon::now())
             ->get();
 
@@ -74,11 +75,16 @@ class MentorController extends Controller
             ->new()
             ->first();
 
+        if (!$newSeason) {
+            abort(404);
+        }
+
         return view('mentors.create', [
             'cities' => $newSeason->cities,
-            'genders' => $genders,
-            'projectTypes' => $projectTypes,
+            'genders' => Gender::all(),
+            'projectTypes' => ProjectType::all(),
             'seasons' => $seasons,
+            'spheres' => Sphere::all(),
         ]);
     }
 
@@ -97,9 +103,6 @@ class MentorController extends Controller
         $data = $request->all();
 
         try {
-            unset($data['_token']);
-            unset($data['project_type_ids']);
-
             $data['current_season_id'] = $newSeasonId;
             $data['cv_path'] = self::saveCV($request->cv);
 
@@ -107,6 +110,7 @@ class MentorController extends Controller
             $mentor->save();
 
             $mentor->projectTypes()->attach($request->project_type_ids);
+            $mentor->spheres()->attach($request->spheres);
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {
@@ -154,17 +158,17 @@ class MentorController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mentor $mentor)
+    public function edit($mentor)
     {
-        $cities = City::all();
-        $projectTypes = ProjectType::all();
-        $seasons = Season::all();
+        $mentor = Mentor::with('spheres')
+            ->findOrFail($mentor);
 
         return view('mentors.edit', [
             'mentor' => $mentor,
-            'cities' => $cities,
-            'projectTypes' => $projectTypes,
-            'seasons' => $seasons,
+            'cities' => City::all(),
+            'projectTypes' => ProjectType::all(),
+            'seasons' => Season::all(),
+            'spheres' => Sphere::all(),
         ]);
     }
 
@@ -177,18 +181,14 @@ class MentorController extends Controller
      */
     public function update(MentorRequest $request, Mentor $mentor)
     {
-        $data = $request->all();
-
-        unset($data['_token']);
-        unset($data['project_type_ids']);
-
         if ($request->cv) {
-            $data['cv_path'] = self::saveCV($request->cv);
+            $request['cv_path'] = self::saveCV($request->cv);
         }
 
-        $mentor->update($data);
+        $mentor->update($request->all());
 
         $mentor->projectTypes()->sync($request->project_type_ids);
+        $mentor->spheres()->sync($request->spheres);
 
         return redirect()->route('mentor.show', $mentor->id)->with('success', 'Успешно се редактиран ментор!');
     }
@@ -199,33 +199,9 @@ class MentorController extends Controller
      */
     public function students(Mentor $mentor)
     {
-        $otherStudents = Student::with('city', 'mentors', 'projectTypes')
-            ->where('season_id', $mentor->current_season_id)
-            ->where(function ($q) use ($mentor) {
-                $q->doesntHave('mentors')
-                    ->orWhereHas('mentors', function ($query) use ($mentor) {
-                        $query->where('mentor_id', $mentor->id);
-                    });
-            })->whereNotIn('hours', [
-                $mentor->hours,
-                $mentor->hours - 1,
-                $mentor->hours + 1,
-            ])->where(function ($q) use ($mentor) {
-                $q->doesntHave('projectTypes')
-                    ->orWhereHas('projectTypes', function ($q) use ($mentor) {
-                        $q->whereNotIn('type', $mentor->projectTypes);
-                    });
-            })->get();
+        $otherStudents = MentorService::inappropriateStudents($mentor);
 
-        $appropriateStudents = Student::with('city', 'mentors', 'projectTypes')
-            ->where('season_id', $mentor->current_season_id)
-            ->where(function ($q) use ($mentor) {
-                $q->doesntHave('mentors')
-                    ->orWhereHas('mentors', function ($query) use ($mentor) {
-                        $query->where('mentor_id', $mentor->id);
-                    });
-            })->whereNotIn('id', $otherStudents->pluck('id'))
-            ->get();
+        $appropriateStudents = MentorService::appropriateStudents($mentor, $otherStudents);
 
         return view('mentors.students', [
             'mentor' => $mentor,

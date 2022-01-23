@@ -47,7 +47,7 @@
                         <th>Град за участие</th>
                         <th>Образование</th>
                         <th>Месторабота</th>
-                        <th>Професионален опит/интереси</th>
+                        <th>Сфери, в които имате опит и интереси?</th>
                         <th>Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</th>
                         <th>Разкажете ни за трудна ситуация/проблем и как сте се справили?</th>
                         <th>Желая да променя/подобря...</th>
@@ -86,10 +86,17 @@
                             <td>{{ $mentor->phone }}</td>
                             <td>{{ $mentor->gender->gender }}</td>
                             <td>{{ $mentor->previousSeason ? $mentor->previousSeason->name : null }}</td>
-                            <td>{{ $mentor->city->name }}</td>
+                            <td>{{ $mentor->city ? $mentor->city->name : null }}</td>
                             <td>{{ $mentor->education }}</td>
                             <td>{{ $mentor->work }}</td>
-                            <td>{{ $mentor->experience }}</td>
+                            <td>
+                                {{ $mentor->experience }}
+                                <ul>
+                                    @foreach($mentor->spheres as $sphere)
+                                        <li>{{ $sphere->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
                             <td>{{ $mentor->expertise }}</td>
                             <td>{{ $mentor->difficult_situations }}</td>
                             <td>{{ $mentor->want_to_change }}</td>
@@ -126,7 +133,7 @@
                         <th>Град за участие</th>
                         <th>Образование</th>
                         <th>Месторабота</th>
-                        <th>Професионален опит/интереси</th>
+                        <th>Сфери, в които имате опит и интереси?</th>
                         <th>Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</th>
                         <th>Разкажете ни за трудна ситуация/проблем и как сте се справили?</th>
                         <th>Желая да променя/подобря...</th>

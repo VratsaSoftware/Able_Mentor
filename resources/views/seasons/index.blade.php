@@ -4,9 +4,13 @@
 
 @push('head')
     @include('includes.datatable-head')
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
 
 @section('content')
+    @include('seasons.partials.create-modal')
+
     <div class="container-fluid">
         <h1 class="text-black-50">
             <div class="row">
@@ -27,8 +31,8 @@
                 <thead>
                     <tr>
                         <th>Име на сезон</th>
-                        <th>Начало</th>
-                        <th>Край</th>
+                        <th>Начало на сезона</th>
+                        <th>Край на сезона</th>
                         <th>Градове</th>
                         <th>...</th>
                     </tr>
@@ -59,21 +63,32 @@
                                 <form style="display:inline-block; float: right" action="{{ route('seasons.destroy', $season->id) }}" method="POST">
                                     @csrf
                                     @method('delete')
-                                    <button onclick="return confirm('Сезонът ще бъде изтрит!')" class="btn btn-danger" {{ $season->isNew() && $season->id !== $newOpenSeasonId ?: 'disabled' }}>
+                                    <button onclick="return confirm('Сезонът ще бъде изтрит!')" class="btn btn-danger float-right m-1" {{ $season->isNew() && $season->id !== $newOpenSeasonId ?: 'disabled' }}>
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </form>
+
+                                <button class="btn btn-success float-right m-1" data-toggle="modal" data-target="#editSeason-{{ $loop->iteration }}" {{ $season->isNew() ?: 'disabled' }}>
+                                    <i class="fa fa-pen"></i>
+                                </button>
                             </td>
                         </tr>
+
+                        @include('seasons.partials.edit-modal')
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
-
-    @include('seasons.partials.create-modal')
 @endsection
 
 @push('scripts')
     @include('includes.datatable-scripts')
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
 @endpush

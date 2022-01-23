@@ -49,9 +49,9 @@
                          <th>Любими предмети</th>
                          <th>Интереси</th>
                          <th>Ниво на АЕ</th>
-                         <th>Спорт</th>
+                         <th>Любими спортове</th>
                          <th>Планове след гимназията</th>
-                         <th>В кои сфери имаш силен интерес да се развиваш и в кои по-слаб?</th>
+                         <th>Сфери, които са ти интересни и искаш да се развиваш?</th>
                          <th>Кои свои качества искаш да промениш/подобриш?</th>
                          <th>Как се забавляваш в свободното си време?</th>
                          <th>Разкажи ни за трудна ситуация/проблем и как си се справил/а?</th>
@@ -102,9 +102,23 @@
                             <td>{{ $student->favorite_subjects }}</td>
                             <td>{{ $student->hobbies }}</td>
                             <td>{{ $student->englishLevel->level }}</td>
-                            <td>{{ $student->sport->name }}</td>
+                            <td>
+                                {{ $student->sport ? $student->sport->name : null }}
+                                <ul>
+                                    @foreach($student->sports as $sport)
+                                        <li>{{ $sport->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
                             <td>{{ $student->after_school_plans }}</td>
-                            <td>{{ $student->strong_weak_sides }}</td>
+                            <td>
+                                {{ $student->strong_weak_sides }}
+                                <ul>
+                                    @foreach($student->spheres as $sphere)
+                                        <li>{{ $sphere->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
                             <td>{{ $student->qualities_to_change }}</td>
                             <td>{{ $student->free_time_activities }}</td>
                             <td>{{ $student->difficult_situations }}</td>
@@ -138,9 +152,9 @@
                         <th>Любими предмети</th>
                         <th>Интереси</th>
                         <th>Ниво на АЕ</th>
-                        <th>Спорт</th>
+                        <th>Любими спортове</th>
                         <th>Планове след гимназията</th>
-                        <th>В кои сфери имаш силен интерес да се развиваш и в кои по-слаб?</th>
+                        <th>Сфери, които са ти интересни и искаш да се развиваш?</th>
                         <th>Кои свои качества искаш да промениш/подобриш?</th>
                         <th>Как се забавляваш в свободното си време?</th>
                         <th>Разкажи ни за трудна ситуация/проблем и как си се справил/а?</th>

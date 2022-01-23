@@ -87,4 +87,14 @@ class Student extends Model
     {
         return $this->belongsToMany('App\ProjectType', 'students_project_types');
     }
+
+    public function spheres()
+    {
+        return $this->belongsToMany(Sphere::class, 'students_spheres');
+    }
+
+    public function sports()
+    {
+        return $this->belongsToMany(Sport::class, 'students_sports');
+    }
 }

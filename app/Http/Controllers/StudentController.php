@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentRequest;
 use App\Season;
 use App\Services\ImportDataService;
+use App\Services\MentorService;
 use App\Services\MentorStudentService;
+use App\Services\StudentService;
+use App\Sphere;
 use Illuminate\Http\Request;
 use App\Student;
 use App\City;
@@ -67,23 +70,22 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $schoolClass = SchoolClass::all();
-        $englishLevels = EnglishLevel::all();
-        $sports = Sport::all();
-        $projectTypes = ProjectType::all();
-        $genders = Gender::all();
-
         $newSeason = Season::with('cities')
             ->new()
             ->first();
 
+        if (!$newSeason) {
+            abort(404);
+        }
+
         return view('students.create', [
             'cities' => $newSeason->cities,
-            'genders' => $genders,
-            'schoolClass' => $schoolClass,
-            'englishLevels' => $englishLevels,
-            'sports' => $sports,
-            'projectTypes' => $projectTypes,
+            'genders' => Gender::all(),
+            'schoolClass' => SchoolClass::all(),
+            'englishLevels' => EnglishLevel::all(),
+            'sports' => Sport::all(),
+            'projectTypes' => ProjectType::all(),
+            'spheres' => Sphere::all(),
         ]);
     }
 
@@ -99,18 +101,15 @@ class StudentController extends Controller
             ->pluck('id')
             ->first();
 
-        $data = $request->all();
-
         try {
-            unset($data['_token']);
-            unset($data['project_type_ids']);
+            $request['season_id'] = $newSeasonId;
 
-            $data['season_id'] = $newSeasonId;
-
-            $student = new Student($data);
+            $student = new Student($request->all());
             $student->save();
 
             $student->projectTypes()->attach($request->project_type_ids);
+            $student->spheres()->attach($request->spheres);
+            $student->sports()->attach($request->sport_ids);
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {
@@ -145,19 +144,14 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        $cities = City::all();
-        $schoolClasses = SchoolClass::all();
-        $englishLevels = EnglishLevel::all();
-        $sports = Sport::all();
-        $projectTypes = ProjectType::all();
-
         return view('students.edit', [
             'student' => $student,
-            'cities' => $cities,
-            'schoolClasses' => $schoolClasses,
-            'englishLevels' => $englishLevels,
-            'sports' => $sports,
-            'projectTypes' => $projectTypes,
+            'cities' => City::all(),
+            'schoolClasses' => SchoolClass::all(),
+            'englishLevels' => EnglishLevel::all(),
+            'sports' => Sport::all(),
+            'spheres' => Sphere::all(),
+            'projectTypes' => ProjectType::all(),
         ]);
     }
 
@@ -170,14 +164,11 @@ class StudentController extends Controller
      */
     public function update(Student $student, StudentRequest $request)
     {
-        $data = $request->all();
-
-        unset($data['_token']);
-        unset($data['project_type_ids']);
-
-        $student->update($data);
+        $student->update($request->all());
 
         $student->projectTypes()->sync($request->project_type_ids);
+        $student->spheres()->sync($request->spheres);
+        $student->sports()->sync($request->sport_ids);
 
         return redirect()->route('student.show', $student->id)->with('success', 'Успешно редактиран студент!');
     }
@@ -188,23 +179,9 @@ class StudentController extends Controller
      */
     public function mentors(Student $student)
     {
-        $otherMentors = Mentor::with('city', 'students')
-            ->where('current_season_id', $student->season_id)
-            ->whereNotIn('hours', [
-                $student->hours,
-                $student->hours - 1,
-                $student->hours + 1,
-            ])->where(function ($q) use ($student) {
-                $q->doesntHave('projectTypes')
-                    ->orWhereHas('projectTypes', function ($q) use ($student) {
-                        $q->whereNotIn('type', $student->projectTypes);
-                    });
-            })->get();
+        $otherMentors = StudentService::inappropriateMentors($student);
 
-        $appropriateMentors = Mentor::with('city', 'students')
-            ->where('current_season_id', $student->season_id)
-            ->whereNotIn('id', $otherMentors->pluck('id'))
-            ->get();
+        $appropriateMentors = StudentService::appropriateStudents($student, $otherMentors);
 
         return view('students.mentors', [
             'student' => $student,

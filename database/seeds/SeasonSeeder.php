@@ -20,11 +20,11 @@ class SeasonSeeder extends Seeder
             'end' => Carbon::now()->subYears(50),
         ];
 
-        for ($i = 0; $i < 17; $i++) {
+        for ($i = 0; $i < 16; $i++) {
             $seasonsData[] = [
                 'name' => 'Сезон ' . ($i + 1),
-                'start' => Carbon::now()->subYears(16 - $i),
-                'end' => Carbon::now()->subYears(16 - $i)->addMonths(6),
+                'start' => Carbon::now()->subYears(15 - $i),
+                'end' => Carbon::now()->subYears(15 - $i)->addMonths(6),
             ];
         }
 

@@ -14,7 +14,7 @@ class CitiesTableSeeder extends Seeder
     {
 	    // Insert all cities
 		DB::table('cities')->insert(
-			[     
+			[
 				['name' => 'Айтос'],
 				['name' => 'Аксаково'],
 				['name' => 'Алфатар'],
@@ -271,8 +271,9 @@ class CitiesTableSeeder extends Seeder
 				['name' => 'Шумен'],
 				['name' => 'Ябланица'],
 				['name' => 'Якоруда'],
-				['name' => 'Ямбол']
+				['name' => 'Ямбол'],
+				['name' => 'Онлайн за цялата страна'],
 			]
-		); 
+		);
     }
 }
