@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMentorEducationSphersTable extends Migration
+class CreateStudentMentorEducationSphereTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMentorEducationSphersTable extends Migration
      */
     public function up()
     {
-        Schema::create('mentor_education_sphers', function (Blueprint $table) {
+        Schema::create('student_mentor_education_sphere', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateMentorEducationSphersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mentor_education_sphers');
+        Schema::dropIfExists('student_mentor_education_sphere');
     }
 }
