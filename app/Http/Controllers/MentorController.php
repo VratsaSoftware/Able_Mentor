@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EducationSphere;
 use App\Http\Requests\MentorRequest;
 use App\Season;
 use App\Services\ImportDataService;
@@ -85,6 +86,7 @@ class MentorController extends Controller
             'projectTypes' => ProjectType::all(),
             'seasons' => $seasons,
             'spheres' => Sphere::all(),
+            'educationSpheres' => EducationSphere::all(),
         ]);
     }
 
@@ -111,6 +113,8 @@ class MentorController extends Controller
 
             $mentor->projectTypes()->attach($request->project_type_ids);
             $mentor->spheres()->attach($request->spheres);
+            $mentor->educationSpheres()->attach($request->education_sphere_ids);
+            $mentor->workSpheres()->attach($request->work_sphere_ids);
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {
@@ -169,6 +173,7 @@ class MentorController extends Controller
             'projectTypes' => ProjectType::all(),
             'seasons' => Season::all(),
             'spheres' => Sphere::all(),
+            'educationSpheres' => EducationSphere::all(),
         ]);
     }
 
@@ -189,6 +194,8 @@ class MentorController extends Controller
 
         $mentor->projectTypes()->sync($request->project_type_ids);
         $mentor->spheres()->sync($request->spheres);
+        $mentor->educationSpheres()->sync($request->education_sphere_ids);
+        $mentor->workSpheres()->sync($request->work_sphere_ids);
 
         return redirect()->route('mentor.show', $mentor->id)->with('success', 'Успешно се редактиран ментор!');
     }

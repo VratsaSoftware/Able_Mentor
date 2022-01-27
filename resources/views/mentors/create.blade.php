@@ -97,19 +97,46 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Образование (специалност, степен и име на учебно заведение):</h6>
+            <h6 style="color:#4a4a4a;">Образование – специалност (посочете всички специалности, ако имате повече от една)?</h6>
             <p>
-                <span class="wpcf7-form-control-wrap text-mentor-3">
-                    <input type="text" name="work" value="{{ Request::get('work') }}" size="40"
-                           class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
-                           aria-invalid="false" required>
+               <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="education_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($educationSpheres as $sphere)
+                            <option value="{{ $sphere->id }}"
+                            {{ Request::get('education_sphere_ids') && in_array($sphere->id, Request::get('education_sphere_ids')) ? 'selected' : null }}>{{ $sphere->sphere }}</option>
+                        @endforeach
+                    </select>
                 </span>
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Месторабота:</h6>
+            <h6 style="color:#4a4a4a;">Име на учебното заведение, от където е придобита последната образователна степен:</h6>
             <p><span class="wpcf7-form-control-wrap text-mentor-4">
                     <input type="text" name="education" value="{{ Request::get('education') }}" size="40"
+                           class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                           aria-required="true" aria-invalid="false" required>
+                </span>
+            </p>
+        </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Сфери, в които работите и/или сте работили досега (професионален опит):</h6>
+            <p>
+               <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="work_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($spheres as $sphere)
+                            <option value="{{ $sphere->id }}"
+                            {{ Request::get('work_sphere_ids') && in_array($sphere->id, Request::get('work_sphere_ids')) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                        @endforeach
+                    </select>
+                </span>
+            </p>
+        </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Къде работите в момента (организация/компания)?:</h6>
+            <p><span class="wpcf7-form-control-wrap text-mentor-4">
+                    <input type="text" name="work" value="{{ Request::get('work') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                            aria-required="true" aria-invalid="false" required>
                 </span>
