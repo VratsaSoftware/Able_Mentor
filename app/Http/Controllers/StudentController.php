@@ -99,29 +99,7 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request)
     {
-        $newSeasonId = Season::new()
-            ->pluck('id')
-            ->first();
-
-        try {
-            $request['season_id'] = $newSeasonId;
-
-            $student = new Student($request->all());
-            $student->save();
-
-            $student->projectTypes()->attach($request->project_type_ids);
-            $student->spheres()->attach($request->spheres);
-            $student->sports()->attach($request->sport_ids);
-            $student->mentorEducationSphere()->attach($request->mentor_education_ids);
-            $student->mentorWorkSphere()->attach($request->mentor_work_sphere_ids);
-
-            $response = ['success' => 'Успешно кандидатстване!'];
-        } catch (\Exception $e) {
-            $request['error'] = 'Грешка! Моля проверете формата за грешки!';
-            $response = $request->all();
-        }
-
-        return redirect()->route('students.create', $response);
+        return redirect()->route('students.create', StudentService::studentStore($request));
     }
 
     /**
@@ -156,6 +134,7 @@ class StudentController extends Controller
             'sports' => Sport::all(),
             'spheres' => Sphere::all(),
             'projectTypes' => ProjectType::all(),
+            'educationSpheres' => EducationSphere::all(),
         ]);
     }
 
@@ -173,6 +152,8 @@ class StudentController extends Controller
         $student->projectTypes()->sync($request->project_type_ids);
         $student->spheres()->sync($request->spheres);
         $student->sports()->sync($request->sport_ids);
+        $student->mentorEducationSphere()->sync($request->mentor_education_ids);
+        $student->mentorWorkSphere()->sync($request->mentor_work_sphere_ids);
 
         return redirect()->route('student.show', $student->id)->with('success', 'Успешно редактиран студент!');
     }

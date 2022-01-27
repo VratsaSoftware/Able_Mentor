@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Mentor;
+use App\Season;
+use App\Student;
 
 class StudentService
 {
@@ -51,5 +53,32 @@ class StudentService
                 });
             })->get()
             ->pluck('id');
+    }
+
+    public static function studentStore(\App\Http\Requests\StudentRequest $request)
+    {
+        $newSeasonId = Season::new()
+            ->pluck('id')
+            ->first();
+
+        try {
+            $request['season_id'] = $newSeasonId;
+
+            $student = new Student($request->all());
+            $student->save();
+
+            $student->projectTypes()->attach($request->project_type_ids);
+            $student->spheres()->attach($request->spheres);
+            $student->sports()->attach($request->sport_ids);
+            $student->mentorEducationSphere()->attach($request->mentor_education_ids);
+            $student->mentorWorkSphere()->attach($request->mentor_work_sphere_ids);
+
+            $response = ['success' => 'Успешно кандидатстване!'];
+        } catch (\Exception $e) {
+            $request['error'] = 'Грешка! Моля проверете формата за грешки!';
+            $response = $request->all();
+        }
+
+        return $response;
     }
 }

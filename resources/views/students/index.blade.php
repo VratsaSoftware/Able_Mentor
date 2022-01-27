@@ -52,6 +52,8 @@
                          <th>Любими спортове</th>
                          <th>Планове след гимназията</th>
                          <th>Сфери, които са ти интересни и искаш да се развиваш?</th>
+                         <th>Какво си представяш, че е учил твоя ментор?</th>
+                         <th>Ментор в каква професионална сфера би бил/а най-полезен/а за теб?</th>
                          <th>Кои свои качества искаш да промениш/подобриш?</th>
                          <th>Как се забавляваш в свободното си време?</th>
                          <th>Разкажи ни за трудна ситуация/проблем и как си се справил/а?</th>
@@ -115,6 +117,20 @@
                                 {{ $student->strong_weak_sides }}
                                 <ul>
                                     @foreach($student->spheres as $sphere)
+                                        <li>{{ $sphere->name }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach($student->mentorEducationSphere as $sphere)
+                                        <li>{{ $sphere->sphere }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    @foreach($student->mentorWorkSphere as $sphere)
                                         <li>{{ $sphere->name }}</li>
                                     @endforeach
                                 </ul>
