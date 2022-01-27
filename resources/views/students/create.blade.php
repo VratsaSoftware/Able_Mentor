@@ -184,6 +184,36 @@
             </p>
         </div>
         <div class="column one">
+            <h6 style="color:#4a4a4a;">Какво си представяш, че е учил твоя ментор?</h6>
+            <p>
+                <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="mentor_education_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($educationSpheres as $sphere)
+                            <option value="{{ $sphere->id }}"
+                            {{ Request::get('mentor_education_ids') && in_array($sphere->id, Request::get('mentor_education_ids')) ? 'selected' : null }}>
+                                {{ $sphere->sphere }}
+                            </option>
+                        @endforeach
+                    </select>
+                </span>
+            </p>
+        </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Ментор в каква професионална сфера би бил/а най-полезен/а за теб?</h6>
+            <p>
+                <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="mentor_work_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($spheres as $sphere)
+                            <option value="{{ $sphere->id }}"
+                            {{ Request::get('mentor_work_sphere_ids') && in_array($sphere->id, Request::get('mentor_work_sphere_ids')) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                        @endforeach
+                    </select>
+                </span>
+            </p>
+        </div>
+        <div class="column one">
             <h6 style="color:#4a4a4a;">Кои свои качества искаш да промениш/подобриш?
             </h6>
             <p>

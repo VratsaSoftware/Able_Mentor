@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\EducationSphere;
 use App\Http\Requests\StudentRequest;
 use App\Season;
 use App\Services\ImportDataService;
@@ -86,6 +87,7 @@ class StudentController extends Controller
             'sports' => Sport::all(),
             'projectTypes' => ProjectType::all(),
             'spheres' => Sphere::all(),
+            'educationSpheres' => EducationSphere::all(),
         ]);
     }
 
@@ -110,6 +112,8 @@ class StudentController extends Controller
             $student->projectTypes()->attach($request->project_type_ids);
             $student->spheres()->attach($request->spheres);
             $student->sports()->attach($request->sport_ids);
+            $student->mentorEducationSphere()->attach($request->mentor_education_ids);
+            $student->mentorWorkSphere()->attach($request->mentor_work_sphere_ids);
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {

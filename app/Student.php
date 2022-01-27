@@ -105,6 +105,6 @@ class Student extends Model
 
     public function mentorWorkSphere()
     {
-        return $this->belongsToMany(Sphere::class, 'student_mentor_education_sphere');
+        return $this->belongsToMany(Sphere::class, 'student_mentor_work_sphere');
     }
 }
