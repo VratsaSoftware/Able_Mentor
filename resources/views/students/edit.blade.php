@@ -147,7 +147,7 @@
                                     aria-required="true" style="width: 100%" aria-invalid="false" multiple="multiple" required>
                                 @foreach($educationSpheres as $sphere)
                                     <option value="{{ $sphere->id }}"
-                                        {{ in_array($sphere->id, $student->mentorEducationSphere->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->sphere }}</option>
+                                        {{ in_array($sphere->id, $student->mentorEducationSpheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->sphere }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -161,7 +161,7 @@
                                     aria-required="true" style="width: 100%" aria-invalid="false" multiple="multiple" required>
                                 @foreach($spheres as $sphere)
                                     <option value="{{ $sphere->id }}"
-                                        {{ in_array($sphere->id, $student->mentorWorkSphere->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                                        {{ in_array($sphere->id, $student->mentorWorkSpheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->name }}</option>
                                 @endforeach
                             </select>
                         </div>

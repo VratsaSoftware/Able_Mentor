@@ -152,8 +152,8 @@ class StudentController extends Controller
         $student->projectTypes()->sync($request->project_type_ids);
         $student->spheres()->sync($request->spheres);
         $student->sports()->sync($request->sport_ids);
-        $student->mentorEducationSphere()->sync($request->mentor_education_ids);
-        $student->mentorWorkSphere()->sync($request->mentor_work_sphere_ids);
+        $student->mentorEducationSpheres()->sync($request->mentor_education_ids);
+        $student->mentorWorkSpheres()->sync($request->mentor_work_sphere_ids);
 
         return redirect()->route('student.show', $student->id)->with('success', 'Успешно редактиран студент!');
     }

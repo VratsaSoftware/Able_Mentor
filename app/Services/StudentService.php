@@ -55,7 +55,11 @@ class StudentService
             ->pluck('id');
     }
 
-    public static function studentStore(\App\Http\Requests\StudentRequest $request)
+    /**
+     * @param $request
+     * @return array|string[]
+     */
+    public static function studentStore($request)
     {
         $newSeasonId = Season::new()
             ->pluck('id')
@@ -70,8 +74,8 @@ class StudentService
             $student->projectTypes()->attach($request->project_type_ids);
             $student->spheres()->attach($request->spheres);
             $student->sports()->attach($request->sport_ids);
-            $student->mentorEducationSphere()->attach($request->mentor_education_ids);
-            $student->mentorWorkSphere()->attach($request->mentor_work_sphere_ids);
+            $student->mentorEducationSpheres()->attach($request->mentor_education_ids);
+            $student->mentorWorkSpheres()->attach($request->mentor_work_sphere_ids);
 
             $response = ['success' => 'Успешно кандидатстване!'];
         } catch (\Exception $e) {

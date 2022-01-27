@@ -123,14 +123,14 @@
                             </td>
                             <td>
                                 <ul>
-                                    @foreach($student->mentorEducationSphere as $sphere)
+                                    @foreach($student->mentorEducationSpheres as $sphere)
                                         <li>{{ $sphere->sphere }}</li>
                                     @endforeach
                                 </ul>
                             </td>
                             <td>
                                 <ul>
-                                    @foreach($student->mentorWorkSphere as $sphere)
+                                    @foreach($student->mentorWorkSpheres as $sphere)
                                         <li>{{ $sphere->name }}</li>
                                     @endforeach
                                 </ul>

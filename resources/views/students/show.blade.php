@@ -161,7 +161,7 @@
                                         <div class="form-group">
                                             <b>Какво си представяш, че е учил твоя ментор?</b>
                                             <ul>
-                                                @foreach($student->mentorEducationSphere as $sphere)
+                                                @foreach($student->mentorEducationSpheres as $sphere)
                                                     <li>{{ $sphere->sphere }}</li>
                                                 @endforeach
                                             </ul>
@@ -171,7 +171,7 @@
                                         <div class="form-group">
                                             <b>Ментор в каква професионална сфера би бил/а най-полезен/а за теб?</b>
                                             <ul>
-                                                @foreach($student->mentorWorkSphere as $sphere)
+                                                @foreach($student->mentorWorkSpheres as $sphere)
                                                     <li>{{ $sphere->name }}</li>
                                                 @endforeach
                                             </ul>
