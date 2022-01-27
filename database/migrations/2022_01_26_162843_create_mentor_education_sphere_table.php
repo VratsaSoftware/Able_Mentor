@@ -14,8 +14,11 @@ class CreateMentorEducationSphereTable extends Migration
     public function up()
     {
         Schema::create('mentor_education_sphere', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('mentor_id');
+            $table->unsignedBigInteger('education_sphere_id');
+
+            $table->foreign('mentor_id')->references('id')->on('mentors')->onDelete('cascade');
+            $table->foreign('education_sphere_id')->references('id')->on('education_spheres')->onDelete('cascade');
         });
     }
 

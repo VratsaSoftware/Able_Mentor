@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStudentMentorEducationSphereTable extends Migration
+class CreateStudentMentorWorkSphereTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateStudentMentorEducationSphereTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_mentor_education_sphere', function (Blueprint $table) {
+        Schema::create('student_mentor_work_sphere', function (Blueprint $table) {
             $table->unsignedBigInteger('student_id');
-            $table->unsignedBigInteger('education_sphere_id');
+            $table->unsignedBigInteger('sphere_id');
 
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
-            $table->foreign('education_sphere_id')->references('id')->on('education_spheres')->onDelete('cascade');
+            $table->foreign('sphere_id')->references('id')->on('spheres')->onDelete('cascade');
         });
     }
 
@@ -29,6 +29,6 @@ class CreateStudentMentorEducationSphereTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_mentor_education_sphere');
+        Schema::dropIfExists('student_mentor_work_sphere');
     }
 }

@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
                 MentorsTableSeeder::class,
                 StudentsTableSeeder::class,
                 SphereSeeder::class,
+                EducationSphereSeeder::class,
         	]
         );
     }
