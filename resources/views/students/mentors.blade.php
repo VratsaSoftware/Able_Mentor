@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1 class="text-black-50">Ментори на {{ $student->name }}</h1>
+        <h1 class="text-black-50">Ментори на <a href="{{ route('student.show', $student->id) }}" target="_blank">{{ $student->name }}</a></h1>
     </div>
     @if ($student->mentors->count())
         <h3 class="mt-5 text-center">

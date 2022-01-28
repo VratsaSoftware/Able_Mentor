@@ -33,7 +33,7 @@ class StudentService
                 $student->hours,
                 $student->hours - 1,
                 $student->hours + 1,
-            ])->whereNotIn('id', StudentService::mentorSpheresAndProj($student))
+            ])->whereNotIn('id', StudentService::mentorSpheresAndProjects($student))
             ->get();
     }
 
@@ -41,7 +41,7 @@ class StudentService
      * @param $mentor
      * @return \Illuminate\Support\Collection
      */
-    public static function mentorSpheresAndProj($student)
+    public static function mentorSpheresAndProjects($student)
     {
         return Mentor::with('students', 'projectTypes')
             ->where('current_season_id', $student->season_id)
@@ -50,6 +50,10 @@ class StudentService
                     $q->whereIn('id', $student->projectTypes->pluck('id'));
                 })->orWhereHas('spheres', function ($q) use ($student) {
                     $q->whereIn('id', $student->spheres->pluck('id'));
+                })->orWhereHas('educationSpheres', function ($q) use ($student) {
+                    $q->whereIn('id', $student->mentorEducationSpheres->pluck('id'));
+                })->orWhereHas('workSpheres', function ($q) use ($student) {
+                    $q->whereIn('id', $student->mentorWorkSpheres->pluck('id'));
                 });
             })->get()
             ->pluck('id');

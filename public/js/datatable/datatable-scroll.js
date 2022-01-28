@@ -1,6 +1,6 @@
 $(document).ready( function () {
     datatable('.datatable', [0, 'desc']);
-    datatable('.matching-datatable', [4, 'desc']);
+    datatable('.matching-datatable', [7, 'desc']);
     datatable('.datatable-season', [1, 'desc']);
 });
 

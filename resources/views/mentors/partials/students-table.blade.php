@@ -6,6 +6,8 @@
             <th>Град</th>
             <th>Тип проект</th>
             <th>Сфера на развитие</th>
+            <th>Ментор - образование</th>
+            <th>Ментор - работа</th>
             <th>Часове за проекта</th>
             @if($type == 'appropriate')
                 <th>%</th>
@@ -32,6 +34,24 @@
                                 @foreach($student->spheres as $sphere)
                                     <li>
                                         <span style="color: {{ in_array($sphere->id, $mentor->spheres->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $sphere->name }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach($student->mentorEducationSpheres as $sphere)
+                                    <li>
+                                        <span style="color: {{ in_array($sphere->id, $mentor->educationSpheres->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $sphere->sphere }}</span>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                @foreach($student->mentorWorkSpheres as $sphere)
+                                    <li>
+                                        <span style="color: {{ in_array($sphere->id, $mentor->workSpheres->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $sphere->name }}</span>
                                     </li>
                                 @endforeach
                             </ul>
@@ -66,6 +86,8 @@
             <th>Град</th>
             <th>Тип проект</th>
             <th>Сфера на развитие</th>
+            <th>Ментор - образование</th>
+            <th>Ментор - работа</th>
             <th>Часове за проекта</th>
             @if($type == 'appropriate')
                 <th>%</th>
@@ -80,7 +102,7 @@
     <script>
         function connectConfirm(mentorsCount) {
             if(mentorsCount > 0) {
-                return confirm('Вече менторът има ученик!');
+                return confirm('Менторът има ученик!');
             }
         }
     </script>
