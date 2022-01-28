@@ -8,7 +8,6 @@ use App\Season;
 use App\Services\ImportDataService;
 use App\Services\MentorService;
 use App\Services\MentorStudentService;
-use App\Services\StudentService;
 use App\Sphere;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,8 +15,6 @@ use App\Mentor;
 use App\City;
 use App\Gender;
 use App\ProjectType;
-use App\Student;
-use Ramsey\Uuid\Uuid;
 
 class MentorController extends Controller
 {

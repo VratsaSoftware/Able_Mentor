@@ -66,7 +66,8 @@ class HomeController extends Controller
      * @param User $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function changeMode() {
+    public function changeMode()
+    {
         $oldMode = Auth::user()->mode;
         $newMode = $oldMode ? 0 : 1;
 
