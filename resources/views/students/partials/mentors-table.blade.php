@@ -6,6 +6,8 @@
                 <th>Град</th>
                 <th>Тип проект</th>
                 <th>Сфера на развитие</th>
+                <th>Ментор - образование</th>
+                <th>Ментор - работа</th>
                 <th>Часове за проекта</th>
                 @if($type == 'appropriate')
                     <th>%</th>
@@ -33,6 +35,24 @@
                             @foreach($mentor->spheres as $sphere)
                                 <li>
                                     <span style="color: {{ in_array($sphere->id, $student->spheres->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $sphere->name }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach($mentor->educationSpheres as $sphere)
+                                <li>
+                                    <span style="color: {{ in_array($sphere->id, $student->mentorEducationSpheres->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $sphere->sphere }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach($mentor->workSpheres as $sphere)
+                                <li>
+                                    <span style="color: {{ in_array($sphere->id, $student->mentorWorkSpheres->pluck('id')->toArray()) ? 'green' : 'red' }}">{{ $sphere->name }}</span>
                                 </li>
                             @endforeach
                         </ul>
@@ -68,6 +88,8 @@
                 <th>Град</th>
                 <th>Тип проект</th>
                 <th>Сфера на развитие</th>
+                <th>Ментор - образование</th>
+                <th>Ментор - работа</th>
                 <th>Часове за проекта</th>
                 @if($type == 'appropriate')
                     <th>%</th>

@@ -92,7 +92,14 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <b>Образование (специалност, степен и име на учебно заведение):</b>
-                                            {{ $mentor->education }}
+                                            <br>
+                                            <b>Учебно заведение:</b> {{ $mentor->education }}
+
+                                            <ul>
+                                                @foreach($mentor->educationSpheres as $sphere)
+                                                    <li>{{ $sphere->sphere }}</li>
+                                                @endforeach
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>

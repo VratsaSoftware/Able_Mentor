@@ -141,6 +141,37 @@
             <div class="row">
                 <div class="col-12 col-lg">
                     <div class="form-group">
+                        <label>Какво си представяш, че е учил твоя ментор?</label>
+                        <div class="select2-info">
+                            <select name="mentor_education_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                                    aria-required="true" style="width: 100%" aria-invalid="false" multiple="multiple" required>
+                                @foreach($educationSpheres as $sphere)
+                                    <option value="{{ $sphere->id }}"
+                                        {{ in_array($sphere->id, $student->mentorEducationSpheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->sphere }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg">
+                    <div class="form-group">
+                        <label>Ментор в каква професионална сфера би бил/а най-полезен/а за теб?</label>
+                        <div class="select2-info">
+                            <select name="mentor_work_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                                    aria-required="true" style="width: 100%" aria-invalid="false" multiple="multiple" required>
+                                @foreach($spheres as $sphere)
+                                    <option value="{{ $sphere->id }}"
+                                        {{ in_array($sphere->id, $student->mentorWorkSpheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-lg">
+                    <div class="form-group">
                         <label>Неща, които иска да промени:</label>
                         <textarea class="form-control" rows="4" cols="50" name="qualities_to_change">{{ $student->qualities_to_change }}</textarea>
                     </div>

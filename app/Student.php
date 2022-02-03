@@ -97,4 +97,14 @@ class Student extends Model
     {
         return $this->belongsToMany(Sport::class, 'students_sports');
     }
+
+    public function mentorEducationSpheres()
+    {
+        return $this->belongsToMany(EducationSphere::class, 'student_mentor_education_sphere');
+    }
+
+    public function mentorWorkSpheres()
+    {
+        return $this->belongsToMany(Sphere::class, 'student_mentor_work_sphere');
+    }
 }

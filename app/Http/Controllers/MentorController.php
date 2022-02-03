@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\EducationSphere;
 use App\Http\Requests\MentorRequest;
 use App\Season;
 use App\Services\ImportDataService;
 use App\Services\MentorService;
 use App\Services\MentorStudentService;
-use App\Services\StudentService;
 use App\Sphere;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,8 +15,6 @@ use App\Mentor;
 use App\City;
 use App\Gender;
 use App\ProjectType;
-use App\Student;
-use Ramsey\Uuid\Uuid;
 
 class MentorController extends Controller
 {
@@ -85,6 +83,7 @@ class MentorController extends Controller
             'projectTypes' => ProjectType::all(),
             'seasons' => $seasons,
             'spheres' => Sphere::all(),
+            'educationSpheres' => EducationSphere::all(),
         ]);
     }
 
@@ -96,44 +95,7 @@ class MentorController extends Controller
      */
     public function store(MentorRequest $request)
     {
-        $newSeasonId = Season::new()
-            ->pluck('id')
-            ->first();
-
-        $data = $request->all();
-
-        try {
-            $data['current_season_id'] = $newSeasonId;
-            $data['cv_path'] = self::saveCV($request->cv);
-
-            $mentor = new Mentor($data);
-            $mentor->save();
-
-            $mentor->projectTypes()->attach($request->project_type_ids);
-            $mentor->spheres()->attach($request->spheres);
-
-            $response = ['success' => 'Успешно кандидатстване!'];
-        } catch (\Exception $e) {
-            $request['error'] = 'Грешка! Моля проверете формата за грешки!';
-            $response = $request->all();
-        }
-
-        return redirect()->route('mentors.create', $response);
-    }
-
-    /**
-     * Save cv file
-     *
-     * @param $cvFile
-     * @return string
-     */
-    private static function saveCV($cvFile)
-    {
-        $cvName = Uuid::uuid4() . '.' . $cvFile->getClientOriginalExtension();
-
-        $cvFile->move(public_path() . '/cv/', $cvName);
-
-        return $cvName;
+        return redirect()->route('mentors.create', MentorService::storeMentor($request));
     }
 
     /**
@@ -169,6 +131,7 @@ class MentorController extends Controller
             'projectTypes' => ProjectType::all(),
             'seasons' => Season::all(),
             'spheres' => Sphere::all(),
+            'educationSpheres' => EducationSphere::all(),
         ]);
     }
 
@@ -189,6 +152,8 @@ class MentorController extends Controller
 
         $mentor->projectTypes()->sync($request->project_type_ids);
         $mentor->spheres()->sync($request->spheres);
+        $mentor->educationSpheres()->sync($request->education_sphere_ids);
+        $mentor->workSpheres()->sync($request->work_sphere_ids);
 
         return redirect()->route('mentor.show', $mentor->id)->with('success', 'Успешно се редактиран ментор!');
     }

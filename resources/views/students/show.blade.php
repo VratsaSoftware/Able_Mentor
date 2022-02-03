@@ -159,6 +159,29 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
+                                            <b>Какво си представяш, че е учил твоя ментор?</b>
+                                            <ul>
+                                                @foreach($student->mentorEducationSpheres as $sphere)
+                                                    <li>{{ $sphere->sphere }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
+                                            <b>Ментор в каква професионална сфера би бил/а най-полезен/а за теб?</b>
+                                            <ul>
+                                                @foreach($student->mentorWorkSpheres as $sphere)
+                                                    <li>{{ $sphere->name }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="form-group">
                                             <b>Активности в свободното време:</b>
                                             {{ $student->free_time_activities }}
                                         </div>

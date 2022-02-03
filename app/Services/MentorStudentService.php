@@ -4,7 +4,8 @@ namespace App\Services;
 
 use App\Season;
 
-class MentorStudentService {
+class MentorStudentService
+{
     /**
      * matching calculation
      *
@@ -12,7 +13,8 @@ class MentorStudentService {
      * @param $mentor
      * @return string
      */
-    public static function matchingCalculation($student, $mentor) {
+    public static function matchingCalculation($student, $mentor)
+    {
         $matchPoints = 0;
         foreach($student->projectTypes as $projectType) {
             if (in_array($projectType->id, $mentor->projectTypes->pluck('id')->toArray())) {
@@ -22,8 +24,27 @@ class MentorStudentService {
             }
         }
 
+        /* common favorite area */
         foreach($student->spheres as $sphere) {
             if (in_array($sphere->id, $mentor->spheres->pluck('id')->toArray())) {
+                $matchPoints += 1;
+
+                break;
+            }
+        }
+
+        /* mentor education */
+        foreach($student->mentorEducationSpheres as $sphere) {
+            if (in_array($sphere->id, $mentor->educationSpheres->pluck('id')->toArray())) {
+                $matchPoints += 1;
+
+                break;
+            }
+        }
+
+        /* mentor work */
+        foreach($student->mentorWorkSpheres as $sphere) {
+            if (in_array($sphere->id, $mentor->workSpheres->pluck('id')->toArray())) {
                 $matchPoints += 1;
 
                 break;
@@ -36,7 +57,7 @@ class MentorStudentService {
             $matchPoints += 0.5;
         }
 
-        $matchPercentage = ($matchPoints / 3) * 100;
+        $matchPercentage = ($matchPoints / 5) * 100;
 
         return round($matchPercentage) . '%';
     }
@@ -46,7 +67,8 @@ class MentorStudentService {
      * @param $query
      * @return mixed
      */
-    public static function mentorsFilter($status, $query) {
+    public static function mentorsFilter($status, $query)
+    {
         if ($status == config('consts.MENTOR_STATUS.current_season')) {
             $currentSeasonId = Season::current()
                 ->pluck('id')
@@ -85,7 +107,8 @@ class MentorStudentService {
      * @param $query
      * @return mixed
      */
-    public static function studentsFilter($status, $query) {
+    public static function studentsFilter($status, $query)
+    {
         if ($status == config('consts.STUDENT_STATUS.current_season')) {
             $currentSeasonId = Season::current()
                 ->pluck('id')

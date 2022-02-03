@@ -12,7 +12,8 @@ use App\Student;
 use File;
 use Ramsey\Uuid\Uuid;
 
-class ImportDataService {
+class ImportDataService
+{
     /**
      * @param $file
      * @param $typeImport
@@ -67,7 +68,8 @@ class ImportDataService {
     /*
      * Add failed records to CSV
      */
-    private static function failedData($dataFailed, $fullPath) {
+    private static function failedData($dataFailed, $fullPath)
+    {
         /* failed data */
         if (count($dataFailed)) {
             $fileFailed = fopen($fullPath, 'w');
@@ -180,7 +182,8 @@ class ImportDataService {
     /*
      * find city
      */
-    private static function findCity($city) {
+    private static function findCity($city)
+    {
         return City::where('name', 'like', '%' . $city . '%')
             ->pluck('id')
             ->first();
@@ -189,7 +192,8 @@ class ImportDataService {
     /*
      * find city
      */
-    private static function findProjectTypes($types) {
+    private static function findProjectTypes($types)
+    {
         $projectTypes = ProjectType::all();
 
         $projectTypeIds = [];
@@ -206,7 +210,8 @@ class ImportDataService {
      * @param $seasonStatus
      * @return null | $seasonId
      */
-    private static function findCurrentSeason($seasonStatus) {
+    private static function findCurrentSeason($seasonStatus)
+    {
         $seasonId = null;
         if ($seasonStatus == 'current-season') {
             $seasonId = Season::current()

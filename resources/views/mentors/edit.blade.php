@@ -67,26 +67,47 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                        <label>Месторабота:</label>
-                        <input class="form-control" type="text" name="work" value="{{ $mentor->work }}">
+                    <div class="select2-info">
+                        <label>Сфери, в които работите и/или сте работили досега (професионален опит):</label>
+                        <select name="work_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                                aria-required="true" style="width: 100%;" aria-invalid="false" multiple="multiple" required>
+                            @foreach($spheres as $sphere)
+                                <option value="{{ $sphere->id }}"
+                                    {{ in_array($sphere->id, $mentor->workSpheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
-                        <label>Средно по колко часа седмично бихте отделяли на проекта:</label>
-                        <input class="form-control" type="text" name="hours" value="{{ $mentor->hours }}">
+                        <label>Къде работите в момента (организация/компания)?</label>
+                        <input class="form-control" type="text" name="work" value="{{ $mentor->work }}">
                     </div>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-12 col-lg-6">
-                    <div class="form-group">
-                        <label>Образование (специалност, степен и име на учебно заведение):</label>
-                        <textarea class="form-control" rows="4" cols="50" name="education" form="mentorInfo">{{ $mentor->education }}</textarea>
+                    <div class="select2-info">
+                        <label>Образование – специалност (посочете всички специалности, ако имате повече от една)?</label>
+                        <select name="education_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                                aria-required="true" style="width: 100%;" aria-invalid="false" multiple="multiple" required>
+                            @foreach($educationSpheres as $sphere)
+                                <option value="{{ $sphere->id }}"
+                                    {{ in_array($sphere->id, $mentor->educationSpheres->pluck('id')->toArray()) ? 'selected' : null }}>{{ $sphere->sphere }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label>Име на учебното заведение, от където е придобита последната образователна степен:</label>
+                        <input class="form-control" type="text" name="education" value="{{ $mentor->education }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="form-group">
                         <label>Сфери, в които имате опит и интереси?</label>
@@ -101,7 +122,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-lg-6">
+                    <div class="form-group">
+                        <label>Средно по колко часа седмично бихте отделяли на проекта:</label>
+                        <input class="form-control" type="text" name="hours" value="{{ $mentor->hours }}">
+                    </div>
+                </div>
             </div>
+
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="form-group">

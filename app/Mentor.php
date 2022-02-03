@@ -74,4 +74,14 @@ class Mentor extends Model
     {
         return $this->belongsToMany(Sphere::class, 'mentors_spheres');
     }
+
+    public function educationSpheres()
+    {
+        return $this->belongsToMany(EducationSphere::class, 'mentor_education_sphere');
+    }
+
+    public function workSpheres()
+    {
+        return $this->belongsToMany(Sphere::class, 'mentor_work_sphere');
+    }
 }
