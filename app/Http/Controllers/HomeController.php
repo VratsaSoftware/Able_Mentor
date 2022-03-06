@@ -38,7 +38,7 @@ class HomeController extends Controller
         if (Auth::user()->isApproved()) {
             return redirect(RouteServiceProvider::HOME);
         } else {
-            return view('pendingApproval');
+            return view('pending-approval');
         }
     }
 
@@ -52,7 +52,7 @@ class HomeController extends Controller
             ->get();
 
         $students = Student::with(['mentors', 'projectTypes', 'mentors.projectTypes'])
-            ->where('season_id', $request->season ?: $pastSeasons->last()->id)
+            ->where('season_id', $request->season ?: $pastSeasons->first()->id)
             ->whereHas('mentors')
             ->get();
 
