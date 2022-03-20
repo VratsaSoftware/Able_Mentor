@@ -9,6 +9,8 @@
 @section('content')
     <div class="container-fluid text-center">
         <h1 class="text-black-50">
+            <i class="fas fa-child mt-5 fa-3x"></i>
+            <br>
             Изчаквате одобрение!
         </h1>
     </div>
