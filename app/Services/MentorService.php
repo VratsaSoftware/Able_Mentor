@@ -27,6 +27,10 @@ class MentorService
             ->get();
     }
 
+    /**
+     * @param $mentor
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public static function inappropriateStudents($mentor)
     {
         return Student::with('city', 'mentors', 'projectTypes')
@@ -101,7 +105,7 @@ class MentorService
      * @param $cvFile
      * @return string
      */
-    private static function saveCV($cvFile)
+    public static function saveCV($cvFile)
     {
         $cvName = Uuid::uuid4() . '.' . $cvFile->getClientOriginalExtension();
 

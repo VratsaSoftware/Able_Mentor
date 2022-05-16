@@ -107,8 +107,12 @@ class ImportDataService
         return array_search(max($delimiters), $delimiters);
     }
 
-    /*
+    /**
      * Create mentor
+     *
+     * @param $column
+     * @param $seasonStatus
+     * @param $currentSeasonId
      */
     private static function createMentor($column, $seasonStatus, $currentSeasonId)
     {
@@ -138,8 +142,12 @@ class ImportDataService
         $mentor->projectTypes()->attach(self::findProjectTypes($column[15]));
     }
 
-    /*
+    /**
      * Create student
+     *
+     * @param $column
+     * @param $seasonStatus
+     * @param $seasonId
      */
     private static function createStudent($column, $seasonStatus, $seasonId)
     {
@@ -179,8 +187,11 @@ class ImportDataService
         $student->projectTypes()->attach(self::findProjectTypes($column[21]));
     }
 
-    /*
-     * find city
+    /**
+     * Find city
+     *
+     * @param $city
+     * @return mixed
      */
     private static function findCity($city)
     {
@@ -189,8 +200,11 @@ class ImportDataService
             ->first();
     }
 
-    /*
-     * find city
+    /**
+     * Find city
+     *
+     * @param $types
+     * @return array
      */
     private static function findProjectTypes($types)
     {

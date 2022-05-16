@@ -106,10 +106,10 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Student $student)
+    public function show($studentId)
     {
         $student = Student::withRelations()
-            ->find($student->id);
+            ->find($studentId);
 
         return view('students.show', [
             'student' => $student,
@@ -179,7 +179,7 @@ class StudentController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function importStudents(Request $request)
+    public function import(Request $request)
     {
         return ImportDataService::importData($request->file, $request->seasonStatus, 'student', $request->seasonId);
     }
@@ -203,7 +203,7 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @param  \App\Mentor  $mentor
      */
-    public function detachStudentMentor(Student $student, Mentor $mentor)
+    public function detachMentors(Student $student, Mentor $mentor)
     {
         $student->mentors()->detach($mentor->id);
 

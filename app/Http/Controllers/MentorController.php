@@ -104,10 +104,10 @@ class MentorController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show(Mentor $mentor)
+    public function show($mentorId)
     {
         $mentor = Mentor::withRelations()
-            ->find($mentor->id);
+            ->find($mentorId);
 
         return view('mentors.show', [
             'mentor' => $mentor,
@@ -120,10 +120,10 @@ class MentorController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit($mentor)
+    public function edit($mentorId)
     {
         $mentor = Mentor::with('spheres')
-            ->findOrFail($mentor);
+            ->findOrFail($mentorId);
 
         return view('mentors.edit', [
             'mentor' => $mentor,
@@ -145,7 +145,7 @@ class MentorController extends Controller
     public function update(MentorRequest $request, Mentor $mentor)
     {
         if ($request->cv) {
-            $request['cv_path'] = self::saveCV($request->cv);
+            $request['cv_path'] = MentorService::saveCV($request->cv);
         }
 
         $mentor->update($request->all());
@@ -181,7 +181,7 @@ class MentorController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function importMentors(Request $request)
+    public function import(Request $request)
     {
         return ImportDataService::importData($request->file, $request->seasonStatus, 'mentor', $request->seasonId);
     }
