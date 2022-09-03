@@ -69,16 +69,16 @@ class MentorController extends Controller
         $seasons = Season::whereDate('start', '<=', Carbon::now())
             ->get();
 
-        $newSeason = Season::with('cities')
-            ->new()
+        $currentSeason = Season::with('cities')
+            ->current()
             ->first();
 
-        if (!$newSeason) {
-            abort(404);
-        }
+        // if (!$currentSeason) {
+        //     abort(404);
+        // }
 
         return view('mentors.create', [
-            'cities' => $newSeason->cities,
+            'cities' => $currentSeason->cities,
             'genders' => Gender::all(),
             'projectTypes' => ProjectType::all(),
             'seasons' => $seasons,

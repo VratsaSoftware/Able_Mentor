@@ -170,7 +170,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Сфери, които са ти интересни и искаш да се развиваш?</h6>
+            <h6 style="color:#4a4a4a;">Сфери, които са ти интересни и в които искаш да се развиваш?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
@@ -218,13 +218,13 @@
             </h6>
             <p>
                 <span class="wpcf7-form-control-wrap students8">
-                    <input type="text"
-                        name="qualities_to_change"
+                    <textarea name="qualities_to_change"
                         value="{{ Request::get('qualities_to_change') }}"
-                        size="40"
+                        rows="3"
+                        cols="40"
                         class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                         aria-required="true"
-                        aria-invalid="false" required>
+                        aria-invalid="false" required></textarea>
                 </span>
             </p>
         </div>
@@ -248,41 +248,41 @@
             </h6>
             <p>
                 <span class="wpcf7-form-control-wrap students10">
-                    <input type="text"
-                        name="difficult_situations"
+                    <textarea name="difficult_situations"
                         value="{{ Request::get('difficult_situations') }}"
-                        size="40"
+                        rows="3"
+                        cols="40"
                         class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                         aria-required="true"
-                        aria-invalid="false" required>
+                        aria-invalid="false" required></textarea>
                 </span>
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Каква идея искаш да осъществиш в рамките на ABLE Mentor? Разкажи ни
+            <h6 style="color:#4a4a4a;">Каква идея искаш да осъществиш в рамките на ABLE Mentor? Разкажи ни.
             </h6>
             <p>
                 <label>
                     <span class="wpcf7-form-control-wrap students11">
-                        <input type="text" name="program_achievments" size="40"
+                        <textarea name="program_achievments" rows="3" cols="40"
                             value="{{ Request::get('program_achievments') }}"
                             class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                            aria-required="true" aria-invalid="false" required>
+                            aria-required="true" aria-invalid="false" required></textarea>
                     </span>
                 </label>
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Желая да променя</h6>
+            <h6 style="color:#4a4a4a;">Желая да променя/подобря</h6>
             <p>
                 <span class="wpcf7-form-control-wrap students12">
-                    <input type="text"
-                        name="want_to_change"
-                        size="40"
+                    <textarea name="want_to_change"
+                        rows="3"
+                        cols="40"
                         value="{{ Request::get('want_to_change') }}"
                         class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
                         aria-required="true"
-                        aria-invalid="false" required>
+                        aria-invalid="false" required></textarea>
                 </span>
             </p>
         </div>

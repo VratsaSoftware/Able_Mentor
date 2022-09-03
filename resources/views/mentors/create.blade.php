@@ -83,7 +83,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a; margin-top:50px;">Град, в който ще участваш в ABLE Mentor:</h6>
+            <h6 style="color:#4a4a4a; margin-top:50px;">Град, в който ще участвате в ABLE Mentor:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="city_id" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
@@ -160,9 +160,8 @@
             <h6 style="color:#4a4a4a;">Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-6">
-                    <input type="text" name="expertise" value="{{ Request::get('expertise') }}" size="40"
-                           class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                           aria-required="true" aria-invalid="false" required>
+                    <textarea name="expertise" value="{{ Request::get('expertise') }}" rows="3" cols="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                           aria-required="true" aria-invalid="false" required></textarea>
                 </span>
             </p>
         </div>
@@ -170,9 +169,9 @@
             <h6 style="color:#4a4a4a;">Разкажете ни за трудна ситуация/проблем и как сте се справили?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-7">
-                    <input type="text" name="difficult_situations" value="{{ Request::get('difficult_situations') }}" size="40"
+                    <textarea name="difficult_situations" value="{{ Request::get('difficult_situations') }}" rows="3" cols="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                           aria-required="true" aria-invalid="false" required>
+                           aria-required="true" aria-invalid="false" required></textarea>
                 </span>
             </p>
         </div>
@@ -180,9 +179,9 @@
             <h6 style="color:#4a4a4a;">Желая да променя/подобря...</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-8">
-                    <input type="text" name="want_to_change" value="{{ Request::get('want_to_change') }}" size="40"
+                    <textarea name="want_to_change" value="{{ Request::get('want_to_change') }}" rows="3" cols="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
-                           aria-required="true" aria-invalid="false" required>
+                           aria-required="true" aria-invalid="false" required></textarea>
                 </span>
             </p>
         </div>
@@ -224,8 +223,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Моля, отбележи съгласието си в следните полета,
-                за да продължиш
+            <h6 style="color:#4a4a4a;">Моля, отбележете съгласието си в следните полета, за да продължите:
             </h6>
             <p>
                 <span class="wpcf7-form-control-wrap checkbox-637">
@@ -245,7 +243,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Моля, прикачете своята автобиография:</h6>
+            <h6 style="color:#4a4a4a;">Моля, прикачете своята автобиография или профила Ви от LinkedIn, свален като .pdf:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap file-CVMentor">
                     <input type="file" name="cv" size="40"

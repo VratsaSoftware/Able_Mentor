@@ -69,16 +69,16 @@ class StudentController extends Controller
      */
     public function create()
     {
-        $newSeason = Season::with('cities')
-            ->new()
+        $currentSeason = Season::with('cities')
+            ->current()
             ->first();
 
-        if (!$newSeason) {
-            abort(404);
-        }
+        // if (!$currentSeason) {
+        //     abort(404);
+        // }
 
         return view('students.create', [
-            'cities' => $newSeason->cities,
+            'cities' => $currentSeason->cities,
             'genders' => Gender::all(),
             'schoolClass' => SchoolClass::all(),
             'englishLevels' => EnglishLevel::all(),
