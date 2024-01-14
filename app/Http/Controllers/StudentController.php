@@ -18,6 +18,7 @@ use App\EnglishLevel;
 use App\Sport;
 use App\ProjectType;
 use App\Mentor;
+use Illuminate\Support\Facades\Mail;
 
 class StudentController extends Controller
 {
@@ -50,9 +51,11 @@ class StudentController extends Controller
         $pastSeasons = Season::past()
             ->orderByDesc('id')
             ->get();
+        
 
         $studentsQuery = Student::query()
             ->withRelations();
+        //dd($studentsQuery->get(), $request->seasonId, $pastSeasons->first()->id);    
 
         $studentsQuery->where('season_id', $request->seasonId ?: $pastSeasons->first()->id);
 
@@ -73,10 +76,10 @@ class StudentController extends Controller
             ->current()
             ->first();
 
-        // if (!$currentSeason) {
+        // if (!$newSeason) {
         //     abort(404);
         // }
-
+        
         return view('students.create', [
             'cities' => $currentSeason->cities,
             'genders' => Gender::all(),
@@ -84,7 +87,7 @@ class StudentController extends Controller
             'englishLevels' => EnglishLevel::all(),
             'sports' => Sport::all(),
             'projectTypes' => ProjectType::all(),
-            'spheres' => Sphere::all(),
+            'spheres' => Sphere::where('is_active', true)->get(),
             'educationSpheres' => EducationSphere::all(),
         ]);
     }
@@ -99,6 +102,20 @@ class StudentController extends Controller
     {
         return redirect()->route('students.create', StudentService::studentStore($request));
     }
+    
+    public function emailTest()
+    {
+        $recipientEmail = 'e.kadiyski@gmail.com';
+        $data = [];
+
+        // Send email using a view
+        Mail::send('emails.successful_registration', $data, function ($message) use ($recipientEmail) {
+            $message->to($recipientEmail)
+                ->subject('ABLE Mentor | Успешна регистрация');
+        });
+
+        return "Email sent successfully!";
+    }
 
     /**
      * Display the specified resource.
@@ -106,10 +123,10 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show($studentId)
+    public function show(Student $student)
     {
         $student = Student::withRelations()
-            ->find($studentId);
+            ->find($student->id);
 
         return view('students.show', [
             'student' => $student,
@@ -179,7 +196,7 @@ class StudentController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function import(Request $request)
+    public function importStudents(Request $request)
     {
         return ImportDataService::importData($request->file, $request->seasonStatus, 'student', $request->seasonId);
     }
@@ -203,7 +220,7 @@ class StudentController extends Controller
      * @param  \App\Student  $student
      * @param  \App\Mentor  $mentor
      */
-    public function detachMentors(Student $student, Mentor $mentor)
+    public function detachStudentMentor(Student $student, Mentor $mentor)
     {
         $student->mentors()->detach($mentor->id);
 

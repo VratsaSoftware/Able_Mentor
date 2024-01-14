@@ -24,8 +24,8 @@
                             <div class="placeholder">&nbsp;</div>
                         </div>
                         <div class="column mcb-column mcb-item-jpn9ucq2j two-third column_column">
-                            <div class="column_attr clearfix" style=""><h3>Попълни регистрацията, за да участваш в ABLE
-                                    Mentor!</h3>
+                            <div class="column_attr clearfix" style="">
+                                <h3>@yield('subtitle')</h3>
                                 <hr class="no_line"/>
 
                                 <div role="form" class="wpcf7" id="wpcf7-f1196-p1049-o1" lang="en-US" dir="ltr">

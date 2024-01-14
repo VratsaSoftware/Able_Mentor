@@ -26,7 +26,7 @@ class MentorController extends Controller
      */
     public function index($status = null)
     {
-    	$mentorsQuery = Mentor::query()
+        $mentorsQuery = Mentor::query()
             ->withRelations();
 
         $mentorsQuery = MentorStudentService::mentorsFilter($status, $mentorsQuery);
@@ -73,7 +73,7 @@ class MentorController extends Controller
             ->current()
             ->first();
 
-        // if (!$currentSeason) {
+        // if (!$newSeason) {
         //     abort(404);
         // }
 
@@ -82,7 +82,7 @@ class MentorController extends Controller
             'genders' => Gender::all(),
             'projectTypes' => ProjectType::all(),
             'seasons' => $seasons,
-            'spheres' => Sphere::all(),
+            'spheres' => Sphere::where('is_active', true)->get(),
             'educationSpheres' => EducationSphere::all(),
         ]);
     }
@@ -104,10 +104,10 @@ class MentorController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function show($mentorId)
+    public function show(Mentor $mentor)
     {
         $mentor = Mentor::withRelations()
-            ->find($mentorId);
+            ->find($mentor->id);
 
         return view('mentors.show', [
             'mentor' => $mentor,
@@ -120,10 +120,10 @@ class MentorController extends Controller
      * @param  \App\Student  $student
      * @return \Illuminate\Http\Response
      */
-    public function edit($mentorId)
+    public function edit($mentor)
     {
         $mentor = Mentor::with('spheres')
-            ->findOrFail($mentorId);
+            ->findOrFail($mentor);
 
         return view('mentors.edit', [
             'mentor' => $mentor,
@@ -145,7 +145,7 @@ class MentorController extends Controller
     public function update(MentorRequest $request, Mentor $mentor)
     {
         if ($request->cv) {
-            $request['cv_path'] = MentorService::saveCV($request->cv);
+            $request['cv_path'] = self::saveCV($request->cv);
         }
 
         $mentor->update($request->all());
@@ -181,7 +181,7 @@ class MentorController extends Controller
      * @param \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function import(Request $request)
+    public function importMentors(Request $request)
     {
         return ImportDataService::importData($request->file, $request->seasonStatus, 'mentor', $request->seasonId);
     }

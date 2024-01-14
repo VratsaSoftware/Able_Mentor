@@ -1,5 +1,9 @@
 @extends('layouts.registration')
 
+@section('subtitle')
+Попълнете регистрацията, за да участвате в ABLE Mentor!
+@endsection
+
 @section('content')
     <form action="{{ route('mentors.store') }}" method="post" class="wpcf7-form" enctype="multipart/form-data">
         <div class="column one-second">
@@ -49,7 +53,7 @@
             </p>
         </div>
         <div class="column one-second">
-            <h6 style="color:#4a4a4a; ">Пол</h6>
+            <h6 style="color:#4a4a4a; ">Пол:</h6>
             <p>
                 @foreach($genders as $gender)
                     <label style="margin-right:15px; margin-top:25px; font-weight: normal;">
@@ -70,20 +74,25 @@
         <div class="column one-second">
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a; margin-top:50px;">Ако сте били ментор в програмата досега, моля отбележете в кой сезон.</h6>
+            <h6 style="color:#4a4a4a; margin-top:50px;">Ако сте били ментор в програмата досега, моля отбележете в кой сезон последно сте взели участие:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-mentor-1">
                     <select name="previous_season_id" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
                             aria-required="true" aria-invalid="false" required>
                         @foreach($seasons as $season)
-                            <option value="{{ $season->id }}" {{ Request::get('season') == $season->id ? 'selected' : null }}>{{ $season->name }}</option>
+                            <option value="{{ $season->id }}" {{ Request::get('season') == $season->id ? 'selected' : null }}>
+                                {{ $season->name }} 
+                                @if($season->id > 1)
+                                ({{date('m', strtotime($season->start))}}.{{date('Y', strtotime($season->start))}} - {{date('m', strtotime($season->end))}}.{{date('Y', strtotime($season->end))}})
+                                @endif
+                            </option>
                         @endforeach
                     </select>
                 </span>
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a; margin-top:50px;">Град, в който ще участвате в ABLE Mentor:</h6>
+            <h6 style="color:#4a4a4a; margin-top:50px;">Удобен формат за участие:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="city_id" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
@@ -97,7 +106,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Образование – специалност (посочете всички специалности, ако имате повече от една)?</h6>
+            <h6 style="color:#4a4a4a;">Образование – специалност (посочете всички специалности, ако имате повече от една):</h6>
             <p>
                <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="education_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
@@ -134,7 +143,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Къде работите в момента (организация/компания)?:</h6>
+            <h6 style="color:#4a4a4a;">Къде работите в момента (организация/компания)?</h6>
             <p><span class="wpcf7-form-control-wrap text-mentor-4">
                     <input type="text" name="work" value="{{ Request::get('work') }}" size="40"
                            class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
@@ -143,7 +152,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Сфери, в които имате опит и интереси?</h6>
+            <h6 style="color:#4a4a4a;">Сфери, в които имате опит и интереси:</h6>
             <p>
                <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
@@ -157,7 +166,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива? Какъв е опитът Ви в тези сфери?</h6>
+            <h6 style="color:#4a4a4a;">Разкажете ни за Вашите интереси/хобита/компетенции, различни от професионалните Ви такива. Какъв е опитът Ви в тези сфери?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-6">
                     <textarea name="expertise" value="{{ Request::get('expertise') }}" rows="3" cols="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
@@ -166,7 +175,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Разкажете ни за трудна ситуация/проблем и как сте се справили?</h6>
+            <h6 style="color:#4a4a4a;">Разкажете ни за Ваше лично предизвикателство/проблем и как сте го превъзмогнали:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap text-mentor-7">
                     <textarea name="difficult_situations" value="{{ Request::get('difficult_situations') }}" rows="3" cols="40"
@@ -186,7 +195,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Средно по колко часа седмично би отделял/а на проекта?</h6>
+            <h6 style="color:#4a4a4a;">Средно по колко часа седмично бихте отделяля на проекта?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-time">
                     <select name="hours"
@@ -231,12 +240,12 @@
                         <span class="wpcf7-list-item first last">
                             <label>
                                 <input type="checkbox" required>
-                                Съгласен/а съм личните ми данни да бъдат използвани за осъществяването на програмата и свързването ми с подходящ за мен ментор.
+                                Съгласявам се личните ми данни да бъдат използвани за осъществяването на програмата и свързването ми с подходящ за мен ученик.
                             </label>
                             <label>
                                 <input type="checkbox" required>
-                                Съгласен/а съм да бъда заснеман/а с видео и фотокамера по време на събития, свързани с протичането на програмата. Запознат съм, че заснетите материали ще бъдат използвани само и единствено за популяризиране на проекта.
-                            </label>
+                               Съгласявам се да ме заснемат с видео и фотокамера по време на събития, свързани с протичането на програмата. Наясно съм, че заснетите материали ще бъдат използвани само и единствено за популяризиране на проекта.
+                                 </label>
                         </span>
                     </span>
                 </span>

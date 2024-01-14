@@ -87,7 +87,7 @@ class MentorStudentService
                 ->pluck('id')
                 ->first();
 
-            $query->where('current_season_id', $newSeasonId)
+            $query->whereNull('current_season_id')
                 ->doesntHave('students');
         } elseif ($status == config('consts.MENTOR_STATUS.archive')) {
             $pastSeasonsIds = Season::past()
@@ -127,8 +127,9 @@ class MentorStudentService
                 ->pluck('id')
                 ->first();
 
-            $query->where('season_id', $newSeasonId)
+            $query->whereNull('season_id')
                 ->doesntHave('mentors');
+            //dd($newSeasonId, $query, $query->get());
         } elseif ($status == config('consts.STUDENT_STATUS.archive')) {
             $pastSeasonsIds = Season::past()
                 ->pluck('id');

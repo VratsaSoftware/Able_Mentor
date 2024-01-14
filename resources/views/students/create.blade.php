@@ -1,5 +1,9 @@
 @extends('layouts.registration')
 
+@section('subtitle')
+Попълни регистрацията, за да участваш в ABLE Mentor!
+@endsection
+
 @section('content')
     <form action="{{ route('students.store') }}" method="post" class="wpcf7-form">
         <div class="column one-second">
@@ -49,7 +53,7 @@
             </p>
         </div>
         <div class="column one-second">
-            <h6 style="color:#4a4a4a; ">Пол</h6>
+            <h6 style="color:#4a4a4a; ">Пол:</h6>
             <p>
                 @foreach($genders as $gender)
                     <label style="margin-right:15px; margin-top:25px; font-weight: normal;">
@@ -68,7 +72,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a; margin-top:50px;">Град, в който ще участваш в ABLE Mentor:</h6>
+            <h6 style="color:#4a4a4a; margin-top:50px;">Удобен формат за участие:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="city_id" class="wpcf7-form-control wpcf7-select wpcf7-validates-as-required"
@@ -93,13 +97,44 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Завършен клас</h6>
+            <h6 style="color:#4a4a4a;">Последно завършен клас:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-english_students">
                     <select name="class_id" class="wpcf7-form-control wpcf7-select" aria-invalid="false" required>
                         <option value="">---</option>
                         @foreach($schoolClass as $class)
-                            <option value="{{ $class->id }}" {{ Request::get('class_id') == $class->id ? 'selected' : null }}>{{ $class->class_name }}</option>
+                            @if($class->id >= 9 && $class->id <= 11)
+                                <option value="{{ $class->id }}" {{ Request::get('class_id') == $class->id ? 'selected' : null }}>{{ $class->class_name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </span>
+            </p>
+        </div>
+        
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Ниво на английски език:</h6>
+            <p>
+                <span class="wpcf7-form-control-wrap menu-english_students">
+                    <select name="english_level_id"
+                        class="wpcf7-form-control wpcf7-select" aria-invalid="false">
+                        <option value="">---</option>
+                        @foreach($englishLevels as $englishLevel)
+                            <option value="{{ $englishLevel->id }}" {{ Request::get('english_level_id') == $englishLevel->id ? 'selected' : null }}>{{ $englishLevel->level }}</option>
+                        @endforeach
+                    </select>
+                </span>
+            </p>
+        </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Любими спортове:</h6>
+            <p>
+                <span class="wpcf7-form-control-wrap menu-cities">
+                    <select name="sport_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
+                            aria-required="true" aria-invalid="false" multiple="multiple" required>
+                       @foreach($sports as $sport)
+                            <option value="{{ $sport->id }}"
+                            {{ Request::get('sport_ids') && in_array($sport->id, Request::get('sport_ids')) ? 'selected' : null }}>{{ $sport->name }}</option>
                         @endforeach
                     </select>
                 </span>
@@ -128,35 +163,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Ниво на английски език</h6>
-            <p>
-                <span class="wpcf7-form-control-wrap menu-english_students">
-                    <select name="english_level_id"
-                        class="wpcf7-form-control wpcf7-select" aria-invalid="false">
-                        <option value="">---</option>
-                        @foreach($englishLevels as $englishLevel)
-                            <option value="{{ $englishLevel->id }}" {{ Request::get('english_level_id') == $englishLevel->id ? 'selected' : null }}>{{ $englishLevel->level }}</option>
-                        @endforeach
-                    </select>
-                </span>
-            </p>
-        </div>
-        <div class="column one">
-            <h6 style="color:#4a4a4a;">Любими спортове</h6>
-            <p>
-                <span class="wpcf7-form-control-wrap menu-cities">
-                    <select name="sport_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
-                            aria-required="true" aria-invalid="false" multiple="multiple" required>
-                       @foreach($sports as $sport)
-                            <option value="{{ $sport->id }}"
-                            {{ Request::get('sport_ids') && in_array($sport->id, Request::get('sport_ids')) ? 'selected' : null }}>{{ $sport->name }}</option>
-                        @endforeach
-                    </select>
-                </span>
-            </p>
-        </div>
-        <div class="column one">
-            <h6 style="color:#4a4a4a;">Какво ще правя след гимназията?</h6>
+            <h6 style="color:#4a4a4a;">Какво ще правиш след гимназията?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap students6">
                     <input type="text"
@@ -170,7 +177,10 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Сфери, които са ти интересни и в които искаш да се развиваш?</h6>
+            <h6 style="color:#4a4a4a;">
+                <div>Сфери, които са ти интересни и в които искаш да се развиваш?</div>
+                <div style="font-size:14px">(Избери до 3)</div>
+            </h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="spheres[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
@@ -183,24 +193,12 @@
                 </span>
             </p>
         </div>
+        
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Какво си представяш, че е учил твоя ментор?</h6>
-            <p>
-                <span class="wpcf7-form-control-wrap menu-cities">
-                    <select name="mentor_education_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
-                            aria-required="true" aria-invalid="false" multiple="multiple" required>
-                       @foreach($educationSpheres as $sphere)
-                            <option value="{{ $sphere->id }}"
-                            {{ Request::get('mentor_education_ids') && in_array($sphere->id, Request::get('mentor_education_ids')) ? 'selected' : null }}>
-                                {{ $sphere->sphere }}
-                            </option>
-                        @endforeach
-                    </select>
-                </span>
-            </p>
-        </div>
-        <div class="column one">
-            <h6 style="color:#4a4a4a;">Ментор в каква професионална сфера би бил/а най-полезен/а за теб?</h6>
+            <h6 style="color:#4a4a4a;">
+                Ментор в каква професионална сфера би бил най-полезен за теб?
+                <div style="font-size:14px">(Избери до 3)</div>
+            </h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-cities">
                     <select name="mentor_work_sphere_ids[]" class="wpcf7-form-control wpcf7-select select2 wpcf7-validates-as-required"
@@ -243,9 +241,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Разкажи ни за трудна ситуация/проблем и как си се
-                справил/а?
-            </h6>
+            <h6 style="color:#4a4a4a;">Разкажи ни за свое лично предизвикателство/проблем и как го превъзмогна:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap students10">
                     <textarea name="difficult_situations"
@@ -273,7 +269,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Желая да променя/подобря</h6>
+            <h6 style="color:#4a4a4a;">Желая да променя/подобря:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap students12">
                     <textarea name="want_to_change"
@@ -287,7 +283,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Средно по колко часа седмично би отделял/а на проекта?
+            <h6 style="color:#4a4a4a;">Средно по колко часа седмично можеш да отделиш на проекта?
             </h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-time">
@@ -334,12 +330,12 @@
                         <span class="wpcf7-list-item first last">
                             <label>
                                 <input type="checkbox" required>
-                                Съгласен/а съм личните ми данни да бъдат използвани за осъществяването на програмата и свързването ми с подходящ за мен ментор.
+                                Съгласявам се личните ми данни да бъдат използвани за осъществяването на програмата и свързването ми с подходящ за мен ментор.
                             </label>
                             <label>
                                 <input type="checkbox" required>
-                                Съгласен/а съм да бъда заснеман/а с видео и фотокамера по време на събития, свързани с протичането на програмата. Запознат съм, че заснетите материали ще бъдат използвани само и единствено за популяризиране на проекта.
-                            </label>
+                                Съгласявам се да ме заснемат с видео и фотокамера по време на събития, свързани с протичането на програмата. Наясно съм, че заснетите материали ще бъдат използвани само и единствено за популяризиране на проекта.
+                                </label>
                         </span>
                     </span>
                 </span>
