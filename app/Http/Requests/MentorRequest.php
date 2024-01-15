@@ -39,6 +39,7 @@ class MentorRequest extends FormRequest
             'hours' => 'required',
             'project_type_ids' => 'required',
             'cv' => ['nullable', 'file', 'max:20000'],
+            'linkedin_url' => 'required|url',    
             'able_mentor_info' => 'required',
         ];
     }

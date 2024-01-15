@@ -14,10 +14,13 @@ class Student extends Model
         'city_id',
         'gender_id',
         'school',
+        'town',
         'class_id',
         'season_id',
         'favorite_subjects',
         'hobbies',
+        'similar_programs',
+        'why_need_able',
         'english_level_id',
         'sport_id',
         'after_school_plans',
@@ -25,6 +28,7 @@ class Student extends Model
         'qualities_to_change',
         'free_time_activities',
         'difficult_situations',
+        'why_participate_id',
         'program_achievments',
         'want_to_change',
         'hours',
@@ -52,6 +56,11 @@ class Student extends Model
     {
     	return $this->hasOne(City::class, 'id', 'city_id');
  	}
+
+    public function whyParticipate()
+    {
+        return $this->belongsTo(WhyParticipate::class);
+    }
 
     public function gender()
     {

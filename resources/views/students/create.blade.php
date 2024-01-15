@@ -86,12 +86,23 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Училище и населено място:</h6>
+            <h6 style="color:#4a4a4a;">Училище:</h6>
             <p>
                 <label>
                     <span class="wpcf7-form-control-wrap students1">
                     <input type="text" name="school" value="{{ Request::get('school') }}" size="40" class="wpcf7-form-control wpcf7-text"
-                           aria-invalid="false"/>
+                           aria-invalid="false" required/>
+                    </span>
+                </label>
+            </p>
+        </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Населено място:</h6>
+            <p>
+                <label>
+                    <span class="wpcf7-form-control-wrap students1">
+                    <input type="text" name="town" value="{{ Request::get('town') }}" size="40" class="wpcf7-form-control wpcf7-text"
+                           aria-invalid="false" required/>
                     </span>
                 </label>
             </p>
@@ -162,6 +173,37 @@
                 </label>
             </p>
         </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Участвал ли си в други сходни програми, завършил ли си ги и какво си взе от тях?
+            </h6>
+            <p>
+                <span class="wpcf7-form-control-wrap students8">
+                    <textarea name="similar_programs"
+                        value="{{ Request::get('similar_programs') }}"
+                        rows="3"
+                        cols="40"
+                        class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                        aria-required="true"
+                        aria-invalid="false" required></textarea>
+                </span>
+            </p>
+        </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">ABLE Mentor е напълно безплатна програма с ограничен капацитет. Защо имаш нужда да участваш в нея?
+            </h6>
+            <p>
+                <span class="wpcf7-form-control-wrap students8">
+                    <textarea name="why_need_able"
+                        value="{{ Request::get('why_need_able') }}"
+                        rows="3"
+                        cols="40"
+                        class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                        aria-required="true"
+                        aria-invalid="false" required></textarea>
+                </span>
+            </p>
+        </div>
+        
         <div class="column one">
             <h6 style="color:#4a4a4a;">Какво ще правиш след гимназията?</h6>
             <p>
@@ -255,6 +297,20 @@
             </p>
         </div>
         <div class="column one">
+            <h6 style="color:#4a4a4a;">Защо кандидатстваш в програмата?</h6>
+            <p>
+                <span class="wpcf7-form-control-wrap menu-english_students">
+                    <select name="why_participate_id"
+                        class="wpcf7-form-control wpcf7-select" aria-invalid="false">
+                        <option value="">---</option>
+                        @foreach($whyParticipates as $whyParticipate)
+                            <option value="{{ $whyParticipate->id }}" {{ Request::get('why_participate_id') == $whyParticipate->id ? 'selected' : null }}>{{ $whyParticipate->name }}</option>
+                        @endforeach
+                    </select>
+                </span>
+            </p>
+        </div>
+        <div class="column one">
             <h6 style="color:#4a4a4a;">Каква идея искаш да осъществиш в рамките на ABLE Mentor? Разкажи ни.
             </h6>
             <p>
@@ -269,7 +325,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Желая да променя/подобря:</h6>
+            <h6 style="color:#4a4a4a;">Желая да променя/подобря...</h6>
             <p>
                 <span class="wpcf7-form-control-wrap students12">
                     <textarea name="want_to_change"

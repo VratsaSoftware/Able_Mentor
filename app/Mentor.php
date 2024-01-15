@@ -23,6 +23,7 @@ class Mentor extends Model
         'want_to_change',
         'hours',
         'cv_path',
+        'linkedin_url',
         'able_mentor_info',
         'notes',
     ];

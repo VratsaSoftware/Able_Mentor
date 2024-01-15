@@ -31,6 +31,7 @@ class CreateMentorsTable extends Migration
             $table->text('want_to_change');
             $table->integer('hours');
             $table->string('cv_path')->nullable();
+            $table->string('linkedin_url')->nullable();
             $table->text('able_mentor_info');
             $table->longText('notes')->nullable();
             $table->timestamps();

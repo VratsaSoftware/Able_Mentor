@@ -42,12 +42,15 @@
                          <th>Email</th>
                          <th>Телефон</th>
                          <th>Пол</th>
-                         <th>Град</th>
+                         <th>Формат</th>
                          <th>Възраст</th>
                          <th>Училище</th>
+                         <th>Населено място</th>
                          <th>Клас</th>
                          <th>Любими предмети</th>
                          <th>Интереси</th>
+                         <th>Сходни програми</th>
+                         <th>Каква е нуждата?</th>
                          <th>Ниво на АЕ</th>
                          <th>Любими спортове</th>
                          <th>Планове след гимназията</th>
@@ -57,6 +60,7 @@
                          <th>Кои свои качества искаш да промениш/подобриш?</th>
                          <th>Как се забавляваш в свободното си време?</th>
                          <th>Разкажи ни за трудна ситуация/проблем и как си се справил/а?</th>
+                         <th>Защо кандидатстваш?</th>
                          <th>Каква идея искаш да осъществиш в рамките на ABLE Mentor? Разкажи ни</th>
                          <th>Желая да променя</th>
                          <th>Средно по колко часа седмично би отделял/а на проекта?</th>
@@ -100,9 +104,12 @@
                             <td>{{ $student->city ? $student->city->name : null }}</td>
                             <td>{{ $student->age }}</td>
                             <td>{{ $student->school }}</td>
+                            <td>{{ $student->town }}</td>
                             <td>{{ $student->schoolClass->class_name }}</td>
                             <td>{{ $student->favorite_subjects }}</td>
                             <td>{{ $student->hobbies }}</td>
+                            <td>{{ $student->similar_programs }}</td>
+                            <td>{{ $student->why_need_able }}</td>
                             <td>{{ $student->englishLevel->level }}</td>
                             <td>
                                 {{ $student->sport ? $student->sport->name : null }}
@@ -138,6 +145,11 @@
                             <td>{{ $student->qualities_to_change }}</td>
                             <td>{{ $student->free_time_activities }}</td>
                             <td>{{ $student->difficult_situations }}</td>
+                            <td>
+                                @if(!empty($student->whyParticipate))
+                                    {{ $student->whyParticipate->name }}
+                                @endif
+                            </td>
                             <td>{{ $student->program_achievments }}</td>
                             <td>{{ $student->want_to_change }}</td>
                             <td>{{ $student->hours == 5 ? 'Повече' : $student->hours }}</td>
@@ -161,12 +173,15 @@
                         <th>Email</th>
                         <th>Телефон</th>
                         <th>Пол</th>
-                        <th>Град</th>
+                        <th>Формат</th>
                         <th>Възраст</th>
                         <th>Училище</th>
+                        <th>Населено място</th>
                         <th>Клас</th>
                         <th>Любими предмети</th>
                         <th>Интереси</th>
+                        <th>Сходни програми</th>
+                        <th>Каква е нуждата</th>
                         <th>Ниво на АЕ</th>
                         <th>Любими спортове</th>
                         <th>Планове след гимназията</th>
@@ -176,6 +191,7 @@
                         <th>Кои свои качества искаш да промениш/подобриш?</th>
                         <th>Как се забавляваш в свободното си време?</th>
                         <th>Разкажи ни за трудна ситуация/проблем и как си се справил/а?</th>
+                        <th>Защо кандидатстваш?</th>
                         <th>Каква идея искаш да осъществиш в рамките на ABLE Mentor? Разкажи ни</th>
                         <th>Желая да променя</th>
                         <th>Средно по колко часа седмично би отделял/а на проекта?</th>

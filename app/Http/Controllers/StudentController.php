@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use App\Student;
 use App\City;
 use App\Gender;
+use App\WhyParticipate;
 use App\SchoolClass;
 use App\EnglishLevel;
 use App\Sport;
@@ -89,6 +90,7 @@ class StudentController extends Controller
             'projectTypes' => ProjectType::all(),
             'spheres' => Sphere::where('is_active', true)->get(),
             'educationSpheres' => EducationSphere::all(),
+            'whyParticipates' => WhyParticipate::all(),
         ]);
     }
 

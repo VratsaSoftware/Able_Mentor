@@ -195,7 +195,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Средно по колко часа седмично бихте отделяля на проекта?</h6>
+            <h6 style="color:#4a4a4a;">Средно по колко часа седмично бихте отделяли на проекта?</h6>
             <p>
                 <span class="wpcf7-form-control-wrap menu-time">
                     <select name="hours"
@@ -252,7 +252,7 @@
             </p>
         </div>
         <div class="column one">
-            <h6 style="color:#4a4a4a;">Моля, прикачете своята автобиография или профила Ви от LinkedIn, свален като .pdf:</h6>
+            <h6 style="color:#4a4a4a;">Моля, прикачете своята автобиография:</h6>
             <p>
                 <span class="wpcf7-form-control-wrap file-CVMentor">
                     <input type="file" name="cv" size="40"
@@ -261,6 +261,15 @@
                 </span>
             </p>
             <p><small>Максимален размер на файл: 20MB (pdf,txt,jpg,png)</small></p>
+        </div>
+        <div class="column one">
+            <h6 style="color:#4a4a4a;">Моля споделете линк към LinkedIn профила си:</h6>
+            <p><span class="wpcf7-form-control-wrap text-mentor-4">
+                    <input type="url" name="linkedin_url" value="{{ Request::get('linkedin_url') }}" size="40"
+                           class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required"
+                           aria-required="true" aria-invalid="false" required>
+                </span>
+            </p>
         </div>
         <div class="column one">
             <h6 style="color:#4a4a4a;">Откъде разбрахте за програмата ABLE Mentor?</h6>
